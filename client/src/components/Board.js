@@ -1,75 +1,72 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Board.css"
+import boardDataFile from "./boardData.json"
 
 export default function Board() {
+    const [boardData] = useState(boardDataFile)
+
+    useEffect(() =>{
+        console.log(boardData)
+    }, [])
+
   return (
     <div className='board-container'>
-        <TopBottomRow     />
-        <Row     />
-        <Row     />
-        <Row     />
-        <Row     />
-        <Row     />
-        <Row     />
-        <Row     />
-        <Row     />
-        <Row     />
-        <TopBottomRow     />
+        {boardData.map((row, rowIndex) => { // for each row of game board
+            if(rowIndex === 0 || rowIndex === 10){ // if the row is a top row or bottom
+                return <TopBottomRow row={row} key={rowIndex}/>
+            } else{
+                return <Row row={row} key={rowIndex}/>
+            }
+        })}
     </div>
   );
 }
 
-    function Square({}) {
+    function Square(props) {
       return (
-        <div className='square'>Square</div>
+        <div className='square'>{props.tile.id} {props.tile.name}</div>
       );
     }
 
-    function TopTile({}) {
+    function TopTile(props) {
       return (
-        <div className='tile-top'>TopTile</div>
+        <div className='tile-top'>{props.tile.id} {props.tile.name}</div>
       );
     }
 
-    function Tile({}) {
+    function Tile(props) {
         return (
-          <div className='tile'>Tile</div>
+          <div className='tile'>{props.tile.id} {props.tile.name}</div>
         );
       }
 
-    function TopBottomRow({}) {
+    function TopBottomRow(props) {
       return (<>
-            <Square />
 
-            <TopTile />
-            <TopTile />
-            <TopTile />
-            <TopTile />
-            <TopTile />
-            <TopTile />
-            <TopTile />
-            <TopTile />
-            <TopTile />
+            {props.row.map((tile, tileRowIndex) => {
+                if(tile.tileId === null){ // if it is a center piece
+                    return <Center key={tileRowIndex}></Center>
+                } else if(tileRowIndex === 0 || tileRowIndex === 10){
+                    return <Square tile={tile} key={tileRowIndex}/>
+                } else{
+                    return <TopTile tile={tile} key={tileRowIndex}/>
+                }
+              })}
 
-            <Square />
         </>);
     }
 
-    function Row({}) {
+    function Row(props) {
         return (<>
-              <Tile />
-              
-              <Center/>
-              <Center/>
-              <Center/>
-              <Center/>
-              <Center/>
-              <Center/>
-              <Center/>
-              <Center/>
-              <Center/>
-            
-              <Tile />
+
+              {props.row.map((tile, tileRowIndex) => {
+                if(tile.tileId === null){ // if it is a center piece
+                    return <Center key={tileRowIndex}></Center>
+                } else{
+                    return <Tile tile={tile} key={tileRowIndex}/>
+                }
+              })}
+
           </>);
       }
       

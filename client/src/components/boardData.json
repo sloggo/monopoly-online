@@ -1,0 +1,649 @@
+[
+    [
+        {
+            "tileId": 0,
+            "type": "square",
+            "colour": null,
+            "name": "Free Parking",
+            "special": true
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 2,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": null,
+            "name": "Chance",
+            "special": true
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },{
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },{
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },{
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 0,
+            "type": "square",
+            "colour": null,
+            "name": "Free Parking",
+            "special": true
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, 
+        {
+            "tileId": null,
+            "type": "center"
+        }, {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 0,
+            "type": "square",
+            "colour": null,
+            "name": "Free Parking",
+            "special": true
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 2,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": null,
+            "name": "Chance",
+            "special": true
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },{
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },{
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },{
+            "tileId": 1,
+            "type": "tile-top",
+            "orientation": "down",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        },
+        {
+            "tileId": 0,
+            "type": "square",
+            "colour": null,
+            "name": "Free Parking",
+            "special": true
+        }
+    ]
+]

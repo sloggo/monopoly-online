@@ -13,8 +13,6 @@
 }
 
 .top{
-    display: grid;
-    grid-template-rows: 1fr 4fr;
     width: 80px;
     height: 125px;
     
@@ -22,15 +20,11 @@
 }
 
 .bottom{
-    display: grid;
-    grid-template-rows: 1fr 4fr;
     width: 80px;
     height: 125px;
 }
 
 .left{
-    display: grid;
-    grid-template-rows: 1fr 4fr;
     width: 125px;
     height: 80px;
 
@@ -38,8 +32,6 @@
 }
 
 .right{
-    display: grid;
-    grid-template-rows: 1fr 4fr;
     width: 125px;
     height: 80px;
 
@@ -50,6 +42,9 @@
 .tile{
     background-color: rgb(189, 250, 229);
     border: 1px solid black;
+
+    display: grid;
+    grid-template-rows: 1fr 4fr;
 }
 
 .colour-bar{

@@ -1,0 +1,37 @@
+.board-container{
+    display: grid;
+	grid-template-columns: 125px repeat(9, 80px) 125px;
+	grid-template-rows: 125px repeat(9, 80px) 125px;
+}
+
+.square{
+    background-color: aqua;
+    width: 125px;
+    aspect-ratio: 1/1;
+
+    border: 1px solid black;
+}
+
+.tile-top{
+    background-color: rgb(29, 143, 105);
+    width: 80px;
+    height: 125px;
+
+    border: 1px solid black;
+}
+
+.tile{
+    background-color: rgb(189, 250, 229);
+    width: 125px;
+    height: 80px;
+
+    border: 1px solid black;
+}
+
+.center{
+    background-color: rgb(255, 0, 0);
+    width: 80px;
+    aspect-ratio: 1/1;
+
+    border: 1px solid black;
+}

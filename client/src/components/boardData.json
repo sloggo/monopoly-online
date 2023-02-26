@@ -87,7 +87,7 @@
     [
         {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -130,7 +130,7 @@
             "type": "center"
         }, {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -140,7 +140,7 @@
     [
         {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -183,7 +183,7 @@
             "type": "center"
         }, {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -193,7 +193,7 @@
     [
         {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -236,7 +236,7 @@
             "type": "center"
         }, {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -246,7 +246,7 @@
     [
         {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -289,7 +289,7 @@
             "type": "center"
         }, {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -299,7 +299,7 @@
     [
         {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -342,7 +342,7 @@
             "type": "center"
         }, {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -352,7 +352,7 @@
     [
         {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -395,7 +395,7 @@
             "type": "center"
         }, {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -405,7 +405,7 @@
     [
         {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -448,7 +448,7 @@
             "type": "center"
         }, {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -458,7 +458,7 @@
     [
         {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -501,7 +501,7 @@
             "type": "center"
         }, {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -511,7 +511,7 @@
     [
         {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",
@@ -554,7 +554,7 @@
             "type": "center"
         }, {
             "tileId": 1,
-            "type": "tile-top",
+            "type": "tile",
             "orientation": "left",
             "colour": "red",
             "name": "Street 1",

@@ -12,11 +12,7 @@ export default function Board() {
   return (
     <div className='board-container'>
         {boardData.map((row, rowIndex) => { // for each row of game board
-            if(rowIndex === 0 || rowIndex === 10){ // if the row is a top row or bottom
-                return <TopBottomRow row={row} key={rowIndex}/>
-            } else{
-                return <Row row={row} key={rowIndex}/>
-            }
+            return <Row row={row} key={rowIndex}/>
         })}
     </div>
   );
@@ -40,30 +36,18 @@ export default function Board() {
         );
       }
 
-    function TopBottomRow(props) {
-      return (<>
-
-            {props.row.map((tile, tileRowIndex) => {
-                if(tile.tileId === null){ // if it is a center piece
-                    return <Center key={tileRowIndex}></Center>
-                } else if(tileRowIndex === 0 || tileRowIndex === 10){
-                    return <Square tile={tile} key={tileRowIndex}/>
-                } else{
-                    return <TopTile tile={tile} key={tileRowIndex}/>
-                }
-              })}
-
-        </>);
-    }
-
     function Row(props) {
         return (<>
 
               {props.row.map((tile, tileRowIndex) => {
                 if(tile.tileId === null){ // if it is a center piece
                     return <Center key={tileRowIndex}></Center>
-                } else{
+                } else if(tile.type === "tile"){
                     return <Tile tile={tile} key={tileRowIndex}/>
+                } else if(tile.type === "square"){
+                    return <Square tile={tile} key={tileRowIndex}/>
+                } else if(tile.type === "tile-top"){
+                    return <TopTile tile={tile} key={tileRowIndex}/>
                 }
               })}
 

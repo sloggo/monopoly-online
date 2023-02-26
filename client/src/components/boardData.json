@@ -1,5 +1,5 @@
 [
-    [
+    
         {
             "tileId": 20,
             "type": "square",
@@ -99,9 +99,7 @@
             "colour": null,
             "name": "Go To Jail",
             "special": true
-        }
-    ],
-    [
+        },
         {
             "tileId": 19,
             "type": "tile",
@@ -125,9 +123,7 @@
             "special": false,
             "forSale": true,
             "price": 300
-        }
-    ],
-    [
+        },
         {
             "tileId": 18,
             "type": "tile",
@@ -151,9 +147,7 @@
             "special": false,
             "forSale": true,
             "price": 300
-        }
-    ],
-    [
+        },
         {
             "tileId": 17,
             "type": "tile",
@@ -173,9 +167,7 @@
             "colour": null,
             "name": "Community Chest",
             "special": true
-        }
-    ],
-    [
+        },
         {
             "tileId": 16,
             "type": "tile",
@@ -200,9 +192,7 @@
             "special": false,
             "forSale": true,
             "price": 180
-        }
-    ],
-    [
+        },
         {
             "tileId": 15,
             "type": "tile",
@@ -226,9 +216,7 @@
             "special": false,
             "forSale": true,
             "price": 200
-        }
-    ],
-    [
+        },
         {
             "tileId": 14,
             "type": "tile",
@@ -250,9 +238,7 @@
             "colour": null,
             "name": "Chance",
             "special": true
-        }
-    ],
-    [
+        },
         {
             "tileId": 13,
             "type": "tile",
@@ -276,9 +262,7 @@
             "special": false,
             "forSale": true,
             "price": 350
-        }
-    ],
-    [
+        },
         {
             "tileId": 12,
             "type": "tile",
@@ -301,9 +285,7 @@
             "name": "Super Tax",
             "special": true,
             "price": 100
-        }
-    ],
-    [
+        },
         {
             "tileId": 11,
             "type": "tile",
@@ -327,9 +309,7 @@
             "special": false,
             "forSale": true,
             "price": 400
-        }
-    ],
-    [
+        },
         {
             "tileId": 10,
             "type": "square",
@@ -428,5 +408,4 @@
             "special": true,
             "price": 200
         }
-    ]
 ]

@@ -115,3 +115,20 @@ $brown: brown;
     width: 80px;
     aspect-ratio: 1/1;
 }
+
+// players
+.players-holder{
+    position: absolute;
+    justify-self: center;
+    align-self: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.player-object{
+    background-color: white;
+    padding: 5px;
+    border-radius: 100%;
+    box-shadow: 0px 0px 1px 1px rgba($color: black, $alpha: 0.2);
+}

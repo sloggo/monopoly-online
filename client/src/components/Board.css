@@ -28,9 +28,7 @@
 }
 
 .center{
-    background-color: rgb(255, 0, 0);
+    grid-column: 2/11;
     width: 80px;
     aspect-ratio: 1/1;
-
-    border: 1px solid black;
 }

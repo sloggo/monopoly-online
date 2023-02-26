@@ -54,6 +54,6 @@ export default function Board() {
       
     function Center({}) {
         return(
-            <div className='center'>Center</div>
+            <div className='center'></div>
         )
     }

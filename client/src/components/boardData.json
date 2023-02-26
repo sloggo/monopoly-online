@@ -98,37 +98,6 @@
             "type": "center"
         }, 
         {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, {
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
@@ -151,37 +120,6 @@
             "type": "center"
         }, 
         {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, {
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
@@ -204,37 +142,51 @@
             "type": "center"
         }, 
         {
-            "tileId": null,
-            "type": "center"
+            "tileId": 1,
+            "type": "tile",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
         }, 
         {
             "tileId": null,
             "type": "center"
+        },
+
+        {
+            "tileId": 1,
+            "type": "tile",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
+        }
+    ],
+    [
+        {
+            "tileId": 1,
+            "type": "tile",
+            "orientation": "left",
+            "colour": "red",
+            "name": "Street 1",
+            "special": false
         }, 
         {
             "tileId": null,
             "type": "center"
-        }, 
+        },
         {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, {
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
@@ -257,37 +209,6 @@
             "type": "center"
         }, 
         {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, {
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
@@ -310,37 +231,6 @@
             "type": "center"
         }, 
         {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, {
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
@@ -363,37 +253,6 @@
             "type": "center"
         }, 
         {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, {
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
@@ -416,143 +275,6 @@
             "type": "center"
         }, 
         {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, {
-            "tileId": 1,
-            "type": "tile",
-            "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
-        }
-    ],
-    [
-        {
-            "tileId": 1,
-            "type": "tile",
-            "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, {
-            "tileId": 1,
-            "type": "tile",
-            "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
-        }
-    ],
-    [
-        {
-            "tileId": 1,
-            "type": "tile",
-            "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, 
-        {
-            "tileId": null,
-            "type": "center"
-        }, {
             "tileId": 1,
             "type": "tile",
             "orientation": "left",

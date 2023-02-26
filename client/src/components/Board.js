@@ -30,8 +30,12 @@ export default function Board() {
     function Tile(props) {
         return (
             <>
-            {(props.tile.orientation === "top" || props.tile.orientation === "bottom") && <div className='tile topbottom'>{props.tile.name}</div>}
-            {(props.tile.orientation === "left" || props.tile.orientation === "right") && <div className='tile leftright'>{props.tile.name}</div>}
+            {
+                <div className={`tile ${props.tile.orientation}`}>
+                    <div className={`colour-bar ${props.tile.colour}`}></div>
+                    <p>{props.tile.name}</p>
+                </div>
+            }
             </>
           );
       }

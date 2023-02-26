@@ -11,9 +11,11 @@ export default function Board() {
 
   return (
     <div className='board-container'>
+
         {boardData.map((row, rowIndex) => { // for each row of game board
             return <Row row={row} key={rowIndex}/>
         })}
+
     </div>
   );
 }
@@ -24,16 +26,14 @@ export default function Board() {
       );
     }
 
-    function TopTile(props) {
-      return (
-        <div className='tile-top'>{props.tile.id} {props.tile.name}</div>
-      );
-    }
 
     function Tile(props) {
         return (
-          <div className='tile'>{props.tile.id} {props.tile.name}</div>
-        );
+            <>
+            {(props.tile.orientation === "top" || props.tile.orientation === "bottom") && <div className='tile topbottom'>{props.tile.name}</div>}
+            {(props.tile.orientation === "left" || props.tile.orientation === "right") && <div className='tile leftright'>{props.tile.name}</div>}
+            </>
+          );
       }
 
     function Row(props) {
@@ -46,8 +46,6 @@ export default function Board() {
                     return <Tile tile={tile} key={tileRowIndex}/>
                 } else if(tile.type === "square"){
                     return <Square tile={tile} key={tileRowIndex}/>
-                } else if(tile.type === "tile-top"){
-                    return <TopTile tile={tile} key={tileRowIndex}/>
                 }
               })}
 

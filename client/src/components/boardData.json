@@ -9,69 +9,69 @@
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "top",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },
         {
             "tileId": 2,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "top",
             "colour": null,
             "name": "Chance",
             "special": true
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "top",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "top",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "top",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "top",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },{
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "top",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },{
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "top",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },{
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "top",
             "colour": "red",
             "name": "Street 1",
             "special": false
@@ -571,69 +571,69 @@
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "bottom",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },
         {
             "tileId": 2,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "bottom",
             "colour": null,
             "name": "Chance",
             "special": true
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "bottom",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "bottom",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "bottom",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },
         {
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "bottom",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },{
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "bottom",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },{
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "bottom",
             "colour": "red",
             "name": "Street 1",
             "special": false
         },{
             "tileId": 1,
-            "type": "tile-top",
-            "orientation": "down",
+            "type": "tile",
+            "orientation": "bottom",
             "colour": "red",
             "name": "Street 1",
             "special": false

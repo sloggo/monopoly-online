@@ -12,19 +12,18 @@
     border: 1px solid black;
 }
 
-.tile-top{
-    background-color: rgb(29, 143, 105);
+.topbottom{
     width: 80px;
     height: 125px;
+}
 
-    border: 1px solid black;
+.leftright{
+    width: 125px;
+    height: 80px;
 }
 
 .tile{
     background-color: rgb(189, 250, 229);
-    width: 125px;
-    height: 80px;
-
     border: 1px solid black;
 }
 

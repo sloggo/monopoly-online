@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./Board.scss"
 import boardDataFile from "./boardData.json"
+import playerInfoBackground from "../assets/Cyan/playerInfoBack.png"
 
 export default function Board() {
     const [boardData, setBoardData] = useState(boardDataFile)
@@ -19,9 +20,9 @@ export default function Board() {
 
         for(let i = 0; i < num; i++){
             if( i === 0 ){
-                players.push({playerid: i, currentTile: 0, currentPlayer: true})
+                players.push({playerid: i, currentTile: 0, currentPlayer: true, money: 1000})
             } else{
-                players.push({playerid: i, currentTile: 0, currentPlayer: false})
+                players.push({playerid: i, currentTile: 0, currentPlayer: false, money: 1000})
             }
         }
 
@@ -48,17 +49,25 @@ export default function Board() {
     }
 
   return (
-    <div className='board-container'>
-            {boardData.map((tile, tileRowIndex) => {
-                if(tile.tileId === null){ // if it is a center piece
-                    return <Center key={tileRowIndex}></Center>
-                } else if(tile.type === "tile"){
-                    return <Tile tile={tile} key={tileRowIndex}/>
-                } else if(tile.type === "square"){
-                    return <Square tile={tile} key={tileRowIndex}/>
-                }
+    <>
+        <div className='boardtiles-container'>
+                {boardData.map((tile, tileRowIndex) => {
+                    if(tile.tileId === null){ // if it is a center piece
+                        return <Center key={tileRowIndex}></Center>
+                    } else if(tile.type === "tile"){
+                        return <Tile tile={tile} key={tileRowIndex}/>
+                    } else if(tile.type === "square"){
+                        return <Square tile={tile} key={tileRowIndex}/>
+                    }
+                })}
+        </div>
+
+        <div className='boardplayers-container'>
+            {players.map(player => {
+                return <PlayerInfo player={player}></PlayerInfo>
             })}
-    </div>
+        </div>
+    </>
   );
 }
 
@@ -99,5 +108,14 @@ export default function Board() {
     function Center({}) {
         return(
             <div className='center'></div>
+        )
+    }
+
+    function PlayerInfo(props){
+        return(
+            <div className='player-info-container' style={{backgroundImage: `url(${playerInfoBackground})`}}>
+                <h2 className='player-info-header'>{props.player.playerid}</h2>
+                <p className='player-info-money'>{props.player.money}$</p>
+            </div>
         )
     }

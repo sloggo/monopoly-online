@@ -27,7 +27,7 @@ $brown: brown;
  text-transform: uppercase;
 }
 
-.board-container{
+.boardtiles-container{
     display: grid;
 	grid-template-columns: 125px repeat(9, 80px) 125px;
 	grid-template-rows: 125px repeat(9, 80px) 125px;
@@ -131,4 +131,30 @@ $brown: brown;
     padding: 5px;
     border-radius: 100%;
     box-shadow: 0px 0px 1px 1px rgba($color: black, $alpha: 0.2);
+}
+
+.boardplayers-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.player-info-container{
+    width: 262px;
+    height: 64px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.player-info-container-image{
+    width: 300px;
+    height: 100%;
+    position: relative
+}
+
+.player-info-header{
+    font-weight: 500;
 }

@@ -19,12 +19,17 @@ io.on("connection", (socket) => {
 
     socket.on("change-room", (roomId) => {
         socket.join(roomId)
-        socket.to(roomId).emit("player-join", socket.id)
+        socket.in(roomId).emit("player-join", socket.id)
     })
 
     socket.on("emit-test", (data) => {
         console.log("received test emit from room", data.roomId)
         socket.in(data.roomId).emit("receive-test", data)
+    })
+
+    socket.on("get-clients-in-room", (data) =>{
+        let clientsInRoom = io.sockets.adapter.rooms.get(data.roomIdInput).size
+        socket.emit("clients-in-room", clientsInRoom)
     })
 })
 

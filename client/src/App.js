@@ -8,6 +8,7 @@ function App() {
   const [roomIdInput, setRoomIdInput] = useState()
   const [roomId, setRoomId] = useState()
   const [log, setLog] = useState([])
+  const [roomPlayers, setRoomPlayers] = useState()
 
   useEffect(() => {
     socket.on("receive-test", (data) =>{
@@ -15,7 +16,12 @@ function App() {
     })
 
     socket.on("player-join", (data) =>{
+      socket.emit("get-clients-in-room", roomIdInput)
       addLog(data+" joined this room.")
+    })
+
+    socket.on("clients-in-room", (clientsInRoom) =>{
+      setRoomPlayers(clientsInRoom)
     })
   }, [socket])
 
@@ -43,6 +49,7 @@ function App() {
   return (
     <div className="App">
       <h1 onClick={emitTest}>Room {roomId}</h1>
+      <p>Players: {roomPlayers}</p>
       <div>
         <input type="text" onChange={(event) => changeRoomId(event)} placeholder="Game Code"></input>
         <button onClick={confirmRoomId}>Confirm</button>

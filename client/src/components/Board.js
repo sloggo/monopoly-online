@@ -34,7 +34,7 @@ export default function Board() {
                 <div className={`tile ${props.tile.orientation}`}>
                     <div className={`colour-bar ${props.tile.colour}`}></div>
                     <div className='name-info'>
-                        <p>{props.tile.name}</p>
+                        <p className='bold-text'>{props.tile.name}</p>
                         {props.tile.price ? <p>{props.tile.price}$</p> : null}
                     </div>
                 </div>

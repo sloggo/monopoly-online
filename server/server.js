@@ -17,8 +17,14 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
     console.log("User connected: "+socket.id)
 
-    socket.on("send-message", (data) => {
-        socket.broadcast.emit("receive-message", data)
+    socket.on("change-room", (roomId) => {
+        socket.join(roomId)
+        socket.to(roomId).emit("player-join", socket.id)
+    })
+
+    socket.on("emit-test", (data) => {
+        console.log("received test emit from room", data.roomId)
+        socket.in(data.roomId).emit("receive-test", data)
     })
 })
 

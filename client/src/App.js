@@ -1,26 +1,55 @@
 import './App.css';
 import Board from './components/Board';
 import io from "socket.io-client";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 const socket = io.connect("http://localhost:3001");
 
 function App() {
-
-  function sendMessage(){
-    socket.emit("send-message", {message:"data"})
-  }
+  const [roomIdInput, setRoomIdInput] = useState()
+  const [roomId, setRoomId] = useState()
+  const [log, setLog] = useState([])
 
   useEffect(() => {
-
-    socket.on("receive-message", (data) => {
-      alert(data.message)
+    socket.on("receive-test", (data) =>{
+      alert("test")
     })
-    
+
+    socket.on("player-join", (data) =>{
+      addLog(data+" joined this room.")
+    })
   }, [socket])
 
+  function addLog(data){
+    let oldLog = [...log]
+    oldLog.push(data)
+
+    setLog(oldLog)
+  }
+
+  function changeRoomId(x){
+    setRoomIdInput(x.target.value)
+  }
+
+  function emitTest(){
+    socket.emit("emit-test", {message: "test", roomId})
+  }
+
+  function confirmRoomId(){
+    socket.emit("change-room", roomIdInput)
+    setRoomId(roomIdInput)
+    addLog("Joined room "+roomIdInput)
+  }
+
   return (
-    <div className="App" onClick={sendMessage}>
-      <Board></Board>
+    <div className="App">
+      <h1 onClick={emitTest}>Room {roomId}</h1>
+      <div>
+        <input type="text" onChange={(event) => changeRoomId(event)} placeholder="Game Code"></input>
+        <button onClick={confirmRoomId}>Confirm</button>
+      </div>
+      <div>{log.map((item) => {
+        return <p>{item}</p>
+      })}</div>
     </div>
   );
 }

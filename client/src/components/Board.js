@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "./Board.css"
+import "./Board.scss"
 import boardDataFile from "./boardData.json"
 
 export default function Board() {
@@ -33,7 +33,10 @@ export default function Board() {
             {
                 <div className={`tile ${props.tile.orientation}`}>
                     <div className={`colour-bar ${props.tile.colour}`}></div>
-                    <p>{props.tile.name}</p>
+                    <div className='name-info'>
+                        <p>{props.tile.name}</p>
+                        {props.tile.price ? <p>{props.tile.price}</p> : null}
+                    </div>
                 </div>
             }
             </>

@@ -12,8 +12,10 @@
             "type": "tile",
             "orientation": "top",
             "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "name": "Abbey Street",
+            "special": false,
+            "forSale": true,
+            "price": 220
         },
         {
             "tileId": 2,
@@ -28,59 +30,74 @@
             "type": "tile",
             "orientation": "top",
             "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "name": "Capel Street",
+            "special": false,
+            "forSale": true,
+            "price": 220
         },
         {
             "tileId": 1,
             "type": "tile",
             "orientation": "top",
             "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "name": "Henry Street",
+            "special": false,
+            "forSale": true,
+            "price": 240
         },
         {
             "tileId": 1,
             "type": "tile",
             "orientation": "top",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Heuston Station",
+            "special": false,
+            "forSale": true,
+            "price": 200
         },
         {
             "tileId": 1,
             "type": "tile",
             "orientation": "top",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "yellow",
+            "name": "Talbot Street",
+            "special": false,
+            "forSale": true,
+            "price": 260
+        },
+        {
+            "tileId": 1,
+            "type": "tile",
+            "orientation": "top",
+            "colour": "yellow",
+            "name": "North Earl Street",
+            "special": false,
+            "forSale": true,
+            "price": 260
         },{
             "tileId": 1,
             "type": "tile",
             "orientation": "top",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Water Works",
+            "special": false,
+            "forSale": true,
+            "price": 150
         },{
             "tileId": 1,
             "type": "tile",
             "orientation": "top",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
-        },{
-            "tileId": 1,
-            "type": "tile",
-            "orientation": "top",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "yellow",
+            "name": "O Connell Street",
+            "special": false,
+            "forSale": true,
+            "price": 220
         },
         {
             "tileId": 0,
             "type": "square",
             "colour": null,
-            "name": "Free Parking",
+            "name": "Go To Jail",
             "special": true
         }
     ],
@@ -89,9 +106,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "orange",
+            "name": "Westmoreland Street",
+            "special": false,
+            "forSale": true,
+            "price": 200
         }, 
         {
             "tileId": null,
@@ -101,9 +120,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "right",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "green",
+            "name": "Georges Street",
+            "special": false,
+            "forSale": true,
+            "price": 300
         }
     ],
     [
@@ -111,9 +132,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "orange",
+            "name": "Dame Street",
+            "special": false,
+            "forSale": true,
+            "price": 180
         }, 
         {
             "tileId": null,
@@ -123,9 +146,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "right",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "green",
+            "name": "Wicklow Street",
+            "special": false,
+            "forSale": true,
+            "price": 300
         }
     ],
     [
@@ -133,9 +158,9 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Community Chest",
+            "special": true
         }, 
         {
             "tileId": null,
@@ -145,9 +170,9 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "right",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Community Chest",
+            "special": true
         }
     ],
     [
@@ -155,9 +180,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "orange",
+            "name": "Pearse Street",
+            "special": false,
+            "forSale": true,
+            "price": 180
         }, 
         {
             "tileId": null,
@@ -168,9 +195,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "right",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "green",
+            "name": "Grafton Street",
+            "special": false,
+            "forSale": true,
+            "price": 180
         }
     ],
     [
@@ -178,9 +207,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Dublin Airport",
+            "special": false,
+            "forSale": true,
+            "price": 200
         }, 
         {
             "tileId": null,
@@ -190,9 +221,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "right",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Shannon Airport",
+            "special": false,
+            "forSale": true,
+            "price": 200
         }
     ],
     [
@@ -200,9 +233,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "pink",
+            "name": "Nassau Street",
+            "special": false,
+            "forSale": true,
+            "price": 160
         }, 
         {
             "tileId": null,
@@ -212,9 +247,9 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "right",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Chance",
+            "special": true
         }
     ],
     [
@@ -222,9 +257,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "pink",
+            "name": "Kildare Street",
+            "special": false,
+            "forSale": true,
+            "price": 140
         }, 
         {
             "tileId": null,
@@ -234,9 +271,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "right",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "blue",
+            "name": "Ailesbury Road",
+            "special": false,
+            "forSale": true,
+            "price": 350
         }
     ],
     [
@@ -244,9 +283,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Electric Company",
+            "special": false,
+            "forSale": true,
+            "price": 150
         }, 
         {
             "tileId": null,
@@ -256,9 +297,10 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "right",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Super Tax",
+            "special": true,
+            "price": 100
         }
     ],
     [
@@ -266,9 +308,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "left",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "pink",
+            "name": "Dawson Street",
+            "special": false,
+            "forSale": true,
+            "price": 140
         }, 
         {
             "tileId": null,
@@ -278,9 +322,11 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "right",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "blue",
+            "name": "Shrewsbury Road",
+            "special": false,
+            "forSale": true,
+            "price": 400
         }
     ],
     [
@@ -288,19 +334,31 @@
             "tileId": 0,
             "type": "square",
             "colour": null,
-            "name": "Free Parking",
+            "name": "Jail",
             "special": true
         },
         {
             "tileId": 1,
             "type": "tile",
             "orientation": "bottom",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "cyan",
+            "name": "Rathmines",
+            "special": false,
+            "forSale": true,
+            "price": 120
         },
         {
             "tileId": 2,
+            "type": "tile",
+            "orientation": "bottom",
+            "colour": "cyan",
+            "name": "South Circular Road",
+            "special": false,
+            "forSale": true,
+            "price": 100
+        },
+        {
+            "tileId": 1,
             "type": "tile",
             "orientation": "bottom",
             "colour": null,
@@ -311,61 +369,64 @@
             "tileId": 1,
             "type": "tile",
             "orientation": "bottom",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "cyan",
+            "name": "Rathgar",
+            "special": false,
+            "forSale": true,
+            "price": 100
         },
         {
             "tileId": 1,
             "type": "tile",
             "orientation": "bottom",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Busarus",
+            "special": false,
+            "forSale": true,
+            "price": 200
         },
         {
             "tileId": 1,
             "type": "tile",
             "orientation": "bottom",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Income Tax",
+            "special": false,
+            "price": 200
+        },{
+            "tileId": 1,
+            "type": "tile",
+            "orientation": "bottom",
+            "colour": "brown",
+            "name": "Kimmage",
+            "special": false,
+            "forSale": true,
+            "price": 60
         },
         {
             "tileId": 1,
             "type": "tile",
             "orientation": "bottom",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": null,
+            "name": "Community Chest",
+            "special": true
         },{
             "tileId": 1,
             "type": "tile",
             "orientation": "bottom",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
-        },{
-            "tileId": 1,
-            "type": "tile",
-            "orientation": "bottom",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
-        },{
-            "tileId": 1,
-            "type": "tile",
-            "orientation": "bottom",
-            "colour": "red",
-            "name": "Street 1",
-            "special": false
+            "colour": "brown",
+            "name": "Crumlin",
+            "special": false,
+            "forSale": true,
+            "price": 60
         },
         {
             "tileId": 0,
             "type": "square",
             "colour": null,
-            "name": "Free Parking",
-            "special": true
+            "name": "Go!",
+            "special": true,
+            "price": 200
         }
     ]
 ]

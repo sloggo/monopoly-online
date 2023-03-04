@@ -1,0 +1,11 @@
+$background-colour: rgb(20, 20, 20);
+$background-colour-alt: rgba(22, 22, 22, 0.85);
+$background-colour-alt-hover: rgba(22, 22, 22, 0.90);
+$h1-colour: rgb(255, 255, 255);
+$font-colour-alt: rgba(255, 255, 255, 0.9);
+$blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%);
+
+.options-header{
+    font-size: 50px;
+    color: $font-colour-alt
+}

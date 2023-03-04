@@ -1,6 +1,8 @@
 $background-colour: rgb(20, 20, 20);
+$background-colour-alt: rgba(22, 22, 22, 0.85);
+$background-colour-alt-hover: rgba(22, 22, 22, 0.90);
 $h1-colour: rgb(255, 255, 255);
-$blob-colour: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+$blob-colour: linear-gradient(45deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
 
 @font-face {
     font-family: "Ravena";
@@ -12,13 +14,16 @@ body{
     background-color: $background-colour;
     color: $h1-colour;
     font-family: "Ravena";
+    overflow-x: hidden;
+    overflow-y: hidden;
+    user-select: none;
 }
 
 .home-container{
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     height: 100vh;
 }
 
@@ -31,6 +36,7 @@ body{
     left: 0;
     top: 0;
     box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+    z-index: 2;
 }
 
 .ball-of-colour{
@@ -40,5 +46,45 @@ body{
     background: $blob-colour;
     border-radius: 100%;
     overflow-x: hidden;
+    z-index: 3;
 
+}
+
+.home-header{
+    z-index: 1;
+    font-size: 7rem;
+}
+
+.text-holder{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    height: 7rem;
+    gap: 5px;
+}
+
+.start-playing{
+    padding: 50px 70px;
+    box-sizing: border-box;
+    background: linear-gradient($background-colour-alt, $background-colour-alt) padding-box,
+              $blob-colour border-box;
+    margin-top: 35vh;
+
+    border-radius: 50px;
+    border: 5px solid transparent;
+    transition: all .1s ease-in-out;
+    font-size: 40px;
+    z-index: 2;
+}
+
+.start-playing:hover{
+    background: linear-gradient($background-colour-alt-hover, $background-colour-alt-hover) padding-box,
+    $blob-colour border-box;
+    transform: scale(1.1);
+}
+
+.start-playing:active{
+    transform: scale(1);
 }

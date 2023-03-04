@@ -15,7 +15,12 @@ export default function Home() {
             <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 250, y: mousePosition.y - 250}} transition={{ duration: .05, type: "tween"  }}/>
         </div>
 
-        <h1>Monopoly</h1>
+        <div className='text-holder'>
+          <h1 className='home-header'>monopoly</h1>
+          <motion.h1 className='home-header' initial={{x: 0, y: 100}} animate={{x:0, y:0}} transition={{delay:.3, duration:1}}>online</motion.h1>
+        </div>
+
+        <div className='start-playing'>Start Playing</div>
     </div>
   )
 }

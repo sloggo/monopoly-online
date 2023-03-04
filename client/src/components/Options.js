@@ -13,8 +13,11 @@ export default function Options(props) {
 
     useEffect(() =>{
         setVisible(props.visible)
-      }, [props.currentTab])
-
+      }, [props])
+      
+    const enterGameCode = () => {
+        props.setBoard()
+    }
 
   return (
     <AnimatePresence>
@@ -24,6 +27,8 @@ export default function Options(props) {
         </div>
 
         <h2 className='options-header'>Let's get straight into a game!</h2>
+
+        <input className='start-playing' placeholder='Enter a Game Code!' onClick={enterGameCode}></input>
       </motion.div>}
     </AnimatePresence>
   )

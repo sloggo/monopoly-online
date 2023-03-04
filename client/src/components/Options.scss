@@ -1,11 +1,24 @@
 $background-colour: rgb(20, 20, 20);
 $background-colour-alt: rgba(22, 22, 22, 0.85);
 $background-colour-alt-hover: rgba(22, 22, 22, 0.90);
-$h1-colour: rgb(255, 255, 255);
-$font-colour-alt: rgba(255, 255, 255, 0.9);
+$h1-colour: rgba(255, 255, 255, 0.9);
+$font-colour-alt: rgba(255, 255, 255, 0.7);
 $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%);
 
 .options-header{
     font-size: 50px;
-    color: $font-colour-alt
+    color: $h1-colour;
+}
+
+input.start-playing{
+    margin-top: 30vh;
+    width: 20vw;
+    font-size: 1.5em;
+    text-align: center;
+    color: white;
+    appearance: none;
+}
+
+input.start-playing::placeholder{
+    color: $font-colour-alt;
 }

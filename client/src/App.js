@@ -12,10 +12,15 @@ function App() {
     setCurrentTab("options")
   }
 
+  const setBoard = () =>{
+    setCurrentTab("board")
+  }
+
   return (
     <div className="App">
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
-      <Options visible={currentTab === "options"} currentTab={currentTab}></Options>
+      <Options visible={currentTab === "options"} setBoard={setBoard} ></Options>
+      <Board visible={currentTab === "board"} currentTab={currentTab}></Board>
     </div>
   );
 }

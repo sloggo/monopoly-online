@@ -4,18 +4,23 @@ $body-font: 'Oswald', sans-serif;
 
 // colouring
 $board-colour: rgb(150, 26, 26);
-$tile-background: rgb(236, 236, 236);
-$square-background: rgb(119, 255, 203);
-$border: 1px solid rgb(0, 0, 0);
+$border: 2px solid transparent;
 
-$red: red;
-$yellow: yellow;
-$orange: orange;
-$green: green;
-$pink: pink;
-$blue: blue;
-$cyan: cyan;
-$brown: brown;
+$red: rgba(255, 0, 0, 0.7);
+$yellow: rgba(255, 255, 0, 0.7);
+$orange: rgba(255, 166, 0, 0.7);
+$green: rgba(0, 128, 0, 0.7);
+$pink: rgba(255, 192, 203, 0.7);
+$blue: rgba(71, 71, 255, 0.7);
+$cyan: rgba(0, 255, 255, 0.7);
+$brown: rgba(165, 42, 42, 0.7);
+
+$background-colour: rgb(20, 20, 20);
+$background-colour-alt: rgb(44, 44, 44);
+$background-colour-alt-hover: rgb(61, 61, 61);
+$h1-colour: rgb(255, 255, 255);
+$font-colour-alt: rgba(255, 255, 255, 0.8);
+$blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%);
 
 // board
 
@@ -28,27 +33,41 @@ $brown: brown;
     display: grid;
 	grid-template-columns: 125px repeat(9, 80px) 125px;
 	grid-template-rows: 125px repeat(9, 80px) 125px;
+
+    color: $font-colour-alt;
+    z-index: 6;
 }
 
+.board-container{
+    margin-top: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 // square tiles
 
 .square{
-    background-color: $square-background;
     width: 125px;
     aspect-ratio: 1/1;
+    background: linear-gradient($background-colour-alt-hover, $background-colour-alt-hover) padding-box,
+              $blob-colour border-box;
 
     border: $border;
+
+    text-align: center;
+    font-size: 25px;
 }
 
 // single tilings
 
 .tile{
-    background-color: $tile-background;
     border: $border;
     font-size: 12px;
 
     display: grid;
     grid-template-rows: 1fr 4fr;
+    background: linear-gradient($background-colour-alt, $background-colour-alt) padding-box,
+              $blob-colour border-box;
 }
 
 .colour-bar{

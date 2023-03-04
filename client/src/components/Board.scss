@@ -43,7 +43,18 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 5vw;
 }
+
+.dice-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    font-size: 30px;
+    gap: 5px;
+}
+
 // square tiles
 
 .square{

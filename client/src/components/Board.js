@@ -3,14 +3,25 @@ import "./Board.scss"
 import boardDataFile from "./boardData.json"
 import playerInfoBackground from "../assets/Cyan/playerInfoBack.png"
 import { motion, AnimatePresence } from 'framer-motion'
+import diceSVG from '../assets/dice.svg'
 
 export default function Board(props) {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
     const [visible, setVisible] = useState(props.visible)
     const [boardData, setBoardData] = useState(boardDataFile)
+    const [playerTurn, setPlayerTurn] = useState(true)
+    const [dice, setDice] = useState(null)
 
     const changeMousePos = (ev) => {
         setMousePosition({x: ev.pageX, y: ev.pageY})
+    }
+
+    const rollDice = () => {
+        if(!playerTurn){
+            return
+        }
+        setDice(Math.floor(Math.random() * (6)) + 1)
+        setPlayerTurn(false)
     }
 
     useEffect(() =>{
@@ -27,6 +38,17 @@ export default function Board(props) {
             <div className='ball-blur' onMouseMove={changeMousePos}>
                 <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 200, y: mousePosition.y - 200}} transition={{ duration: .05, type: "tween" }}/>
             </div>
+
+        {playerTurn ?
+        <motion.div className='dice-container' initial={{scale:0.8, rotate: -5}} animate={{scale:1, rotate:5}} transition={{duration:1, repeat: Infinity, repeatType:"reverse"}}>
+            <img src={diceSVG} width={100} onClick={rollDice}></img>
+            <p>{dice}</p>
+        </motion.div>
+        :
+        <div className='dice-container'>
+            <img src={diceSVG} width={100} onClick={rollDice}></img>
+            <p>{dice}</p>
+        </div>}
 
             <div className='boardtiles-container' onMouseMove={changeMousePos}>
                     {boardData.map((tile, tileRowIndex) => {

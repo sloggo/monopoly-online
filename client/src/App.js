@@ -5,10 +5,15 @@ import { useEffect, useState } from 'react';
 import Home from "./components/Home"
 
 function App() {
+  const [currentTab, setCurrentTab] = useState("home")
+
+  const setOptionsTab = () =>{
+    setCurrentTab("options")
+  }
 
   return (
     <div className="App">
-      <Home></Home>
+      <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
     </div>
   );
 }

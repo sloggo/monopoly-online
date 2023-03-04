@@ -1,35 +1,23 @@
-const express = require("express");
-const app = express();
-const http = require("http");
-const {Server} = require("socket.io");
+const express = require("express")();
 const cors = require("cors");
+const http = require("http").createServer(express);
+const io = require('socket.io')(http);
+const mongoose = require('mongoose');
+const Board = require("./models/board");
+const {Player} = require("./models/player");
 
-app.use(cors());
-const server = http.createServer(app);
-const players = [];
+express.use(cors());
+const uri = "mongodb+srv://sloggo:admin@monopolyonline.pj4zqbf.mongodb.net/?"
 
-const io = new Server(server, {
-    cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"]
-    },
+io.on('connection', function (socket) {
+    console.log(`New connection: ${socket.id}`);
+
+    socket.on('disconnect', () => console.log(`Connection left (${socket.id})`));
 });
 
-io.on("connection", (socket) => {
-    console.log("User connected: "+socket.id)
+main().catch(err => console.log(err));
 
-    socket.on("change-room", (data) => {
-        socket.join(data.roomId)
-        socket.in(data.roomId).emit("player-join", socket.id)
-    })
-
-    socket.on("emit-test", (data) => {
-        console.log("received test emit from room", data.roomId)
-        socket.in(data.roomId).emit("receive-test", data)
-    })
-
-})
-
-server.listen(3001, () => {
-    console.log("Server running!")
-})
+async function main() {
+    await mongoose.connect(uri);
+    console.log("Connected to mongoDB")
+  }

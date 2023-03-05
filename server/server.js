@@ -25,64 +25,46 @@ const mongoDB = mongoose.connect(uri)
 
 io.on('connection', async function (socket) {
     console.log(`New connection: ${socket.id}`);
-
-    const playerQuery = await Player.findOne({socketId : socket.id})
-    if(playerQuery){
-        return
-    }
+    let roomId;
 
     socket.on('disconnect', async () => {
         console.log(`Connection left (${socket.id})`)
-        const playerLeftExists = await Player.exists({socketId: socket.id})
-        const playerLeft = await Player.findOne({socketId: socket.id})
+        const boardPlayerLeft = await Board.findOne({_id: roomId});
 
-        if(!playerLeftExists){
+        if(!boardPlayerLeft){
             return
         }
 
-        if(!playerLeft.inRoomId){
-            playerLeft.deleteOne()
-            return
-        }
-
-        const boardPlayerLeft = await Board.findOne({_id: playerLeft.inRoomId})
-
-        if(!boardPlayerLeft.players){
-            boardPlayerLeft.deleteOne()
-            playerLeft.deleteOne()
-        }
-
-        const playerIndex = boardPlayerLeft.players.findIndex(player => player._id === playerLeft._id)
-
+        const playerIndex = boardPlayerLeft.players.findIndex(player => player.socketId === socket.id)
         boardPlayerLeft.players.splice(playerIndex,1)
 
         if(boardPlayerLeft.players.length >= 1){
-            playerLeft.deleteOne()
             boardPlayerLeft.save()
+            socket.to(roomId).emit("boardUpdate", {board: boardPlayerLeft})
             return 
         }
 
         boardPlayerLeft.deleteOne()
-        playerLeft.deleteOne()
     });
 
     socket.on("createRoom", async(socketId) => {
-        let newPlayer = new Player()
-        newPlayer.username = "sloggo"
-        newPlayer.socketId = socket.id
+        let newPlayer = {
+            socketId: socket.id,
+            username: "sloggo",
+            ready: false,
+        }
 
         let newBoard = new Board()
-        newPlayer.inRoomId = newBoard._id
-        newPlayer.save()
 
         newBoard.players.push(newPlayer)
-        newBoard.currentPlayer = newPlayer._id
+        newBoard.currentPlayer = newPlayer
         newBoard.save()
 
         socket.join(String(newBoard._id))
         console.log("New Board created at id;", String(newBoard._id))
 
-        socket.emit("joinedRoom", {board: newBoard, player: newPlayer})
+        socket.emit("joinedRoom", {board: newBoard})
+        roomId = String(newBoard._id)
     })
 
     socket.on("changeTest", async(player) => {
@@ -93,9 +75,11 @@ io.on('connection', async function (socket) {
     })
 
     socket.on("joinRoom", async(codeInput) => {
-        let newPlayer = new Player()
-        newPlayer.username = "sloggo2"
-        newPlayer.socketId = socket.id
+        let newPlayer = {
+            socketId: socket.id,
+            username: "sloggo2",
+            ready: false,
+        }
 
         if(!ObjectId.isValid(codeInput)){
             console.log("No room;", codeInput)
@@ -115,10 +99,34 @@ io.on('connection', async function (socket) {
         existingRoom.save()
 
         socket.join(codeInput)
-        newPlayer.inRoomId = existingRoom._id
-        newPlayer.save()
         socket.emit("joinedRoom", {board: existingRoom, player: newPlayer})
         socket.to(codeInput).emit("boardUpdate", {board: existingRoom})
+        roomId = String(existingRoom._id)
+    })
+
+    socket.on("toggleReady", async(data) => {
+        let board = await Board.findOne({_id: data.boardData._id})
+        console.log(socket.id, "looking for")
+
+        let playerIndex = board.players.findIndex(player => {
+            console.log(player.socketId)
+            if(player.socketId === socket.id) return true
+        })
+
+        let player = data.boardData.players[playerIndex]
+        console.log(player, "before")
+
+        const oldReady = player.ready
+
+        player.ready = !oldReady
+        console.log(player, "after")
+
+        board.players.splice(playerIndex,1,player)
+        console.log(board.players)
+
+        socket.in(roomId).emit("boardUpdate", {board})
+        console.log("sent emit to", roomId)
+        await board.save()
     })
 });
 

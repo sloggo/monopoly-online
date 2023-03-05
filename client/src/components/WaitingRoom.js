@@ -6,21 +6,16 @@ export default function WaitingRoom(props) {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
     const [visible, setVisible] = useState(props.visible)
     const [boardData, setBoardData] = useState(null);
-    const [playerData, setPlayerData] = useState(props.playerData)
-    const [ready, setReady] = useState(false)
+    const [thisPlayer, setThisPlayer] = useState(props.thisPlayer)
 
     const changeMousePos = (ev) => {
         setMousePosition({x: ev.pageX, y: ev.pageY})
     }
 
-    const clickReady = () => {
-        setReady(!ready)
-    }
-
     useEffect(()=>{
         setVisible(props.visible)
         setBoardData(props.boardData)
-        setPlayerData(props.playerData)
+        setThisPlayer(props.thisPlayer)
     }, [props])
 
   return (
@@ -33,7 +28,7 @@ export default function WaitingRoom(props) {
         {boardData && <h2 className='options-header'>Lobby: {boardData._id}</h2>}
 
         <div className='players-container'>
-            {boardData && boardData.players.map(playerArray => playerArray._id === playerData._id ? <div className='player you'><p>{playerArray.username} - You</p> <div className={ready ? "readyup ready": "readyup"} onClick={clickReady}>Ready Up</div> </div> : <div className='player'>{playerArray.username}</div>)}
+            {boardData && boardData.players.map(playerArray => playerArray._id === thisPlayer._id ? <div className='player you'><p>{playerArray.username} - You</p> <div className={playerArray.ready ? "readyup ready": "readyup"} onClick={props.toggleReady}>Ready Up</div> </div> : <div className='player'><p>{playerArray.username}</p> <div className={playerArray.ready ? "readyup-dot ready": "readyup-dot"}></div></div>)}
         </div>
       </motion.div>}
     </AnimatePresence>

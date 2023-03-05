@@ -18,9 +18,11 @@ const playerSchema = new mongoose.Schema({
     },
     inRoomId: {
         type: String,
+    },
+    ready: {
+        type: Boolean,
+        default: false,
     }
 })
 
-const Player = mongoose.model("Player", playerSchema)
-
-module.exports = {playerSchema, Player}
+module.exports = {playerSchema}

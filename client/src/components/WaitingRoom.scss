@@ -13,7 +13,7 @@ $blob-colour2: linear-gradient(45deg, rgb(34, 195, 101) 0%, rgb(45, 253, 184) 10
     align-items: center;
 }
 
-.player.you{
+.player{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,4 +42,22 @@ $blob-colour2: linear-gradient(45deg, rgb(34, 195, 101) 0%, rgb(45, 253, 184) 10
 .readyup.ready{
     background: linear-gradient($background-colour-alt, $background-colour-alt) padding-box,
               $blob-colour2 border-box;
+}
+
+.readyup-dot{
+    width: 15px;
+    height: 15px;
+    background: $blob-colour;
+    border-radius: 100%;
+
+    z-index: 5;
+}
+
+.readyup-dot.ready{
+    width: 15px;
+    height: 15px;
+    background: $blob-colour2;
+    border-radius: 100%;
+
+    z-index: 5;
 }

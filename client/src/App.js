@@ -12,15 +12,16 @@ const socket = io.connect("http://localhost:3001")
 function App() {
   const [currentTab, setCurrentTab] = useState("home")
   // network states
-  const [playerData, setPlayerData] = useState(null)
+  const [thisPlayer, setThisPlayer] = useState(null)
   const [boardData, setBoardData] = useState(null)
+  const [socketID, setSocketID] = useState(null)
 
   const setOptionsTab = () =>{
     setCurrentTab("options")
   }
 
   const createRoom = () => {
-    socket.emit("createRoom", socket.id)
+    socket.emit("createRoom", socketID)
     setCurrentTab("loading")
   }
 
@@ -31,12 +32,23 @@ function App() {
   }
 
   const changeTest = () => {
+    const playerData = boardData.players.find(player => player._id === thisPlayer._id)
     socket.emit("changeTest", playerData)
   }
 
+  const toggleReady = () => {
+    socket.emit("toggleReady", {boardData})
+  }
+
   useEffect(() => {
+    console.log(boardData)
+    socket.on("connect", () => {
+      setSocketID(socket.id)
+    })
+
     socket.on("joinedRoom", (data) => {
-      setPlayerData(data.player)
+      let thisPlyr = data.board.players.find(player => player.socketId === socketID)
+      setThisPlayer(thisPlyr)
       setBoardData(data.board)
 
       console.log("Joined room;", data.board._id)
@@ -48,7 +60,10 @@ function App() {
     })
 
     socket.on("boardUpdate", (data) =>{
+      console.log("update board")
+      let thisPlyr = data.board.players.find(player => player.socketId === socketID)
       setBoardData(data.board)
+      setThisPlayer(thisPlyr)
     })
   })
 
@@ -56,8 +71,8 @@ function App() {
     <div className="App">
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
-      <Board visible={currentTab === "board"} currentTab={currentTab} playerData={playerData} boardData={boardData} changeTest={changeTest}></Board>
-      <WaitingRoom visible={currentTab === "waitingroom"} boardData={boardData} playerData={playerData}></WaitingRoom>
+      <Board visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest}></Board>
+      <WaitingRoom visible={currentTab === "waitingroom"} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
     </div>
   );
 }

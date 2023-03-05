@@ -49,6 +49,8 @@ io.on('connection', async function (socket) {
 
         socket.join(String(newBoard._id))
         console.log("New Board created at id;", String(newBoard._id))
+
+        socket.emit("joinedRoom", {board: newBoard, player: newPlayer})
     })
 });
 

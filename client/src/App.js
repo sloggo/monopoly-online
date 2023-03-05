@@ -12,6 +12,7 @@ function App() {
   const [currentTab, setCurrentTab] = useState("home")
   // network states
   const [playerData, setPlayerData] = useState(null)
+  const [boardData, setBoardData] = useState(null)
 
   const setOptionsTab = () =>{
     setCurrentTab("options")
@@ -26,8 +27,11 @@ function App() {
   }
 
   useEffect(() => {
-    socket.on("playerUpdate", (data) => {
-      setPlayerData(data)
+    socket.on("joinedRoom", (data) => {
+      setPlayerData(data.player)
+      setBoardData(data.board)
+
+      console.log("Joined room;", data.board._id)
     })
   })
 

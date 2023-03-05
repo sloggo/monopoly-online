@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import "./Board.scss"
 import boardDataFile from "./boardData.json"
-import playerInfoBackground from "../assets/Cyan/playerInfoBack.png"
 import { motion, AnimatePresence } from 'framer-motion'
 import diceSVG from '../assets/dice.svg'
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:3001");
 
 export default function Board(props) {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
@@ -11,6 +13,9 @@ export default function Board(props) {
     const [boardData, setBoardData] = useState(boardDataFile)
     const [playerTurn, setPlayerTurn] = useState(true)
     const [dice, setDice] = useState(null)
+
+    // network states
+    const [socket, setSocket] = useState(null)
 
     const changeMousePos = (ev) => {
         setMousePosition({x: ev.pageX, y: ev.pageY})
@@ -24,13 +29,12 @@ export default function Board(props) {
         setPlayerTurn(false)
     }
 
-    useEffect(() =>{
-        console.log(boardData)
-    }, [boardData])
-
     useEffect(() => {
         setVisible(props.visible)
     }, [props])
+
+    useEffect(() => {
+    }, [])
 
   return (
     <AnimatePresence>

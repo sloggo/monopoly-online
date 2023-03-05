@@ -46,6 +46,12 @@ io.on('connection', async function (socket) {
         }
 
         const boardPlayerLeft = await Board.findOne({_id: playerLeft.inRoomId})
+
+        if(!boardPlayerLeft.players){
+            boardPlayerLeft.deleteOne()
+            playerLeft.deleteOne()
+        }
+
         const playerIndex = boardPlayerLeft.players.findIndex(player => player._id === playerLeft._id)
 
         boardPlayerLeft.players.splice(playerIndex,1)
@@ -91,21 +97,25 @@ io.on('connection', async function (socket) {
         newPlayer.username = "testing2"
         newPlayer.socketId = socket.id
 
-        const existingRoomExists = await Board.exists({_id: codeInput})
+        if(!ObjectId.isValid(codeInput)){
+            console.log("No room;", codeInput)
+            socket.emit("error", "Not a valid code; "+codeInput)
+            return
+        }
 
-        if(!existingRoomExists){
+        const existingRoom = await Board.exists({_id: codeInput})
+
+        if(!existingRoom){
             console.log("No room;", codeInput)
             socket.emit("error", "No room exists with code; "+codeInput)
             return
         }
 
-        const existingRoom = await Board.findOne({_id: codeInput})
-
         existingRoom.players.push(newPlayer._id)
         existingRoom.save()
 
         socket.join(codeInput)
-        newPlayer.inRoomId = codeInput
+        newPlayer.inRoomId = existingRoom._id
         newPlayer.save()
         socket.emit("joinedRoom", {board: existingRoom, player: newPlayer})
     })

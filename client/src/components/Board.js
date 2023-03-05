@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import diceSVG from '../assets/dice.svg'
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:3001");
+const socketio = io.connect("http://localhost:3001");
 
 export default function Board(props) {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
@@ -34,7 +34,8 @@ export default function Board(props) {
     }, [props])
 
     useEffect(() => {
-    }, [])
+        setSocket(socketio.id)
+    }, [socket])
 
   return (
     <AnimatePresence>

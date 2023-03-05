@@ -34,7 +34,10 @@ io.on('connection', async function (socket) {
     newPlayer.socketId = socket.id
     newPlayer.save()
 
-    socket.on('disconnect', () => console.log(`Connection left (${socket.id})`));
+    socket.on('disconnect', async () => {
+        console.log(`Connection left (${socket.id})`)
+        await Player.findOneAndDelete({socketId: socket.id})
+    });
 });
 
 server.listen(port, () => {

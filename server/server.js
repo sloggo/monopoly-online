@@ -97,6 +97,12 @@ io.on('connection', async function (socket) {
         newPlayer.username = "testing2"
         newPlayer.socketId = socket.id
 
+        if(!ObjectId.isValid(codeInput)){
+            console.log("No room;", codeInput)
+            socket.emit("error", "Not a valid code; "+codeInput)
+            return
+        }
+
         const existingRoom = await Board.findOne({_id: codeInput})
 
         if(!existingRoom){

@@ -68,14 +68,14 @@ io.on('connection', async function (socket) {
 
     socket.on("createRoom", async(socketId) => {
         let newPlayer = new Player()
-        newPlayer.username = "testing"
+        newPlayer.username = "sloggo"
         newPlayer.socketId = socket.id
 
         let newBoard = new Board()
         newPlayer.inRoomId = newBoard._id
         newPlayer.save()
 
-        newBoard.players.push(newPlayer._id)
+        newBoard.players.push(newPlayer)
         newBoard.currentPlayer = newPlayer._id
         newBoard.save()
 
@@ -94,7 +94,7 @@ io.on('connection', async function (socket) {
 
     socket.on("joinRoom", async(codeInput) => {
         let newPlayer = new Player()
-        newPlayer.username = "testing2"
+        newPlayer.username = "sloggo2"
         newPlayer.socketId = socket.id
 
         if(!ObjectId.isValid(codeInput)){
@@ -111,13 +111,14 @@ io.on('connection', async function (socket) {
             return
         }
 
-        existingRoom.players.push(newPlayer._id)
+        existingRoom.players.push(newPlayer)
         existingRoom.save()
 
         socket.join(codeInput)
         newPlayer.inRoomId = existingRoom._id
         newPlayer.save()
         socket.emit("joinedRoom", {board: existingRoom, player: newPlayer})
+        socket.to(codeInput).emit("boardUpdate", {board: existingRoom})
     })
 });
 

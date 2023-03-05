@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Home from "./components/Home"
 import Options from './components/Options'
 import io from "socket.io-client";
+import WaitingRoom from './components/WaitingRoom';
 
 const socket = io.connect("http://localhost:3001")
 
@@ -16,10 +17,6 @@ function App() {
 
   const setOptionsTab = () =>{
     setCurrentTab("options")
-  }
-
-  const setBoard = () =>{
-    setCurrentTab("board")
   }
 
   const createRoom = () => {
@@ -49,6 +46,10 @@ function App() {
     socket.on("error", (msg) => {
       console.error(msg)
     })
+
+    socket.on("boardUpdate", (data) =>{
+      setBoardData(data.board)
+    })
   })
 
   return (
@@ -56,6 +57,7 @@ function App() {
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
       <Board visible={currentTab === "board"} currentTab={currentTab} playerData={playerData} boardData={boardData} changeTest={changeTest}></Board>
+      <WaitingRoom visible={currentTab === "waitingroom"} boardData={boardData} playerData={playerData}></WaitingRoom>
     </div>
   );
 }

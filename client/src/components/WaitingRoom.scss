@@ -1,0 +1,45 @@
+$background-colour: rgb(20, 20, 20);
+$background-colour-alt: rgba(22, 22, 22, 0.85);
+$background-colour-alt-hover: rgba(22, 22, 22, 0.90);
+$h1-colour: rgb(255, 255, 255);
+$font-colour-alt: rgba(255, 255, 255, 0.8);
+$blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%);
+$blob-colour2: linear-gradient(45deg, rgb(34, 195, 101) 0%, rgb(45, 253, 184) 100%);
+
+.players-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.player.you{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.readyup{
+    background: linear-gradient($background-colour-alt, $background-colour-alt) padding-box,
+              $blob-colour border-box;
+
+    border: 3px solid transparent;
+    transition: all .1s ease-in-out;
+    padding: 3px;
+    border-radius: 4px;
+    z-index: 5;
+}
+
+.readyup:hover{
+    transform: scale(1.03);
+}
+
+.readyup:active{
+    transform: scale(0.98);
+}
+
+.readyup.ready{
+    background: linear-gradient($background-colour-alt, $background-colour-alt) padding-box,
+              $blob-colour2 border-box;
+}

@@ -56,7 +56,7 @@ io.on('connection', async function (socket) {
 
         boardPlayerLeft.players.splice(playerIndex,1)
 
-        if(boardPlayerLeft.players.length > 1){
+        if(boardPlayerLeft.players.length >= 1){
             playerLeft.deleteOne()
             boardPlayerLeft.save()
             return 
@@ -97,13 +97,7 @@ io.on('connection', async function (socket) {
         newPlayer.username = "testing2"
         newPlayer.socketId = socket.id
 
-        if(!ObjectId.isValid(codeInput)){
-            console.log("No room;", codeInput)
-            socket.emit("error", "Not a valid code; "+codeInput)
-            return
-        }
-
-        const existingRoom = await Board.exists({_id: codeInput})
+        const existingRoom = await Board.findOne({_id: codeInput})
 
         if(!existingRoom){
             console.log("No room;", codeInput)

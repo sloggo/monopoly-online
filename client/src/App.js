@@ -5,11 +5,13 @@ import Home from "./components/Home"
 import Options from './components/Options'
 import io from "socket.io-client";
 
+const socket = io.connect("http://localhost:3001")
+
 
 function App() {
   const [currentTab, setCurrentTab] = useState("home")
   // network states
-  const [socket, setSocket] = useState(io.connect("http://localhost:3001"))
+  const [playerData, setPlayerData] = useState(null)
 
   const setOptionsTab = () =>{
     setCurrentTab("options")
@@ -24,8 +26,8 @@ function App() {
   }
 
   useEffect(() => {
-    socket.on("playerUpdate", ({playerObj}) => {
-      console.log("pl")
+    socket.on("playerUpdate", (data) => {
+      setPlayerData(data)
     })
   })
 

@@ -6,6 +6,7 @@ const {Server} = require("socket.io");
 const cors = require("cors");
 const port = 3001
 const {Player} = require("./models/player")
+const {Board} = require("./models/board")
 let db;
 
 app.use(cors());
@@ -29,20 +30,25 @@ io.on('connection', async function (socket) {
         return
     }
 
-    let newPlayer = new Player()
-    newPlayer.username = "testing"
-    newPlayer.socketId = socket.id
-    newPlayer.save()
-
-    socket.emit("playerUpdate", {newPlayer})
-
     socket.on('disconnect', async () => {
         console.log(`Connection left (${socket.id})`)
         await Player.findOneAndDelete({socketId: socket.id})
     });
 
     socket.on("createRoom", async(socketId) => {
-        console.log(socketId)
+        let newPlayer = new Player()
+        newPlayer.username = "testing"
+        newPlayer.socketId = socket.id
+        socket.emit("playerUpdate", newPlayer)
+        newPlayer.save()
+
+        let newBoard = new Board()
+        newBoard.players.push(newPlayer)
+        newBoard.currentPlayer = newPlayer
+        newBoard.save()
+
+        socket.join(String(newBoard._id))
+        console.log("New Board created at id;", String(newBoard._id))
     })
 });
 

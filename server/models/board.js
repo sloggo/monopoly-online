@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const {playerSchema} = require("./player");
+const boardData = require("../boardData.json")
 
 const boardSchema = new mongoose.Schema({
     players: [playerSchema],
@@ -14,9 +15,10 @@ const boardSchema = new mongoose.Schema({
     tileData: {
         type: Array,
         required: true,
-    }
+        default: boardData,
+    },
 })
 
 const Board = mongoose.model("Board", boardSchema)
 
-module.exports = Board
+module.exports = {Board}

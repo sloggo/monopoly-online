@@ -34,7 +34,7 @@ io.on('connection', async function (socket) {
     newPlayer.socketId = socket.id
     newPlayer.save()
 
-    socket.emit("playerUpdate", newPlayer)
+    socket.emit("playerUpdate", {newPlayer})
 
     socket.on('disconnect', async () => {
         console.log(`Connection left (${socket.id})`)

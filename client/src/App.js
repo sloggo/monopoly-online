@@ -5,12 +5,11 @@ import Home from "./components/Home"
 import Options from './components/Options'
 import io from "socket.io-client";
 
-const socketio = io.connect("http://localhost:3001");
 
 function App() {
   const [currentTab, setCurrentTab] = useState("home")
   // network states
-  const [socket, setSocket] = useState(null)
+  const [socket, setSocket] = useState(io.connect("http://localhost:3001"))
 
   const setOptionsTab = () =>{
     setCurrentTab("options")
@@ -21,12 +20,11 @@ function App() {
   }
 
   const createRoom = () => {
-    socketio.emit("createRoom", socket)
+    socket.emit("createRoom", socket.id)
   }
 
   useEffect(() => {
-    setSocket(socketio.id)
-    socketio.on("playerUpdate", ({playerObj}) => {
+    socket.on("playerUpdate", ({playerObj}) => {
       console.log("pl")
     })
   })

@@ -22,3 +22,10 @@ input.start-playing{
 input.start-playing::placeholder{
     color: $font-colour-alt;
 }
+
+div.start-playing.create{
+    margin-top: 10px;
+    font-size: 1.5em;
+    width: 20vw;
+    text-align: center;
+}

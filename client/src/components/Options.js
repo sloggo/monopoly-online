@@ -29,6 +29,7 @@ export default function Options(props) {
         <h2 className='options-header'>Let's get straight into a game!</h2>
 
         <input className='start-playing' placeholder='Enter a Game Code!' onClick={enterGameCode}></input>
+        <div className='start-playing create' onClick={props.createRoom}>Create a Room</div>
       </motion.div>}
     </AnimatePresence>
   )

@@ -14,9 +14,6 @@ export default function Board(props) {
     const [playerTurn, setPlayerTurn] = useState(true)
     const [dice, setDice] = useState(null)
 
-    // network states
-    const [socket, setSocket] = useState(null)
-
     const changeMousePos = (ev) => {
         setMousePosition({x: ev.pageX, y: ev.pageY})
     }
@@ -32,10 +29,6 @@ export default function Board(props) {
     useEffect(() => {
         setVisible(props.visible)
     }, [props])
-
-    useEffect(() => {
-        setSocket(socketio.id)
-    }, [socket])
 
   return (
     <AnimatePresence>

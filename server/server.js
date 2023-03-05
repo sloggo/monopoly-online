@@ -6,7 +6,8 @@ const {Server} = require("socket.io");
 const cors = require("cors");
 const port = 3001
 const {Player} = require("./models/player")
-const {Board} = require("./models/board")
+const {Board} = require("./models/board");
+const { ObjectId } = require("mongodb");
 let db;
 
 app.use(cors());
@@ -32,7 +33,12 @@ io.on('connection', async function (socket) {
 
     socket.on('disconnect', async () => {
         console.log(`Connection left (${socket.id})`)
+        const playerLeftExists = await Player.exists({socketId: socket.id})
         const playerLeft = await Player.findOne({socketId: socket.id})
+
+        if(!playerLeftExists){
+            return
+        }
 
         if(!playerLeft.inRoomId){
             playerLeft.deleteOne()
@@ -58,20 +64,50 @@ io.on('connection', async function (socket) {
         let newPlayer = new Player()
         newPlayer.username = "testing"
         newPlayer.socketId = socket.id
-        socket.emit("playerUpdate", newPlayer)
 
         let newBoard = new Board()
         newPlayer.inRoomId = newBoard._id
         newPlayer.save()
 
-        newBoard.players.push(newPlayer)
-        newBoard.currentPlayer = newPlayer
+        newBoard.players.push(newPlayer._id)
+        newBoard.currentPlayer = newPlayer._id
         newBoard.save()
 
         socket.join(String(newBoard._id))
         console.log("New Board created at id;", String(newBoard._id))
 
         socket.emit("joinedRoom", {board: newBoard, player: newPlayer})
+    })
+
+    socket.on("changeTest", async(player) => {
+        const playerDb = await Player.findOne({_id: player._id})
+
+        playerDb.username = "changed";
+        playerDb.save()
+    })
+
+    socket.on("joinRoom", async(codeInput) => {
+        let newPlayer = new Player()
+        newPlayer.username = "testing2"
+        newPlayer.socketId = socket.id
+
+        const existingRoomExists = await Board.exists({_id: codeInput})
+
+        if(!existingRoomExists){
+            console.log("No room;", codeInput)
+            socket.emit("error", "No room exists with code; "+codeInput)
+            return
+        }
+
+        const existingRoom = await Board.findOne({_id: codeInput})
+
+        existingRoom.players.push(newPlayer._id)
+        existingRoom.save()
+
+        socket.join(codeInput)
+        newPlayer.inRoomId = codeInput
+        newPlayer.save()
+        socket.emit("joinedRoom", {board: existingRoom, player: newPlayer})
     })
 });
 

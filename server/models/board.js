@@ -3,7 +3,9 @@ const {playerSchema} = require("./player");
 const boardData = require("../boardData.json")
 
 const boardSchema = new mongoose.Schema({
-    players: [playerSchema],
+    players: {
+        type: Array,
+    },
     numPlayers: {
         type: Number,
         default: 4,

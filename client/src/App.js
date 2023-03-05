@@ -29,7 +29,12 @@ function App() {
 
   const joinRoom = (codeInput) => {
     console.log("Joining room;", codeInput)
+    socket.emit("joinRoom", codeInput)
     setCurrentTab("loading")
+  }
+
+  const changeTest = () => {
+    socket.emit("changeTest", playerData)
   }
 
   useEffect(() => {
@@ -40,13 +45,17 @@ function App() {
       console.log("Joined room;", data.board._id)
       setCurrentTab("waitingroom")
     })
+
+    socket.on("error", (msg) => {
+      console.error(msg)
+    })
   })
 
   return (
     <div className="App">
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
-      <Board visible={currentTab === "board"} currentTab={currentTab} playerData={playerData} boardData={boardData}></Board>
+      <Board visible={currentTab === "board"} currentTab={currentTab} playerData={playerData} boardData={boardData} changeTest={changeTest}></Board>
     </div>
   );
 }

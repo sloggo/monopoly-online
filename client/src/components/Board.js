@@ -7,8 +7,9 @@ import diceSVG from '../assets/dice.svg'
 export default function Board(props) {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
     const [visible, setVisible] = useState(props.visible)
-    const [boardData, setBoardData] = useState(boardDataFile)
+    const [boardData, setBoardData] = useState(props.boardData)
     const [playerTurn, setPlayerTurn] = useState(true)
+    const [playerData, setPlayerData] = useState(props.playerData)
     const [dice, setDice] = useState(null)
 
     const changeMousePos = (ev) => {
@@ -25,6 +26,8 @@ export default function Board(props) {
 
     useEffect(() => {
         setVisible(props.visible)
+        setBoardData(props.boardData)
+        setPlayerData(props.playerData)
     }, [props])
 
   return (
@@ -46,7 +49,7 @@ export default function Board(props) {
         </div>}
 
             <div className='boardtiles-container' onMouseMove={changeMousePos}>
-                    {boardData.map((tile, tileRowIndex) => {
+                    {boardData && boardData.tileData.map((tile, tileRowIndex) => {
                         if(tile.tileId === null){ // if it is a center piece
                             return <Center key={tileRowIndex}></Center>
                         } else if(tile.type === "tile"){

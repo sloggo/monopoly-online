@@ -15,6 +15,9 @@ const playerSchema = new mongoose.Schema({
     socketId: {
         type: String,
         required: true,
+    },
+    inRoomId: {
+        type: String,
     }
 })
 

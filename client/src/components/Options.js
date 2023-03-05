@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 export default function Options(props) {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
     const [visible, setVisible] = useState(props.visible)
+    const [codeInput, setCodeInput] = useState(null)
 
     const changeMousePos = (ev) => {
         setMousePosition({x: ev.pageX, y: ev.pageY})
@@ -15,8 +16,18 @@ export default function Options(props) {
         setVisible(props.visible)
       }, [props])
       
-    const enterGameCode = () => {
-        props.setBoard()
+    const enterGameCode = (codeInput) => {
+        props.joinRoom(codeInput)
+    }
+
+    const updateCodeInput = (ev) => {
+      setCodeInput(ev.target.value)
+    }
+
+    const keyDownHandle = (ev) => {
+      if(ev.key === 'Enter'){
+        enterGameCode(codeInput)
+      }
     }
 
   return (
@@ -28,7 +39,7 @@ export default function Options(props) {
 
         <h2 className='options-header'>Let's get straight into a game!</h2>
 
-        <input className='start-playing' placeholder='Enter a Game Code!' onClick={enterGameCode}></input>
+        <input className='start-playing' placeholder='Enter a Game Code!' onChange={updateCodeInput} onKeyDown={keyDownHandle}></input>
         <div className='start-playing create' onClick={props.createRoom}>Create a Room</div>
       </motion.div>}
     </AnimatePresence>

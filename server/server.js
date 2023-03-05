@@ -32,7 +32,26 @@ io.on('connection', async function (socket) {
 
     socket.on('disconnect', async () => {
         console.log(`Connection left (${socket.id})`)
-        await Player.findOneAndDelete({socketId: socket.id})
+        const playerLeft = await Player.findOne({socketId: socket.id})
+
+        if(!playerLeft.inRoomId){
+            playerLeft.deleteOne()
+            return
+        }
+
+        const boardPlayerLeft = await Board.findOne({_id: playerLeft.inRoomId})
+        const playerIndex = boardPlayerLeft.players.findIndex(player => player._id === playerLeft._id)
+
+        boardPlayerLeft.players.splice(playerIndex,1)
+
+        if(boardPlayerLeft.players.length > 1){
+            playerLeft.deleteOne()
+            boardPlayerLeft.save()
+            return 
+        }
+
+        boardPlayerLeft.deleteOne()
+        playerLeft.deleteOne()
     });
 
     socket.on("createRoom", async(socketId) => {
@@ -40,9 +59,11 @@ io.on('connection', async function (socket) {
         newPlayer.username = "testing"
         newPlayer.socketId = socket.id
         socket.emit("playerUpdate", newPlayer)
-        newPlayer.save()
 
         let newBoard = new Board()
+        newPlayer.inRoomId = newBoard._id
+        newPlayer.save()
+
         newBoard.players.push(newPlayer)
         newBoard.currentPlayer = newPlayer
         newBoard.save()

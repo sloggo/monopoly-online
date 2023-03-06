@@ -39,6 +39,10 @@ function App() {
   const toggleReady = () => {
     socket.emit("toggleReady", {boardData})
   }
+  
+  const startGame = () => {
+    socket.emit("startGame", {boardData})
+  }
 
   useEffect(() => {
     console.log(boardData)
@@ -65,6 +69,14 @@ function App() {
       setBoardData(data.board)
       setThisPlayer(thisPlyr)
     })
+
+    socket.on("gameStarted", (data) => {
+      let thisPlyr = data.board.players.find(player => player.socketId === socketID)
+      setBoardData(data.board)
+      setThisPlayer(thisPlyr)
+
+      setCurrentTab("board")
+    })
   })
 
   return (
@@ -72,7 +84,7 @@ function App() {
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
       <Board visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest}></Board>
-      <WaitingRoom visible={currentTab === "waitingroom"} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
+      <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
     </div>
   );
 }

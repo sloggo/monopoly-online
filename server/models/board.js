@@ -17,6 +17,10 @@ const boardSchema = new mongoose.Schema({
         required: true,
         default: boardData,
     },
+    joinable: {
+        type: Boolean,
+        default: true,
+    }
 })
 
 const Board = mongoose.model("Board", boardSchema)

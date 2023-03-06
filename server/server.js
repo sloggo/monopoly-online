@@ -58,6 +58,7 @@ io.on('connection', async function (socket) {
 
         newBoard.players.push(newPlayer)
         newBoard.currentPlayer = newPlayer
+        newBoard.numPlayers = 2
         newBoard.save()
 
         socket.join(String(newBoard._id))
@@ -95,7 +96,18 @@ io.on('connection', async function (socket) {
             return
         }
 
+        if(!existingRoom.joinable){
+            console.log("Room full;", codeInput)
+            socket.emit("error", "Room is either full or game has started; "+codeInput)
+            return
+        }
+
         existingRoom.players.push(newPlayer)
+        
+        if(existingRoom.players.length >= existingRoom.numPlayers){
+            existingRoom.joinable = false;
+        }
+
         existingRoom.save()
 
         socket.join(codeInput)
@@ -106,21 +118,14 @@ io.on('connection', async function (socket) {
 
     socket.on("toggleReady", async(data) => {
         let board = await Board.findOne({_id: data.boardData._id})
-        console.log(socket.id, "looking for")
 
         let playerIndex = board.players.findIndex(player => {
-            console.log(player.socketId)
             if(player.socketId === socket.id) return true
         })
 
         let player = data.boardData.players[playerIndex]
-        console.log(player, "before")
-
         const oldReady = player.ready
-
         player.ready = !oldReady
-        console.log(player, "after")
-
         board.players.splice(playerIndex,1,player)
 
         if(board.currentPlayer.socketId === board.players[playerIndex].socketId){
@@ -128,9 +133,16 @@ io.on('connection', async function (socket) {
         }
 
         await board.save()
-        console.log(roomId)
         io.in(roomId).emit("boardUpdate", {board})
-        console.log("sent emit to", roomId)
+    })
+
+    socket.on("startGame", async(data) => {
+        console.log("Game started at;", data.boardData._id)
+        let board = await Board.findOne({_id: data.boardData._id})
+
+        board.joinable = false
+        board.save()
+        io.in(roomId).emit("gameStarted", {board})
     })
 });
 

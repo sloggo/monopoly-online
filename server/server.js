@@ -45,6 +45,7 @@ io.on('connection', async function (socket) {
         }
 
         boardPlayerLeft.deleteOne()
+        roomId = null
     });
 
     socket.on("createRoom", async(socketId) => {
@@ -163,8 +164,36 @@ io.on('connection', async function (socket) {
         currentPlayer.currentTile = newTile;
 
         board.players.splice(currentPlayerIndex, 1, currentPlayer);
-        board.save()
+        await board.save()
         io.in(roomId).emit("boardUpdate", {board, diceRoll})
+
+        if(currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner){
+            socket.emit("buyProperty", currentPlayer.currentTile)
+        }
+    })
+
+    socket.on("wantsToBuyProperty", async(property) => {
+        let board = await Board.findOne({_id: roomId});
+        let currentPlayer = {...board.currentPlayer}
+        let currentPlayerIndex = board.players.findIndex(player => player.socketId === socket.id)
+        let propertyInBoard = board.tileData.find(tile => tile.tileId === property.tileId)
+        let propertyInBoardIndex = board.tileData.findIndex(tile => tile.tileId === property.tileId)
+
+        if(!currentPlayer.money >= property.price){
+            socket.emit("error", "Not enough money!")
+            return
+        }
+
+        currentPlayer.money = currentPlayer.money - property.price
+        console.log(propertyInBoard)
+        propertyInBoard.forSale = false
+        currentPlayer.ownedTiles.push(propertyInBoard)
+
+        board.players.splice(currentPlayerIndex, 1, currentPlayer);
+        board.tileData.splice(propertyInBoardIndex, 1, propertyInBoard)
+
+        await board.save()
+        io.in(roomId).emit("boardUpdate", {board})
     })
 });
 

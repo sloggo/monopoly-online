@@ -51,7 +51,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(boardData)
     socket.on("connect", () => {
       setSocketID(socket.id)
     })
@@ -70,7 +69,6 @@ function App() {
     })
 
     socket.on("boardUpdate", (data) =>{
-      console.log("update board")
       let thisPlyr = data.board.players.find(player => player.socketId === socketID)
       setBoardData(data.board)
       setThisPlayer(thisPlyr)
@@ -87,6 +85,12 @@ function App() {
 
       setCurrentTab("board")
     })
+
+    socket.on("buyProperty", (property) => {
+      console.log("buy?", property)
+      socket.emit("wantsToBuyProperty", property)
+    })
+
   })
 
   return (

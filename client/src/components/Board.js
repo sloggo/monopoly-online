@@ -22,6 +22,7 @@ export default function Board(props) {
         setBoardData(props.boardData)
         setPlayerData(props.playerData)
         setDiceRoll(props.diceRoll)
+        setSocketID(props.socketID)
     }, [props])
 
     useEffect(()=>{

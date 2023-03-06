@@ -101,7 +101,7 @@ io.on('connection', async function (socket) {
         socket.join(codeInput)
         socket.emit("joinedRoom", {board: existingRoom, player: newPlayer})
         socket.to(codeInput).emit("boardUpdate", {board: existingRoom})
-        roomId = String(existingRoom._id)
+        roomId = String(codeInput)
     })
 
     socket.on("toggleReady", async(data) => {
@@ -122,11 +122,15 @@ io.on('connection', async function (socket) {
         console.log(player, "after")
 
         board.players.splice(playerIndex,1,player)
-        console.log(board.players)
 
-        socket.in(roomId).emit("boardUpdate", {board})
-        console.log("sent emit to", roomId)
+        if(board.currentPlayer.socketId === board.players[playerIndex].socketId){
+            board.currentPlayer = board.players[playerIndex]
+        }
+
         await board.save()
+        console.log(roomId)
+        io.in(roomId).emit("boardUpdate", {board})
+        console.log("sent emit to", roomId)
     })
 });
 

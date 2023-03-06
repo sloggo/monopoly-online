@@ -50,6 +50,10 @@ function App() {
     socket.emit("rollDice", {boardData})
   }
 
+  const buyProperty = (property) => {
+    socket.emit("wantsToBuyProperty", property)
+  }
+
   useEffect(() => {
     socket.on("connect", () => {
       setSocketID(socket.id)
@@ -86,9 +90,12 @@ function App() {
       setCurrentTab("board")
     })
 
-    socket.on("buyProperty", (property) => {
-      console.log("buy?", property)
-      socket.emit("wantsToBuyProperty", property)
+    socket.on("buyProperty", (data) => {
+      let thisPlyr = data.board.players.find(player => player.socketId === socketID)
+      setBoardData(data.board)
+      setThisPlayer(thisPlyr)
+      console.log("buy?", data.property)
+      buyProperty(data.property)
     })
 
   })

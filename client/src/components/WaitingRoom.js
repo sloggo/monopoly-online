@@ -28,7 +28,7 @@ export default function WaitingRoom(props) {
         {boardData && <h2 className='options-header'>Lobby: {boardData._id}</h2>}
 
         <div className='players-container'>
-            {boardData && boardData.players.map(playerArray => playerArray._id === thisPlayer._id ? <div className='player you'><p>{playerArray.username} - You</p> <div className={playerArray.ready ? "readyup ready": "readyup"} onClick={props.toggleReady}>Ready Up</div> </div> : <div className='player'><p>{playerArray.username}</p> <div className={playerArray.ready ? "readyup-dot ready": "readyup-dot"}></div></div>)}
+            {boardData && boardData.players.map(playerArray => playerArray._id === thisPlayer._id ? <div className='player you' key={playerArray._id}><p>{playerArray.username} - You</p> <div className={playerArray.ready ? "readyup ready": "readyup"} onClick={props.toggleReady}>Ready Up</div> </div> : <div className='player' key={playerArray._id}><p>{playerArray.username}</p> <div className={playerArray.ready ? "readyup-dot ready": "readyup-dot"}></div></div>)}
         </div>
 
         {((boardData.players.filter(player => player.ready === true).length === boardData.players.length) && boardData.players.length > 1) ?

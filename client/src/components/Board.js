@@ -8,27 +8,29 @@ export default function Board(props) {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
     const [visible, setVisible] = useState(props.visible)
     const [boardData, setBoardData] = useState(props.boardData)
-    const [playerTurn, setPlayerTurn] = useState(true)
+    const [playerTurn, setPlayerTurn] = useState(false)
     const [playerData, setPlayerData] = useState(props.playerData)
-    const [dice, setDice] = useState(null)
+    const [socketID, setSocketID] = useState(props.socketID)
+    const [diceRoll, setDiceRoll] = useState(props.diceRoll)
 
     const changeMousePos = (ev) => {
         setMousePosition({x: ev.pageX, y: ev.pageY})
-    }
-
-    const rollDice = () => {
-        if(!playerTurn){
-            return
-        }
-        setDice(Math.floor(Math.random() * (6)) + 1)
-        setPlayerTurn(false)
     }
 
     useEffect(() => {
         setVisible(props.visible)
         setBoardData(props.boardData)
         setPlayerData(props.playerData)
+        setDiceRoll(props.diceRoll)
     }, [props])
+
+    useEffect(()=>{
+        if(boardData && boardData.currentPlayer.socketId === socketID){
+            setPlayerTurn(true)
+        } else{
+            setPlayerTurn(false)
+        }
+    }, [boardData])
 
   return (
     <AnimatePresence>
@@ -39,13 +41,13 @@ export default function Board(props) {
 
         {playerTurn ?
         <motion.div className='dice-container' initial={{scale:0.8, rotate: -5}} animate={{scale:1, rotate:5}} transition={{duration:1, repeat: Infinity, repeatType:"reverse"}}>
-            <img src={diceSVG} width={100} onClick={rollDice}></img>
-            <p>{dice}</p>
+            <img src={diceSVG} width={100} onClick={props.rollDice}></img>
+            <p>{diceRoll}</p>
         </motion.div>
         :
         <div className='dice-container'>
-            <img src={diceSVG} width={100} onClick={rollDice}></img>
-            <p>{dice}</p>
+            <img src={diceSVG} width={100} onClick={props.rollDice}></img>
+            <p>{diceRoll}</p>
         </div>}
 
             <div className='boardtiles-container' onMouseMove={changeMousePos}>

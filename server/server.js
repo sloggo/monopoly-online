@@ -144,8 +144,34 @@ io.on('connection', async function (socket) {
         board.save()
         io.in(roomId).emit("gameStarted", {board})
     })
+
+    socket.on("rollDice", async(data) => {
+        let board = await Board.findOne({_id: data.boardData._id});
+        let currentPlayer = board.currentPlayer
+
+        if(!(socket.id === currentPlayer.socketId)){
+            socket.emit("error", "Not your turn!")
+            return
+        }
+
+        let diceRoll = rollDice()
+
+        let currentPlayerIndex = board.players.findIndex(player => player.socketId === currentPlayer.socketId)
+
+        const newTileId = currentPlayer.currentTile.tileId + diceRoll;
+        const newTile = board.tileData.find(tile => tile.tileId === newTileId);
+        currentPlayer.currentTile = newTile;
+
+        board.players.splice(currentPlayerIndex, 1, currentPlayer);
+        board.save()
+        io.in(roomId).emit("boardUpdate", {board, diceRoll})
+    })
 });
 
 server.listen(port, () => {
     console.log("Server listening on", port)
 })
+
+const rollDice = () => {
+    return Math.floor(Math.random() * (6 - 1 + 1) + 1)
+}

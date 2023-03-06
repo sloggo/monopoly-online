@@ -16,6 +16,8 @@ function App() {
   const [boardData, setBoardData] = useState(null)
   const [socketID, setSocketID] = useState(null)
 
+  const [diceRoll, setDiceRoll] = useState(null)
+
   const setOptionsTab = () =>{
     setCurrentTab("options")
   }
@@ -44,6 +46,10 @@ function App() {
     socket.emit("startGame", {boardData})
   }
 
+  const rollDice = () => {
+    socket.emit("rollDice", {boardData})
+  }
+
   useEffect(() => {
     console.log(boardData)
     socket.on("connect", () => {
@@ -68,6 +74,10 @@ function App() {
       let thisPlyr = data.board.players.find(player => player.socketId === socketID)
       setBoardData(data.board)
       setThisPlayer(thisPlyr)
+
+      if(data.diceRoll){
+        setDiceRoll(data.diceRoll)
+      }
     })
 
     socket.on("gameStarted", (data) => {
@@ -83,7 +93,7 @@ function App() {
     <div className="App">
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
-      <Board visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest}></Board>
+      <Board visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll}></Board>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
     </div>
   );

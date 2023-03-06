@@ -22,7 +22,18 @@ const playerSchema = new mongoose.Schema({
     ready: {
         type: Boolean,
         default: false,
-    }
+    },
+    currentTile:{
+        type: Object,
+        default: {
+            "tileId": 0,
+            "type": "square",
+            "colour": null,
+            "name": "Go!",
+            "special": true,
+            "price": 200
+        },
+    },
 })
 
 module.exports = {playerSchema}

@@ -1,0 +1,96 @@
+$background-colour: rgb(20, 20, 20);
+$background-colour-alt: rgb(44, 44, 44);
+$background-colour-alt-hover: rgb(61, 61, 61);
+$popup-background: rgb(39, 39, 39);
+$h1-colour: rgb(255, 255, 255);
+$font-colour-alt: rgba(255, 255, 255, 0.8);
+$blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%);
+$border: 5px solid transparent;
+$blob-colour2: linear-gradient(45deg, rgb(34, 195, 101) 0%, rgb(45, 253, 184) 100%);
+
+.popup-container{
+    position: fixed;
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 50%;
+    z-index: 7;
+    border: $border;
+
+    background: linear-gradient($popup-background, $popup-background) padding-box,
+              $blob-colour border-box;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup-container h2{
+    font-size: 1.5rem;
+}
+
+.property-info{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.property-info h3{
+    color: $font-colour-alt;
+}
+
+.property-dot-colour{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
+
+.property-price{
+    margin-top: auto;
+    color: rgb(133, 255, 133);
+    font-size: 30px;
+}
+
+.option-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+
+    gap: 20px;
+}
+
+.option-button{
+    padding: 20px;
+    border: 2px solid transparent;
+   
+    margin-bottom: 15px;
+    width: 100px;
+    text-align: center;
+    border-radius: 20px;
+    transition: all .1s ease-in-out;
+    z-index: 8;
+}
+
+.option-button.decline{
+    background: linear-gradient($background-colour, $background-colour) padding-box,
+    $blob-colour border-box;
+    color: rgb(253, 156, 45);
+}
+
+.option-button.buy{
+    background: linear-gradient($background-colour, $background-colour) padding-box,
+    $blob-colour2 border-box;
+    color: rgb(45, 253, 184);
+}
+
+.option-button:hover{
+    transform: scale(1.01);
+}
+
+.option-button:active{
+    transform: scale(0.99);
+}

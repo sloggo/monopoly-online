@@ -8,6 +8,7 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 .options-header{
     font-size: 50px;
     color: $h1-colour;
+    user-select:text;
 }
 
 input.start-playing{

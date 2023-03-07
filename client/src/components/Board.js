@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./Board.scss"
 import boardDataFile from "./boardData.json"
+import PopUp from './PopUp'
 import { motion, AnimatePresence } from 'framer-motion'
 import diceSVG from '../assets/dice.svg'
 
@@ -39,6 +40,8 @@ export default function Board(props) {
             <div className='ball-blur' onMouseMove={changeMousePos}>
                 <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 200, y: mousePosition.y - 200}} transition={{ duration: .05, type: "tween" }}/>
             </div>
+        
+        {props.propertyBuy && <PopUp propertyBuy={props.propertyBuy} buyProperty={props.buyProperty}></PopUp>}
 
         {playerTurn ?
         <motion.div className='dice-container' initial={{scale:0.8, rotate: -5}} animate={{scale:1, rotate:5}} transition={{duration:1, repeat: Infinity, repeatType:"reverse"}}>

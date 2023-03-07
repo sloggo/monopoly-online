@@ -17,6 +17,7 @@ function App() {
   const [socketID, setSocketID] = useState(null)
 
   const [diceRoll, setDiceRoll] = useState(null)
+  const [propertyBuy, setPropertyBuy] = useState(null)
 
   const setOptionsTab = () =>{
     setCurrentTab("options")
@@ -52,6 +53,7 @@ function App() {
 
   const buyProperty = (property) => {
     socket.emit("wantsToBuyProperty", property)
+    setPropertyBuy(null)
   }
 
   useEffect(() => {
@@ -96,7 +98,7 @@ function App() {
       setBoardData(data.board)
       setThisPlayer(thisPlyr)
       console.log("buy?", data.property)
-      buyProperty(data.property)
+      setPropertyBuy(data.property)
     })
 
   })
@@ -105,7 +107,7 @@ function App() {
     <div className="App">
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
-      <Board visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll}></Board>
+      <Board propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty}></Board>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
     </div>
   );

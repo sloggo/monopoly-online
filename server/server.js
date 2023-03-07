@@ -51,11 +51,11 @@ const findPlayerIndex = async(board, playerSocketId)=>{
 }
 
 const findTile = async(board, tileId) => {
-    return board.tileData.find(tile => tile.tileId === tile.tileId)
+    return board.tileData.find(tile => tile.tileId === tileId)
 }
 
-const findTileIndex = async(board, tile) => {
-    return board.tileData.findIndex(tile => tile.tileId === tile.tileId)
+const findTileIndex = async(board, tileInput) => {
+    return board.tileData.findIndex(tile => tile.tileId === tileInput.tileId)
 }
 
 io.on('connection', async function (socket) {
@@ -64,13 +64,13 @@ io.on('connection', async function (socket) {
 
     socket.on('disconnect', async () => {
         console.log(`Connection left (${socket.id})`)
-        const boardPlayerLeft = await Board.findOne({_id: roomId});
+        const boardPlayerLeft = await findBoard(roomId)
 
         if(!boardPlayerLeft){
             return
         }
 
-        const playerIndex = boardPlayerLeft.players.findIndex(player => player.socketId === socket.id)
+        const playerIndex = await findPlayerIndex(boardPlayerLeft, socket.id)
         boardPlayerLeft.players.splice(playerIndex,1)
 
         if(boardPlayerLeft.players.length >= 1){
@@ -119,7 +119,8 @@ io.on('connection', async function (socket) {
             return
         }
 
-        const existingRoom = findBoard(codeInput)
+        const existingRoom = await findBoard(codeInput)
+        console.log(existingRoom)
 
         if(!existingRoom){
             console.log("No room;", codeInput)
@@ -148,9 +149,10 @@ io.on('connection', async function (socket) {
     })
 
     socket.on("toggleReady", async(data) => {
-        let board = findBoard(roomId);
+        let board = await findBoard(roomId);
 
-        let player = findPlayer(board, socket.id)
+        let player = await findPlayer(board, socket.id)
+        let playerIndex = await findPlayerIndex(board, socket.id)
         const oldReady = player.ready
         player.ready = !oldReady
         board.players.splice(playerIndex,1,player)
@@ -165,7 +167,7 @@ io.on('connection', async function (socket) {
 
     socket.on("startGame", async(data) => {
         console.log("Game started at;", data.boardData._id)
-        let board = findBoard(data.boardData._id)
+        let board = await findBoard(data.boardData._id)
 
         board.joinable = false
         board.save()
@@ -173,8 +175,8 @@ io.on('connection', async function (socket) {
     })
 
     socket.on("rollDice", async(data) => {
-        let board = findBoard(roomId);
-        let currentPlayer = board.currentPlayer
+        let board = await findBoard(roomId);
+        let currentPlayer = await findPlayer(board, board.currentPlayer.socketId)
 
         if(!(socket.id === currentPlayer.socketId)){
             socket.emit("error", "Not your turn!")
@@ -183,10 +185,10 @@ io.on('connection', async function (socket) {
 
         let diceRoll = rollDice()
 
-        let currentPlayerIndex = findPlayerIndex(board, board.currentPlayer.socketId)
+        let currentPlayerIndex = await findPlayerIndex(board, board.currentPlayer.socketId)
 
         const newTileId = currentPlayer.currentTile.tileId + diceRoll;
-        const newTile = findTile(board, newTileId)
+        const newTile = await findTile(board, newTileId)
         currentPlayer.currentTile = newTile;
 
         board.players.splice(currentPlayerIndex, 1, currentPlayer);
@@ -199,11 +201,11 @@ io.on('connection', async function (socket) {
     })
 
     socket.on("wantsToBuyProperty", async(property) => {
-        let board = findBoard(roomId);
-        let currentPlayer = findPlayer(board, socket.id)
-        let currentPlayerIndex = findPlayerIndex(board, socket.id)
-        let propertyInBoard = findTile(board, property.tileId)
-        let propertyInBoardIndex = findTileIndex(board, property)
+        let board = await findBoard(roomId);
+        let currentPlayer = await findPlayer(board, socket.id)
+        let currentPlayerIndex = await findPlayerIndex(board, socket.id)
+        let propertyInBoard = await findTile(board, property.tileId)
+        let propertyInBoardIndex = await findTileIndex(board, property)
 
         if(!currentPlayer.money >= property.price){
             socket.emit("error", "Not enough money!")

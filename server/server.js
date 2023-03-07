@@ -58,6 +58,24 @@ const findTileIndex = async(board, tileInput) => {
     return board.tileData.findIndex(tile => tile.tileId === tileInput.tileId)
 }
 
+const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId) => {
+    let playerPaying = await findPlayer(board, playerPayingID);
+    let playerPayingIndex = await findPlayerIndex(board, playerPayingID);
+
+    let playerPaid = await findPlayer(board, playerPaidID)
+    let playerPaidIndex = await findPlayerIndex(board, playerPaidID)
+
+    playerPaying.money = playerPaying.money - amount
+    playerPaid.money = playerPaid.money + amount
+
+    board.currentPlayer = playerPaying
+    await board.players.splice(playerPayingIndex, 1, playerPaying)
+    await board.players.splice(playerPaidIndex, 1, playerPaid)
+
+    await board.save()
+    io.in(roomId).emit("boardUpdate", {board})
+}
+
 io.on('connection', async function (socket) {
     console.log(`New connection: ${socket.id}`);
     let roomId;
@@ -202,6 +220,9 @@ io.on('connection', async function (socket) {
         if(currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner){
             socket.emit("buyProperty", {property:currentPlayer.currentTile, board})
             return
+        } else if(currentPlayer.currentTile.owner && (currentPlayer.currentTile.owner !== currentPlayer.socketId)){
+            socket.emit("payRent", {board, property:currentPlayer.currentTile})
+            return
         }
 
         nextPlayer(board, roomId);
@@ -222,7 +243,7 @@ io.on('connection', async function (socket) {
 
         currentPlayer.money = currentPlayer.money - property.price
         propertyInBoard.forSale = false
-        propertyInBoard.owner = currentPlayer._id
+        propertyInBoard.owner = currentPlayer.socketId
         currentPlayer.currentTile = propertyInBoard
         board.currentPlayer = currentPlayer
 
@@ -236,6 +257,12 @@ io.on('connection', async function (socket) {
     socket.on("declineBuy", async(boardData)=>{
         let board = await findBoard(boardData._id)
         nextPlayer(board, roomId);
+    })
+
+    socket.on("rentPaid", async(data) => {
+        let board = await findBoard(roomId);
+        payPlayer(board, data.thisPlayer.socketId, data.rentPay.owner, data.rentPay.price*0.1, roomId)
+        nextPlayer(board, roomId)
     })
 });
 

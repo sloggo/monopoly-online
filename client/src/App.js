@@ -18,6 +18,7 @@ function App() {
 
   const [diceRoll, setDiceRoll] = useState(null)
   const [propertyBuy, setPropertyBuy] = useState(null)
+  const [rentPay, setRentPay] = useState(null)
 
   const setOptionsTab = () =>{
     setCurrentTab("options")
@@ -59,6 +60,11 @@ function App() {
   const declineBuy = () => {
     socket.emit("declineBuy", boardData)
     setPropertyBuy(null)
+  }
+
+  const payRent = () => {
+    socket.emit("rentPaid", {thisPlayer, rentPay})
+    setRentPay(null)
   }
 
   useEffect(() => {
@@ -106,13 +112,22 @@ function App() {
       setPropertyBuy(data.property)
     })
 
+    socket.off("payRent")
+    socket.on("payRent", (data) => {
+      let thisPlyr = data.board.players.find(player => player.socketId === socketID)
+      setBoardData(data.board)
+      setThisPlayer(thisPlyr)
+      console.log("pay", data.property.price*0.1)
+      setRentPay(data.property)
+    })
+
   })
 
   return (
     <div className="App">
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
-      <Board declineBuy={declineBuy} propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty}></Board>
+      <Board payRent={payRent} declineBuy={declineBuy} rentPay={rentPay} propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty}></Board>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
     </div>
   );

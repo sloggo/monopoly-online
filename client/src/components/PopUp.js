@@ -12,11 +12,11 @@ export default function (props) {
                 <h3>{props.propertyBuy.name}</h3>
             </div>
 
-            <p className='property-price'>{props.buyProperty.price}$</p>
+            <p className='property-price'>{props.propertyBuy.price}$</p>
 
             <div className='option-buttons'>
                 <div className='option-button buy' onClick={props.buyProperty}>Buy</div>
-                <div className='option-button decline'>Decline</div>
+                <div className='option-button decline' onClick={props.declineBuy}>Decline</div>
             </div>
         </div>
     </div>

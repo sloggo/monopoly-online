@@ -120,7 +120,6 @@ io.on('connection', async function (socket) {
         }
 
         const existingRoom = await findBoard(codeInput)
-        console.log(existingRoom)
 
         if(!existingRoom){
             console.log("No room;", codeInput)
@@ -197,7 +196,10 @@ io.on('connection', async function (socket) {
 
         if(currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner){
             socket.emit("buyProperty", {property:currentPlayer.currentTile, board})
+            return
         }
+
+        nextPlayer(board, roomId);
     })
 
     socket.on("wantsToBuyProperty", async(property) => {
@@ -207,8 +209,9 @@ io.on('connection', async function (socket) {
         let propertyInBoard = await findTile(board, property.tileId)
         let propertyInBoardIndex = await findTileIndex(board, property)
 
-        if(!currentPlayer.money >= property.price){
+        if(currentPlayer.money < property.price){
             socket.emit("error", "Not enough money!")
+            nextPlayer(board, roomId);
             return
         }
 
@@ -223,6 +226,11 @@ io.on('connection', async function (socket) {
         await board.save()
 
         nextPlayer(board, roomId)
+    })
+
+    socket.on("declineBuy", async(boardData)=>{
+        let board = await findBoard(boardData._id)
+        nextPlayer(board, roomId);
     })
 });
 

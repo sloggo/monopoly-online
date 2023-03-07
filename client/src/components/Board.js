@@ -41,7 +41,7 @@ export default function Board(props) {
                 <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 200, y: mousePosition.y - 200}} transition={{ duration: .05, type: "tween" }}/>
             </div>
         
-        {props.propertyBuy && <PopUp propertyBuy={props.propertyBuy} buyProperty={props.buyProperty}></PopUp>}
+        {props.propertyBuy && <PopUp propertyBuy={props.propertyBuy} declineBuy={props.declineBuy} buyProperty={props.buyProperty}></PopUp>}
 
         {playerTurn ?
         <motion.div className='dice-container' initial={{scale:0.8, rotate: -5}} animate={{scale:1, rotate:5}} transition={{duration:1, repeat: Infinity, repeatType:"reverse"}}>

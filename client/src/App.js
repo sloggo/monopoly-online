@@ -56,6 +56,11 @@ function App() {
     setPropertyBuy(null)
   }
 
+  const declineBuy = () => {
+    socket.emit("declineBuy", boardData)
+    setPropertyBuy(null)
+  }
+
   useEffect(() => {
     socket.on("connect", () => {
       setSocketID(socket.id)
@@ -107,7 +112,7 @@ function App() {
     <div className="App">
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
-      <Board propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty}></Board>
+      <Board declineBuy={declineBuy} propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty}></Board>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
     </div>
   );

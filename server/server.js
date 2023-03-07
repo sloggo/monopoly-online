@@ -70,13 +70,6 @@ io.on('connection', async function (socket) {
         roomId = String(newBoard._id)
     })
 
-    socket.on("changeTest", async(player) => {
-        const playerDb = await Player.findOne({_id: player._id})
-
-        playerDb.username = "changed";
-        playerDb.save()
-    })
-
     socket.on("joinRoom", async(codeInput) => {
         let newPlayer = {
             socketId: socket.id,
@@ -91,7 +84,7 @@ io.on('connection', async function (socket) {
             return
         }
 
-        const existingRoom = await Board.findOne({_id: codeInput})
+        const existingRoom = findBoard(codeInput)
 
         if(!existingRoom){
             console.log("No room;", codeInput)
@@ -120,13 +113,9 @@ io.on('connection', async function (socket) {
     })
 
     socket.on("toggleReady", async(data) => {
-        let board = await Board.findOne({_id: data.boardData._id})
+        let board = findBoard(roomId);
 
-        let playerIndex = board.players.findIndex(player => {
-            if(player.socketId === socket.id) return true
-        })
-
-        let player = data.boardData.players[playerIndex]
+        let player = findPlayer(board, socket.id)
         const oldReady = player.ready
         player.ready = !oldReady
         board.players.splice(playerIndex,1,player)
@@ -141,7 +130,7 @@ io.on('connection', async function (socket) {
 
     socket.on("startGame", async(data) => {
         console.log("Game started at;", data.boardData._id)
-        let board = await Board.findOne({_id: data.boardData._id})
+        let board = findBoard(data.boardData._id)
 
         board.joinable = false
         board.save()
@@ -149,7 +138,7 @@ io.on('connection', async function (socket) {
     })
 
     socket.on("rollDice", async(data) => {
-        let board = await Board.findOne({_id: data.boardData._id});
+        let board = findBoard(roomId);
         let currentPlayer = board.currentPlayer
 
         if(!(socket.id === currentPlayer.socketId)){
@@ -159,10 +148,10 @@ io.on('connection', async function (socket) {
 
         let diceRoll = rollDice()
 
-        let currentPlayerIndex = board.players.findIndex(player => player.socketId === currentPlayer.socketId)
+        let currentPlayerIndex = findPlayerIndex(board, board.currentPlayer.socketId)
 
         const newTileId = currentPlayer.currentTile.tileId + diceRoll;
-        const newTile = board.tileData.find(tile => tile.tileId === newTileId);
+        const newTile = findTile(board, newTileId)
         currentPlayer.currentTile = newTile;
 
         board.players.splice(currentPlayerIndex, 1, currentPlayer);
@@ -175,11 +164,11 @@ io.on('connection', async function (socket) {
     })
 
     socket.on("wantsToBuyProperty", async(property) => {
-        let board = await Board.findOne({_id: roomId});
-        let currentPlayer = board.players.find(player => player.socketId === socket.id)
-        let currentPlayerIndex = board.players.findIndex(player => player.socketId === socket.id)
-        let propertyInBoard = board.tileData.find(tile => tile.tileId === property.tileId)
-        let propertyInBoardIndex = board.tileData.findIndex(tile => tile.tileId === property.tileId)
+        let board = findBoard(roomId);
+        let currentPlayer = findPlayer(board, socket.id)
+        let currentPlayerIndex = findPlayerIndex(board, socket.id)
+        let propertyInBoard = findTile(board, property.tileId)
+        let propertyInBoardIndex = findTileIndex(board, property)
 
         if(!currentPlayer.money >= property.price){
             socket.emit("error", "Not enough money!")
@@ -212,11 +201,29 @@ const nextPlayer = async (board, roomId) => {
     let currentPlayerIndex = board.players.findIndex(player => player.socketId === board.currentPlayer.socketId)
 
     let newIndex = (currentPlayerIndex + 1) % board.players.length
-    console.log(newIndex)
 
     let newCurrentPlayer = board.players[newIndex]
-    console.log(newCurrentPlayer)
     board.currentPlayer = newCurrentPlayer
     await board.save()
     io.in(roomId).emit("boardUpdate", {board})
+}
+
+const findBoard = async (boardId) => {
+    return Board.findOne({_id: boardId})
+}
+
+const findPlayer = async(board, playerSocketId)=>{
+    return board.players.find(player => player.socketId === playerSocketId)
+}
+
+const findPlayerIndex = async(board, playerSocketId)=>{
+    return board.players.findIndex(player => player.socketId === playerSocketId)
+}
+
+const findTile = async(board, tileId) => {
+    return board.tileData.find(tile => tile.tileId === tile.tileId)
+}
+
+const findTileIndex = async(board, tile) => {
+    return board.tileData.findIndex(tile => tile.tileId === tile.tileId)
 }

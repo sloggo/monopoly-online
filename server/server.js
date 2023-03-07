@@ -53,6 +53,7 @@ io.on('connection', async function (socket) {
             socketId: socket.id,
             username: "sloggo",
             ready: false,
+            money: 1000
         }
 
         let newBoard = new Board()
@@ -81,6 +82,7 @@ io.on('connection', async function (socket) {
             socketId: socket.id,
             username: "sloggo2",
             ready: false,
+            money: 1000
         }
 
         if(!ObjectId.isValid(codeInput)){
@@ -174,7 +176,8 @@ io.on('connection', async function (socket) {
 
     socket.on("wantsToBuyProperty", async(property) => {
         let board = await Board.findOne({_id: roomId});
-        let currentPlayer = board.currentPlayer
+        let currentPlayer = board.players.find(player => player.socketId === socket.id)
+        console.log(currentPlayer)
         let currentPlayerIndex = board.players.findIndex(player => player.socketId === socket.id)
         let propertyInBoard = board.tileData.find(tile => tile.tileId === property.tileId)
         let propertyInBoardIndex = board.tileData.findIndex(tile => tile.tileId === property.tileId)
@@ -188,6 +191,7 @@ io.on('connection', async function (socket) {
         propertyInBoard.forSale = false
         propertyInBoard.owner = currentPlayer._id
         currentPlayer.currentTile = propertyInBoard
+        board.currentPlayer = currentPlayer
 
         board.players.splice(currentPlayerIndex, 1, currentPlayer);
         board.tileData.splice(propertyInBoardIndex, 1, propertyInBoard)

@@ -7,7 +7,6 @@ const playerSchema = new mongoose.Schema({
     },
     money: {
         type: Number,
-        default: 1000,
     },
     socketId: {
         type: String,

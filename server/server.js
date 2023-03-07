@@ -23,6 +23,41 @@ const io = new Server(server, {
 const uri = "mongodb+srv://sloggo:admin@monopolyonline.pj4zqbf.mongodb.net/?"
 const mongoDB = mongoose.connect(uri)
 
+const rollDice = () => {
+    return Math.floor(Math.random() * (6 - 1 + 1) + 1)
+}
+
+const nextPlayer = async (board, roomId) => {
+    let currentPlayerIndex = board.players.findIndex(player => player.socketId === board.currentPlayer.socketId)
+
+    let newIndex = (currentPlayerIndex + 1) % board.players.length
+
+    let newCurrentPlayer = board.players[newIndex]
+    board.currentPlayer = newCurrentPlayer
+    await board.save()
+    io.in(roomId).emit("boardUpdate", {board})
+}
+
+const findBoard = async (boardId) => {
+    return Board.findOne({_id: boardId})
+}
+
+const findPlayer = async(board, playerSocketId)=>{
+    return board.players.find(player => player.socketId === playerSocketId)
+}
+
+const findPlayerIndex = async(board, playerSocketId)=>{
+    return board.players.findIndex(player => player.socketId === playerSocketId)
+}
+
+const findTile = async(board, tileId) => {
+    return board.tileData.find(tile => tile.tileId === tile.tileId)
+}
+
+const findTileIndex = async(board, tile) => {
+    return board.tileData.findIndex(tile => tile.tileId === tile.tileId)
+}
+
 io.on('connection', async function (socket) {
     console.log(`New connection: ${socket.id}`);
     let roomId;
@@ -192,38 +227,3 @@ io.on('connection', async function (socket) {
 server.listen(port, () => {
     console.log("Server listening on", port)
 })
-
-const rollDice = () => {
-    return Math.floor(Math.random() * (6 - 1 + 1) + 1)
-}
-
-const nextPlayer = async (board, roomId) => {
-    let currentPlayerIndex = board.players.findIndex(player => player.socketId === board.currentPlayer.socketId)
-
-    let newIndex = (currentPlayerIndex + 1) % board.players.length
-
-    let newCurrentPlayer = board.players[newIndex]
-    board.currentPlayer = newCurrentPlayer
-    await board.save()
-    io.in(roomId).emit("boardUpdate", {board})
-}
-
-const findBoard = async (boardId) => {
-    return Board.findOne({_id: boardId})
-}
-
-const findPlayer = async(board, playerSocketId)=>{
-    return board.players.find(player => player.socketId === playerSocketId)
-}
-
-const findPlayerIndex = async(board, playerSocketId)=>{
-    return board.players.findIndex(player => player.socketId === playerSocketId)
-}
-
-const findTile = async(board, tileId) => {
-    return board.tileData.find(tile => tile.tileId === tile.tileId)
-}
-
-const findTileIndex = async(board, tile) => {
-    return board.tileData.findIndex(tile => tile.tileId === tile.tileId)
-}

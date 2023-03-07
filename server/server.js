@@ -194,9 +194,9 @@ io.on('connection', async function (socket) {
 
         board.players.splice(currentPlayerIndex, 1, currentPlayer);
         board.tileData.splice(propertyInBoardIndex, 1, propertyInBoard)
-
         await board.save()
-        io.in(roomId).emit("boardUpdate", {board})
+
+        nextPlayer(board, roomId)
     })
 });
 
@@ -206,4 +206,17 @@ server.listen(port, () => {
 
 const rollDice = () => {
     return Math.floor(Math.random() * (6 - 1 + 1) + 1)
+}
+
+const nextPlayer = async (board, roomId) => {
+    let currentPlayerIndex = board.players.findIndex(player => player.socketId === board.currentPlayer.socketId)
+
+    let newIndex = (currentPlayerIndex + 1) % board.players.length
+    console.log(newIndex)
+
+    let newCurrentPlayer = board.players[newIndex]
+    console.log(newCurrentPlayer)
+    board.currentPlayer = newCurrentPlayer
+    await board.save()
+    io.in(roomId).emit("boardUpdate", {board})
 }

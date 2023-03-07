@@ -51,8 +51,8 @@ function App() {
     socket.emit("rollDice", {boardData})
   }
 
-  const buyProperty = (property) => {
-    socket.emit("wantsToBuyProperty", property)
+  const buyProperty = () => {
+    socket.emit("wantsToBuyProperty", propertyBuy)
     setPropertyBuy(null)
   }
 

@@ -177,7 +177,6 @@ io.on('connection', async function (socket) {
     socket.on("wantsToBuyProperty", async(property) => {
         let board = await Board.findOne({_id: roomId});
         let currentPlayer = board.players.find(player => player.socketId === socket.id)
-        console.log(currentPlayer)
         let currentPlayerIndex = board.players.findIndex(player => player.socketId === socket.id)
         let propertyInBoard = board.tileData.find(tile => tile.tileId === property.tileId)
         let propertyInBoardIndex = board.tileData.findIndex(tile => tile.tileId === property.tileId)

@@ -71,11 +71,16 @@ io.on('connection', async function (socket) {
         }
 
         const playerIndex = await findPlayerIndex(boardPlayerLeft, socket.id)
+        const playerLeft = await findPlayer(boardPlayerLeft, socket.id)
         boardPlayerLeft.players.splice(playerIndex,1)
 
         if(boardPlayerLeft.players.length >= 1){
-            boardPlayerLeft.save()
-            socket.to(roomId).emit("boardUpdate", {board: boardPlayerLeft})
+            if (boardPlayerLeft.currentPlayer.socketId === playerLeft.socketId){
+                nextPlayer(boardPlayerLeft, roomId)
+            } else{
+                boardPlayerLeft.save()
+                socket.to(roomId).emit("boardUpdate", {board: boardPlayerLeft})
+            }
             return 
         }
 

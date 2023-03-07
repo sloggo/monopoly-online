@@ -72,8 +72,7 @@ const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId) => 
     await board.players.splice(playerPayingIndex, 1, playerPaying)
     await board.players.splice(playerPaidIndex, 1, playerPaid)
 
-    await board.save()
-    io.in(roomId).emit("boardUpdate", {board})
+    await nextPlayer(board, roomId)
 }
 
 io.on('connection', async function (socket) {
@@ -262,7 +261,6 @@ io.on('connection', async function (socket) {
     socket.on("rentPaid", async(data) => {
         let board = await findBoard(roomId);
         payPlayer(board, data.thisPlayer.socketId, data.rentPay.owner, data.rentPay.price*0.1, roomId)
-        nextPlayer(board, roomId)
     })
 });
 

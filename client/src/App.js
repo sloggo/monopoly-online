@@ -58,13 +58,13 @@ function App() {
   }
 
   const declineBuy = () => {
-    socket.emit("declineBuy", boardData)
     setPropertyBuy(null)
+    socket.emit("declineBuy", boardData)
   }
 
   const payRent = () => {
-    socket.emit("rentPaid", {thisPlayer, rentPay})
     setRentPay(null)
+    socket.emit("rentPaid", {thisPlayer, rentPay})
   }
 
   useEffect(() => {

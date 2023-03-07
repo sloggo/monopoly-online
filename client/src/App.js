@@ -90,6 +90,7 @@ function App() {
       setCurrentTab("board")
     })
 
+    socket.off("buyProperty")
     socket.on("buyProperty", (data) => {
       let thisPlyr = data.board.players.find(player => player.socketId === socketID)
       setBoardData(data.board)

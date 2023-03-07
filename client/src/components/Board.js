@@ -62,6 +62,14 @@ export default function Board(props) {
                         }
                     })}
             </div>
+
+            <div>{boardData.players.map(player => {
+            return (<div>
+                <p>{player.username}</p>
+                <p>{player.money}</p>
+                <p>{player.currentTile.name}</p>
+            </div>)
+        })}</div>
         </div>}
     </AnimatePresence>
   );

@@ -5,9 +5,6 @@ const playerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    ownedTiles: {
-        type: Array,
-    },
     money: {
         type: Number,
         default: 1000,

@@ -186,12 +186,12 @@ io.on('connection', async function (socket) {
 
         currentPlayer.money = currentPlayer.money - property.price
         propertyInBoard.forSale = false
-        currentPlayer.ownedTiles.push(propertyInBoard)
+        propertyInBoard.owner = currentPlayer._id
+        currentPlayer.currentTile = propertyInBoard
 
         board.players.splice(currentPlayerIndex, 1, currentPlayer);
         board.tileData.splice(propertyInBoardIndex, 1, propertyInBoard)
 
-        console.log({...board})
         await board.save()
         io.in(roomId).emit("boardUpdate", {board})
     })

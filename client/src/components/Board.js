@@ -4,6 +4,7 @@ import boardDataFile from "./boardData.json"
 import PopUp from './PopUp'
 import { motion, AnimatePresence } from 'framer-motion'
 import diceSVG from '../assets/dice.svg'
+import PlayerInfo from './PlayerInfo'
 
 export default function Board(props) {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
@@ -44,7 +45,7 @@ export default function Board(props) {
         <PopUp payRent={props.payRent} propertyBuy={props.propertyBuy} declineBuy={props.declineBuy} buyProperty={props.buyProperty} rentPay={props.rentPay}></PopUp>
 
         {playerTurn ?
-        <motion.div className='dice-container' initial={{scale:0.8, rotate: -5}} animate={{scale:1, rotate:5}} transition={{duration:1, repeat: Infinity, repeatType:"reverse"}}>
+        <motion.div className='dice-container' initial={{scale:0.9, rotate: -3}} animate={{scale:0.9, rotate:3}} transition={{duration:1, repeat: Infinity, repeatType:"reverse"}}>
             <img src={diceSVG} width={100} onClick={props.rollDice}></img>
             <p>{diceRoll}</p>
         </motion.div>
@@ -66,12 +67,10 @@ export default function Board(props) {
                     })}
             </div>
 
-            <div>{boardData.players.map(player => {
-            return (<div>
-                <p>{player.username}</p>
-                <p>{player.money}</p>
-                <p>{player.currentTile.name}</p>
-            </div>)
+            <div className='players-container'>{boardData.players.map(player => {
+            return (
+                <PlayerInfo boardData={boardData}player={player} thisPlayer={props.thisPlayer} playerTurn={playerTurn}></PlayerInfo>
+            )
         })}</div>
         </div>}
     </AnimatePresence>

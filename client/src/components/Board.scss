@@ -31,11 +31,15 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 
 .boardtiles-container{
     display: grid;
-	grid-template-columns: 13vh repeat(9, calc(13vh*(80/125))) 13vh;
-	grid-template-rows: 13vh repeat(9, calc(13vh*(80/125))) 13vh;
+	grid-template-columns: 120fr repeat(9, 80fr) 120fr;
+	grid-template-rows: 120fr repeat(9, 80fr) 120fr;
+    aspect-ratio: 1/1;
 
     color: $font-colour-alt;
     z-index: 6;
+
+    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
 
 .board-container{
@@ -43,7 +47,8 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
     justify-content: center;
     gap: 5vw;
 
-    height: 60vh;
+    height: 100vh;
+    width: 100vw;
 }
 
 .dice-container{
@@ -58,7 +63,7 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 // square tiles
 
 .square{
-    width: 13vh;
+    width: 100%;
     aspect-ratio: 1/1;
     background: linear-gradient($background-colour-alt-hover, $background-colour-alt-hover) padding-box,
               $blob-colour border-box;
@@ -74,6 +79,8 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 .tile{
     border: $border;
     font-size: .5rem;
+    width: 100%;
+    height: 100%;
 
     display: grid;
     grid-template-rows: 1fr 4fr;
@@ -109,27 +116,27 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 }
 
 .top{
-    width: 80px;
-    height: 125px;
+    width: 100%;
+    height: 100%;
     
     rotate: 180deg;
 }
 
 .bottom{
-    width: 80px;
-    height: 125px;
+    width: 100%;
+    height: 100%;
 }
 
 .left{
-    width: 125px;
-    height: 80px;
+    width: 100%;
+    height: 100%;
 
     writing-mode: vertical-rl;
 }
 
 .right{
-    width: 125px;
-    height: 80px;
+    width: 100%;
+    height: 100%;
 
     writing-mode: vertical-rl;
     rotate: 180deg;
@@ -166,22 +173,9 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
     gap: 10px;
 }
 
-.player-info-container{
-    width: 262px;
-    height: 64px;
-
+.players-container{
+    align-self: center;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-}
-
-.player-info-container-image{
-    width: 300px;
-    height: 100%;
-    position: relative
-}
-
-.player-info-header{
-    font-weight: 500;
+    flex-direction: column;
+    gap: 2vh;
 }

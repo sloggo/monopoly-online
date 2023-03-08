@@ -75,6 +75,24 @@ const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId) => 
     await nextPlayer(board, roomId)
 }
 
+const getRentPrice = (property) => {
+    if(!property.houses){
+        return property.price*0.05
+    }
+
+    let noHouses = property.houses.length
+    switch (noHouses){
+        case 1:
+            return property.price*(1/8)
+        case 2:
+            return property.price*(1/6)
+        case 3:
+            return property.price*(1/4)
+        case noHouses >= 4:
+            return property.price*(1/2)
+    }
+}
+
 io.on('connection', async function (socket) {
     console.log(`New connection: ${socket.id}`);
     let roomId;
@@ -260,8 +278,10 @@ io.on('connection', async function (socket) {
 
     socket.on("rentPaid", async(data) => {
         let board = await findBoard(roomId);
-        payPlayer(board, data.thisPlayer.socketId, data.rentPay.owner, data.rentPay.price*0.1, roomId)
+        let toPay = getRentPrice(data.rentPay)
+        payPlayer(board, data.thisPlayer.socketId, data.rentPay.owner, toPay, roomId)
     })
+
 });
 
 server.listen(port, () => {

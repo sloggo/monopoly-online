@@ -93,6 +93,12 @@ const getRentPrice = (property) => {
     }
 }
 
+const getAllPropertiesOwned = async(board, playerSocketId) => {
+    let player = await findPlayer(board, playerSocketId)
+
+    return board.tileData.filter(tile => tile.owner === playerSocketId)
+}
+
 io.on('connection', async function (socket) {
     console.log(`New connection: ${socket.id}`);
     let roomId;
@@ -282,6 +288,13 @@ io.on('connection', async function (socket) {
         payPlayer(board, data.thisPlayer.socketId, data.rentPay.owner, toPay, roomId)
     })
 
+    socket.on("seeProperties", async(player) => {
+        let board = await findBoard(roomId);
+        let ownedTiles = await getAllPropertiesOwned(board, player.socketId);
+
+        socket.emit("ownedProperties", ownedTiles)
+        console.log(ownedTiles)
+    })
 });
 
 server.listen(port, () => {

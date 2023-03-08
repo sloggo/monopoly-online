@@ -45,7 +45,9 @@ export default function (props) {
             <h2>Your Properties</h2>
 
             <div className='popup-player-properties'>
-                {/* create function to get all properties a player owns from server*/}
+                {props.manageOpen.ownedProperties && props.manageOpen.ownedProperties.map(property => {
+                    return <p>{property.name}</p>
+                })}
             </div>
 
             <div className='option-buttons'>

@@ -70,7 +70,7 @@ function App() {
 
   const openManage = () => {
     if(!rentPay && !propertyBuy){
-      setManageOpen(thisPlayer)
+      socket.emit("seeProperties", thisPlayer)
       console.log("open")
     }
   }
@@ -131,6 +131,11 @@ function App() {
       setThisPlayer(thisPlyr)
       console.log("pay", data.property.price*0.1)
       setRentPay(data.property)
+    })
+
+    socket.off("ownedProperties")
+    socket.on("ownedProperties", (ownedProperties) => {
+      setManageOpen({thisPlayer, ownedProperties})
     })
 
   })

@@ -19,6 +19,7 @@ function App() {
   const [diceRoll, setDiceRoll] = useState(null)
   const [propertyBuy, setPropertyBuy] = useState(null)
   const [rentPay, setRentPay] = useState(null)
+  const [manageOpen, setManageOpen]= useState(false)
 
   const setOptionsTab = () =>{
     setCurrentTab("options")
@@ -65,6 +66,17 @@ function App() {
   const payRent = () => {
     setRentPay(null)
     socket.emit("rentPaid", {thisPlayer, rentPay})
+  }
+
+  const openManage = () => {
+    if(!rentPay && !propertyBuy){
+      setManageOpen(thisPlayer)
+      console.log("open")
+    }
+  }
+
+  const closeManage = () => {
+    setManageOpen(false)
   }
 
   useEffect(() => {
@@ -127,7 +139,7 @@ function App() {
     <div className="App">
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
-      <Board payRent={payRent} declineBuy={declineBuy} rentPay={rentPay} propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer}></Board>
+      <Board closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} rentPay={rentPay} propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></Board>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
     </div>
   );

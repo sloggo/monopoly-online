@@ -42,7 +42,7 @@ export default function Board(props) {
                 <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 200, y: mousePosition.y - 200}} transition={{ duration: .05, type: "tween" }}/>
             </div>
         
-        <PopUp payRent={props.payRent} propertyBuy={props.propertyBuy} declineBuy={props.declineBuy} buyProperty={props.buyProperty} rentPay={props.rentPay}></PopUp>
+        <PopUp closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} propertyBuy={props.propertyBuy} declineBuy={props.declineBuy} buyProperty={props.buyProperty} rentPay={props.rentPay}></PopUp>
 
         {playerTurn ?
         <motion.div className='dice-container' initial={{scale:0.9, rotate: -3}} animate={{scale:0.9, rotate:3}} transition={{duration:1, repeat: Infinity, repeatType:"reverse"}}>
@@ -69,7 +69,7 @@ export default function Board(props) {
 
             <div className='players-container'>{boardData.players.map(player => {
             return (
-                <PlayerInfo boardData={boardData}player={player} thisPlayer={props.thisPlayer} playerTurn={playerTurn}></PlayerInfo>
+                <PlayerInfo openManage={props.openManage} boardData={boardData}player={player} thisPlayer={props.thisPlayer} playerTurn={playerTurn}></PlayerInfo>
             )
         })}</div>
         </div>}

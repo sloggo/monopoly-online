@@ -13,7 +13,7 @@ export default function PlayerInfo(props) {
                     <p className='player-info-money'>{props.player.money}$</p>
                 </div>
 
-                {props.thisPlayer.socketId === props.player.socketId && <div className='player-info-manage'>Manage</div>}
+                {props.thisPlayer.socketId === props.player.socketId && <div className='player-info-manage' onClick={props.openManage}>Manage</div>}
             </div>
         </motion.div>
         :
@@ -25,7 +25,7 @@ export default function PlayerInfo(props) {
                     <p className='player-info-money'>{props.player.money}$</p>
                 </div>
 
-                {props.thisPlayer.socketId === props.player.socketId && <div className='player-info-manage'>Manage</div>}
+                {props.thisPlayer.socketId === props.player.socketId && <div className='player-info-manage' onClick={props.openManage}>Manage</div>}
             </div>
         </div>
         }

@@ -14,6 +14,7 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
     padding: 1vh 1vw;
     border-radius: 5px;
     overflow: visible;
+    z-index: 8;
 }
 
 .player-info-container.you{
@@ -61,7 +62,7 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
     transition: all .2s ease-in-out;
 
     color: white;
-    z-index: 8;
+    z-index: 10;
 }
 
 .player-info-manage:hover{

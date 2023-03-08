@@ -4,7 +4,7 @@ import './PopUp.scss'
 export default function (props) {
   return (
     <>
-    { (props.rentPay || props.propertyBuy) && <div className='popup-overlay'>
+    { (props.rentPay || props.propertyBuy || props.manageOpen) && <div className='popup-overlay'>
         {props.propertyBuy && <div className='popup-container'>
             <h2>Property for sale!</h2>
 
@@ -36,6 +36,20 @@ export default function (props) {
 
             <div className='option-buttons'>
                 <div className='option-button decline' onClick={props.payRent}>Pay Up!</div>
+            </div>
+        </div>
+        }
+
+        {props.manageOpen &&
+            <div className='popup-container'>
+            <h2>Your Properties</h2>
+
+            <div className='popup-player-properties'>
+                {/* create function to get all properties a player owns from server*/}
+            </div>
+
+            <div className='option-buttons'>
+                <div className='option-button decline bottom' onClick={props.closeManage}>Close</div>
             </div>
         </div>
         }

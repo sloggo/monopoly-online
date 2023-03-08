@@ -48,7 +48,7 @@ export default function (props) {
                 {props.manageOpen.ownedProperties && props.manageOpen.ownedProperties.map(property => {
                     return <div className='popup-player-property'>
                         <div className={'colour-strip '+property.colour}></div>
-                        <p>{property.name} - {property.houses ? property.houses+" houses": "0 houses"}</p>
+                        <p>{property.name} {property.colour ? (property.houses  ? property.houses+"- houses": "- 0 houses") : null}</p>
                     </div>
                 })}
             </div>

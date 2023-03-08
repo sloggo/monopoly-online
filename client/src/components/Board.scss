@@ -31,8 +31,8 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 
 .boardtiles-container{
     display: grid;
-	grid-template-columns: 15vh repeat(9, 8vh) 15vh;
-	grid-template-rows: 15vh repeat(9, 8vh) 15vh;
+	grid-template-columns: 13vh repeat(9, calc(13vh*(80/125))) 13vh;
+	grid-template-rows: 13vh repeat(9, calc(13vh*(80/125))) 13vh;
 
     color: $font-colour-alt;
     z-index: 6;
@@ -58,7 +58,7 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 // square tiles
 
 .square{
-    width: 15.5vh;
+    width: 13vh;
     aspect-ratio: 1/1;
     background: linear-gradient($background-colour-alt-hover, $background-colour-alt-hover) padding-box,
               $blob-colour border-box;

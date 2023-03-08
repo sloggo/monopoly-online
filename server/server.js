@@ -80,7 +80,7 @@ const getRentPrice = (property) => {
         return property.price*0.05
     }
 
-    let noHouses = property.houses.length
+    let noHouses = property.houses
     switch (noHouses){
         case 1:
             return property.price*(1/8)

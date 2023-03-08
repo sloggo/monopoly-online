@@ -31,19 +31,19 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 
 .boardtiles-container{
     display: grid;
-	grid-template-columns: 125px repeat(9, 80px) 125px;
-	grid-template-rows: 125px repeat(9, 80px) 125px;
+	grid-template-columns: 15vh repeat(9, 8vh) 15vh;
+	grid-template-rows: 15vh repeat(9, 8vh) 15vh;
 
     color: $font-colour-alt;
     z-index: 6;
 }
 
 .board-container{
-    margin-top: 3vh;
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 5vw;
+
+    height: 60vh;
 }
 
 .dice-container{
@@ -58,7 +58,7 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 // square tiles
 
 .square{
-    width: 125px;
+    width: 15.5vh;
     aspect-ratio: 1/1;
     background: linear-gradient($background-colour-alt-hover, $background-colour-alt-hover) padding-box,
               $blob-colour border-box;
@@ -73,7 +73,7 @@ $blob-colour: linear-gradient(45deg, rgb(195, 34, 34) 0%, rgb(253, 156, 45) 100%
 
 .tile{
     border: $border;
-    font-size: 12px;
+    font-size: .5rem;
 
     display: grid;
     grid-template-rows: 1fr 4fr;

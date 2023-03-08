@@ -1,3 +1,12 @@
+$red: rgba(255, 0, 0, 0.7);
+$yellow: rgba(255, 255, 0, 0.7);
+$orange: rgba(255, 166, 0, 0.7);
+$green: rgba(0, 128, 0, 0.7);
+$pink: rgba(255, 192, 203, 0.7);
+$blue: rgba(71, 71, 255, 0.7);
+$cyan: rgba(0, 255, 255, 0.7);
+$brown: rgba(165, 42, 42, 0.7);
+
 $background-colour: rgb(20, 20, 20);
 $background-colour-alt: rgb(44, 44, 44);
 $background-colour-alt-hover: rgb(61, 61, 61);
@@ -103,4 +112,25 @@ $blob-colour2: linear-gradient(45deg, rgb(34, 195, 101) 0%, rgb(45, 253, 184) 10
 
 .option-button:active{
     transform: scale(0.99);
+}
+
+.red{ background-color: $red;}
+.yellow{ background-color: $yellow;}
+.orange{ background-color: $orange;}
+.green{ background-color: $green;}
+.pink{ background-color: $pink;}
+.blue{ background-color: $blue;}
+.cyan{ background-color: $cyan;}
+.brown{ background-color: $brown;}
+
+.popup-player-property{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.colour-strip{
+    height: 20px;
+    width: 7px;
 }

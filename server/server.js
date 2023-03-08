@@ -141,7 +141,7 @@ io.on('connection', async function (socket) {
 
         newBoard.players.push(newPlayer)
         newBoard.currentPlayer = newPlayer
-        newBoard.numPlayers = 2
+        newBoard.numPlayers = 8
         newBoard.save()
 
         socket.join(String(newBoard._id))
@@ -240,7 +240,7 @@ io.on('connection', async function (socket) {
         await board.save()
         io.to(roomId).emit("boardUpdate", {board, diceRoll})
 
-        if(currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner){
+        if(currentPlayer.currentTile.forSale && (currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner)){
             socket.emit("buyProperty", {property:currentPlayer.currentTile, board})
             return
         } else if(currentPlayer.currentTile.owner && (currentPlayer.currentTile.owner !== currentPlayer.socketId)){
@@ -293,7 +293,6 @@ io.on('connection', async function (socket) {
         let ownedTiles = await getAllPropertiesOwned(board, player.socketId);
 
         socket.emit("ownedProperties", ownedTiles)
-        console.log(ownedTiles)
     })
 });
 

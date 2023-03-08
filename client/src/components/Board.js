@@ -58,11 +58,11 @@ export default function Board(props) {
             <div className='boardtiles-container' onMouseMove={changeMousePos}>
                     {boardData && boardData.tileData.map((tile, tileRowIndex) => {
                         if(tile.tileId === null){ // if it is a center piece
-                            return <Center key={tileRowIndex}></Center>
+                            return <Center key={tileRowIndex} players={boardData.players}></Center>
                         } else if(tile.type === "tile"){
-                            return <Tile tile={tile} key={tileRowIndex}/>
+                            return <Tile tile={tile} key={tileRowIndex} players={boardData.players}/>
                         } else if(tile.type === "square"){
-                            return <Square tile={tile} key={tileRowIndex}/>
+                            return <Square tile={tile} key={tileRowIndex} players={boardData.players}/>
                         }
                     })}
             </div>
@@ -80,6 +80,11 @@ export default function Board(props) {
     function Square(props) {
       return (
         <div className='square'>{props.tile.name}
+            <div className='players-holder'>
+                {props.players.filter(player => player.currentTile.tileId === props.tile.tileId).map(player =>{
+                    return <div className='player-object'>{player.username}</div>
+                })} 
+            </div>
         </div>
       );
     }
@@ -94,6 +99,12 @@ export default function Board(props) {
                     <div className='name-info'>
                         <p className='bold-text'>{props.tile.name}</p>
                         {props.tile.price ? <p>{props.tile.price}$</p> : null}
+                    </div>
+
+                    <div className='players-holder'>
+                        {props.players.filter(player => player.currentTile.tileId === props.tile.tileId).map(player =>{
+                            return <div className='player-object'>{player.username}</div>
+                        })} 
                     </div>
                 </div>
             }

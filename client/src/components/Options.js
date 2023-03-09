@@ -49,7 +49,9 @@ export default function Options(props) {
             <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 200, y: mousePosition.y - 200}} transition={{ duration: .05, type: "tween" }}/>
         </div>
 
-        {games}
+        {games.map(game => {
+          return <p>{game._id}</p>
+        })}
 
         <h2 className='options-header'>Let's get straight into a game!</h2>
 

@@ -50,7 +50,7 @@ export default function Options(props) {
         </div>
 
         {games.map(game => {
-          return <p>{game._id}</p>
+          return <p>{game._id} {game.players.map(player => <p>{player.username}</p>)}</p>
         })}
 
         <h2 className='options-header'>Let's get straight into a game!</h2>

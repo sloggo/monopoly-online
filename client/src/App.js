@@ -1,14 +1,10 @@
 import './App.css';
 import Board from './components/Board';
 import { useEffect, useState } from 'react';
-import Home from "./components/Menus/Home"
-import Options from './components/Menus/Options'
+import Home from "./components/Home"
+import Options from './components/Options'
 import io from "socket.io-client";
 import WaitingRoom from './components/WaitingRoom';
-import Account from './components/Menus/Account';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-
 
 const socket = io.connect("http://localhost:3001")
 
@@ -17,7 +13,6 @@ function App() {
   const [currentTab, setCurrentTab] = useState("home")
   // network states
   const [thisPlayer, setThisPlayer] = useState(null)
-  const [account, setAccount] = useState(null)
   const [boardData, setBoardData] = useState(null)
   const [socketID, setSocketID] = useState(null)
 
@@ -52,14 +47,6 @@ function App() {
   
   const startGame = () => {
     socket.emit("startGame", {boardData})
-  }
-
-  const clickAccount = () => {
-    setCurrentTab("account")
-  }
-
-  const setAccountState = (state) => {
-    setAccount(state)
   }
 
   const rollDice = () => {
@@ -108,7 +95,6 @@ function App() {
 
     socket.on("error", (msg) => {
       console.error(msg)
-      setCurrentTab("home")
     })
 
     socket.on("boardUpdate", (data) =>{
@@ -156,15 +142,10 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home clickAccount={clickAccount} setOptionsTab={setOptionsTab}></Home>}/>
-          <Route path='/games' element={<Options createRoom={createRoom} joinRoom={joinRoom} ></Options>}/>
-          <Route path='/playing' element={<Board closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} rentPay={rentPay} propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></Board>}/>
-          <Route path='/waitingroom' element={<WaitingRoom startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>}/>
-          <Route path='/account' element={<Account setAccount={setAccountState} account={account}></Account>}/>
-        </Routes>
-      </BrowserRouter>
+      <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
+      <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
+      <Board closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} rentPay={rentPay} propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></Board>
+      <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
     </div>
   );
 }

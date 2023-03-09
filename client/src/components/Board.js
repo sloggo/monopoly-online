@@ -37,7 +37,7 @@ export default function Board(props) {
 
   return (
     <AnimatePresence>
-        <div className='board-container'>
+        {visible && <div className='board-container'>
             <div className='ball-blur' onMouseMove={changeMousePos}>
                 <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 200, y: mousePosition.y - 200}} transition={{ duration: .05, type: "tween" }}/>
             </div>
@@ -72,7 +72,7 @@ export default function Board(props) {
                 <PlayerInfo openManage={props.openManage} boardData={boardData}player={player} thisPlayer={props.thisPlayer} playerTurn={playerTurn}></PlayerInfo>
             )
         })}</div>
-        </div>
+        </div>}
     </AnimatePresence>
   );
 }

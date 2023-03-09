@@ -3,8 +3,10 @@ import axios from 'axios'
 
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion"
+import { useNavigation } from 'react-router-dom'
 
 export default function Options(props) {
+    const navigate = useNavigation();
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
     const [visible, setVisible] = useState(props.visible)
     const [codeInput, setCodeInput] = useState(null)
@@ -29,6 +31,7 @@ export default function Options(props) {
     },[])
       
     const enterGameCode = (codeInput) => {
+        navigate("/waitingroom")
         props.joinRoom(codeInput)
     }
 
@@ -42,22 +45,27 @@ export default function Options(props) {
       }
     }
 
+    const clickCreate = () => {
+      navigate("/waitingroom")
+      props.createRoom()
+    }
+
   return (
     <AnimatePresence>
-      { visible && <motion.div className='home-container' onMouseMove={(ev) => changeMousePos(ev)} transition={{duration:1}} initial={{ y:-3000 }} animate={{ y:-0 }} exit={{ y:2000 }}>
+       <motion.div className='home-container' onMouseMove={(ev) => changeMousePos(ev)} transition={{duration:1}} initial={{ y:-3000 }} animate={{ y:-0 }} exit={{ y:2000 }}>
         <div className='ball-blur'>
             <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 200, y: mousePosition.y - 200}} transition={{ duration: .05, type: "tween" }}/>
         </div>
 
-        {games.map(game => {
+        {games && games.map(game => {
           return <p style={{zIndex: 15}}onClick={(e) => enterGameCode(game._id)}>{game._id} {game.players.map(player => <p>{player.username}</p>)}</p>
         })}
 
         <h2 className='options-header'>Let's get straight into a game!</h2>
 
         <input className='start-playing' placeholder='Enter a Game Code!' onChange={updateCodeInput} onKeyDown={keyDownHandle}></input>
-        <div className='start-playing create' onClick={props.createRoom}>Create a Room</div>
-      </motion.div>}
+        <div className='start-playing create' onClick={clickCreate}>Create a Room</div>
+      </motion.div>
     </AnimatePresence>
   )
 }

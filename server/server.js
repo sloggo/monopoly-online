@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose")
 const app = express();
 const http = require("http");
 const {Server} = require("socket.io");
@@ -8,7 +7,9 @@ const port = 3001
 const {Player} = require("./models/player")
 const {Board} = require("./models/board");
 const { ObjectId } = require("mongodb");
-let db;
+const db = require("./models/mongodb")
+
+const gamesRoute = require("./routes/games")
 
 app.use(cors());
 const server = http.createServer(app);
@@ -20,8 +21,7 @@ const io = new Server(server, {
     },
 });
 
-const uri = "mongodb+srv://sloggo:admin@monopolyonline.pj4zqbf.mongodb.net/?"
-const mongoDB = mongoose.connect(uri)
+app.use("/games", gamesRoute)
 
 const rollDice = () => {
     return Math.floor(Math.random() * (6 - 1 + 1) + 1)
@@ -240,7 +240,7 @@ io.on('connection', async function (socket) {
         await board.save()
         io.to(roomId).emit("boardUpdate", {board, diceRoll})
 
-        if(currentPlayer.currentTile.forSale && (currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner)){
+        if(currentPlayer.currentTile && (currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner)){
             socket.emit("buyProperty", {property:currentPlayer.currentTile, board})
             return
         } else if(currentPlayer.currentTile.owner && (currentPlayer.currentTile.owner !== currentPlayer.socketId)){

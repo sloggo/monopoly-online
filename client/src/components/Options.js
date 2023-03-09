@@ -1,4 +1,5 @@
 import './Options.scss'
+import axios from 'axios'
 
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion"
@@ -7,6 +8,7 @@ export default function Options(props) {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0})
     const [visible, setVisible] = useState(props.visible)
     const [codeInput, setCodeInput] = useState(null)
+    const [games, setGames] = useState(null)
 
     const changeMousePos = (ev) => {
         setMousePosition({x: ev.pageX, y: ev.pageY})
@@ -15,6 +17,16 @@ export default function Options(props) {
     useEffect(() =>{
         setVisible(props.visible)
       }, [props])
+
+    useEffect(() => {
+      async function fetchGames(){
+        return await axios.get("http://localhost:3001/games").then((res) => {
+          setGames(res.data)
+        })
+      }
+
+      fetchGames()
+    },[])
       
     const enterGameCode = (codeInput) => {
         props.joinRoom(codeInput)
@@ -36,6 +48,8 @@ export default function Options(props) {
         <div className='ball-blur'>
             <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 200, y: mousePosition.y - 200}} transition={{ duration: .05, type: "tween" }}/>
         </div>
+
+        {games}
 
         <h2 className='options-header'>Let's get straight into a game!</h2>
 

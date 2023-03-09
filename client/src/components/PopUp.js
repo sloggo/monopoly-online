@@ -32,7 +32,7 @@ export default function (props) {
 
             <p>Owned by - {props.rentPay.owner}</p>
 
-            <p className='property-price'>{props.rentPay.price * 0.1}$</p>
+            <p className='property-price'>{props.rentPay.price * 0.05}$</p>
 
             <div className='option-buttons'>
                 <div className='option-button decline' onClick={props.payRent}>Pay Up!</div>

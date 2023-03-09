@@ -6,7 +6,7 @@ const db = require("../models/mongodb")
 
 router
     .get("/", async(req, res) => {
-        let games = await Board.find({joinable: true})
+        let games = await Board.find({joinable: true, public: true})
         res.send(games)
     })
 

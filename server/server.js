@@ -57,20 +57,23 @@ const findTile = async(board, tileId) => {
 const findTileIndex = async(board, tileInput) => {
     return board.tileData.findIndex(tile => tile.tileId === tileInput.tileId)
 }
-
 const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId) => {
     let playerPaying = await findPlayer(board, playerPayingID);
     let playerPayingIndex = await findPlayerIndex(board, playerPayingID);
 
-    let playerPaid = await findPlayer(board, playerPaidID)
-    let playerPaidIndex = await findPlayerIndex(board, playerPaidID)
+    let playerPaid;
+    let playerPaidIndex;
+
+    if(playerPaidID){
+        playerPaid = await findPlayer(board, playerPaidID)
+        playerPaidIndex = await findPlayerIndex(board, playerPaidID)
+        playerPaid.money = playerPaid.money + amount
+        await board.players.splice(playerPaidIndex, 1, playerPaid)
+    }
 
     playerPaying.money = playerPaying.money - amount
-    playerPaid.money = playerPaid.money + amount
-
     board.currentPlayer = playerPaying
     await board.players.splice(playerPayingIndex, 1, playerPaying)
-    await board.players.splice(playerPaidIndex, 1, playerPaid)
 
     await nextPlayer(board, roomId)
 }
@@ -78,6 +81,10 @@ const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId) => 
 const getRentPrice = (property) => {
     if(!property.houses){
         return property.price*0.05
+    }
+
+    if(property.tileId === 4 || property.tileId === 38){
+        return property.price
     }
 
     let noHouses = property.houses
@@ -98,6 +105,7 @@ const getAllPropertiesOwned = async(board, playerSocketId) => {
 
     return board.tileData.filter(tile => tile.owner === playerSocketId)
 }
+
 
 io.on('connection', async function (socket) {
     console.log(`New connection: ${socket.id}`);
@@ -240,11 +248,18 @@ io.on('connection', async function (socket) {
         await board.save()
         io.to(roomId).emit("boardUpdate", {board, diceRoll})
 
+        if(currentPlayer.currentTile.tileId === 4 || currentPlayer.currentTile.tileId === 38){
+            let price = await getRentPrice(currentPlayer.currentTile)
+            socket.emit("payRent", {board, property:currentPlayer.currentTile, price})
+            return
+        }    
+
         if(currentPlayer.currentTile && (currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner)){
             socket.emit("buyProperty", {property:currentPlayer.currentTile, board})
             return
-        } else if(currentPlayer.currentTile.owner && (currentPlayer.currentTile.owner !== currentPlayer.socketId)){
-            socket.emit("payRent", {board, property:currentPlayer.currentTile})
+        } else if(currentPlayer.currentTile && currentPlayer.currentTile.owner && (currentPlayer.currentTile.owner !== currentPlayer.socketId)){
+            let price = await getRentPrice(currentPlayer.currentTile)
+            socket.emit("payRent", {board, property:currentPlayer.currentTile, price})
             return
         }
 

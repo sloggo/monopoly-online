@@ -64,8 +64,10 @@ function App() {
   }
 
   const payRent = () => {
+    if(!rentPay.property) return 
+    let prop = rentPay.property
+    socket.emit("rentPaid", {thisPlayer, rentPay: prop})
     setRentPay(null)
-    socket.emit("rentPaid", {thisPlayer, rentPay})
   }
 
   const openManage = () => {
@@ -130,7 +132,7 @@ function App() {
       setBoardData(data.board)
       setThisPlayer(thisPlyr)
       console.log("pay", data.property.price*0.1)
-      setRentPay(data.property)
+      setRentPay({property: data.property, price: data.price})
     })
 
     socket.off("ownedProperties")

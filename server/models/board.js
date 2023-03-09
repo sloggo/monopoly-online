@@ -20,6 +20,10 @@ const boardSchema = new mongoose.Schema({
     joinable: {
         type: Boolean,
         default: true,
+    },
+    public: {
+        type: Boolean,
+        default: true,
     }
 })
 

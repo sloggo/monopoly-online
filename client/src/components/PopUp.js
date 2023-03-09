@@ -26,13 +26,13 @@ export default function (props) {
             <h2>Rent is due!</h2>
 
             <div className='property-info'>
-                <div className='property-dot-colour' style={{backgroundColor: props.buyProperty.color}}></div>
-                <h3>{props.rentPay.name}</h3>
+            <div className={'colour-strip '+props.rentPay.property.colour}></div>
+                <h3>{props.rentPay.property.name}</h3>
             </div>
 
-            <p>Owned by - {props.rentPay.owner}</p>
+            <p>Owned by - {props.rentPay.property.owner}</p>
 
-            <p className='property-price'>{props.rentPay.price * 0.05}$</p>
+            <p className='property-price'>{props.rentPay.price}$</p>
 
             <div className='option-buttons'>
                 <div className='option-button decline' onClick={props.payRent}>Pay Up!</div>

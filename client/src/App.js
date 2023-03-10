@@ -5,6 +5,7 @@ import Home from "./components/Home"
 import Options from './components/Options'
 import io from "socket.io-client";
 import WaitingRoom from './components/WaitingRoom';
+import BoardAlt from './components/BoardAlt';
 
 const socket = io.connect("http://localhost:3001")
 
@@ -144,10 +145,11 @@ function App() {
 
   return (
     <div className="App">
-      <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
+      {/*<Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
       <Board closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} rentPay={rentPay} propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></Board>
-      <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
+      <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>*/}
+    <BoardAlt></BoardAlt>
     </div>
   );
 }

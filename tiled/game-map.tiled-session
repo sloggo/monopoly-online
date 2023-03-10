@@ -1,0 +1,56 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "exportAsImage.useCurrentScale": true,
+    "fileStates": {
+        "Grass.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
+        "TX Plant.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "TX Props.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "TX Shadow Plant.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "TX Struct.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "TX Tileset Stone Ground.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Wall.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/switc/Downloads/Texture",
+    "map.tileHeight": 256,
+    "map.tileWidth": 256,
+    "openFiles": [
+    ],
+    "project": "game-map.tiled-project",
+    "recentFiles": [
+        "Grass.tsx",
+        "TX Struct.tsx",
+        "TX Shadow Plant.tsx",
+        "TX Props.tsx",
+        "TX Plant.tsx",
+        "TX Tileset Stone Ground.tsx",
+        "Wall.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

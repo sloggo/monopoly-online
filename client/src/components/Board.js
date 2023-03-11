@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import "./Board.scss"
-import boardDataFile from "./boardData.json"
 import PopUp from './PopUp'
 import { motion, AnimatePresence } from 'framer-motion'
 import diceSVG from '../assets/dice.svg'

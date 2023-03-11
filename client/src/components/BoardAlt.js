@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react'
 import mapPng from '../assets/map.png'
 import playerPng from '../assets/TX Player.png'
-import boardDatas from './boardData.json'
 import './BoardAlt.scss'
+import diceSVG from '../assets/dice.svg'
 let c;
 
-export default function BoardAlt() {
+export default function BoardAlt(props) {
+    //gameworld states
     const canvasRef = useRef(null)
     const [background, setBackground] = useState({
         image: mapPng,
@@ -13,38 +14,34 @@ export default function BoardAlt() {
             x:-576,
             y:-420
         },
-        tileSize: 32*2 //1.5 zoom
+        tileSize: 32*2 //2x zoom
     })
-    const [boardData, setBoardData] = useState(boardDatas)
     const [playerSprite, setPlayerSprite] = useState({
         image: playerPng
     })
     const [moving, setMoving] = useState(false)
 
-    const [players, setPlayers]=useState([
-        {
-            id:0,
-            position:{
-                x:2,
-                y:1
-            },
-            active: true
-        },
-        {
-            id:1,
-            position:{
-                x:24,
-                y:10
-            }
-        },
-        {
-            id:2,
-            position:{
-                x:18,
-                y:5
-            }
+    //network states
+    const [visible, setVisible] = useState(props.visible)
+    const [boardData, setBoardData] = useState(props.boardData)
+    const [playerTurn, setPlayerTurn] = useState(false)
+    const [socketID, setSocketID] = useState(props.socketID)
+    const [diceRoll, setDiceRoll] = useState(props.diceRoll)
+
+    useEffect(() => {
+        setVisible(props.visible)
+        setBoardData(props.boardData)
+        setDiceRoll(props.diceRoll)
+        setSocketID(props.socketID)
+    }, [props])
+
+    useEffect(()=>{
+        if(boardData && boardData.currentPlayer.socketId === socketID){
+            setPlayerTurn(true)
+        } else{
+            setPlayerTurn(false)
         }
-    ])
+    }, [boardData])
 
     function getPositionFrom(active, relative){
         let xDifference = active.position.x - relative.position.x
@@ -70,11 +67,10 @@ export default function BoardAlt() {
         const playerImage = new Image()
         playerImage.src = playerSprite.image
 
-        const activePlayer = players.find(plyr => plyr.active)
-
+        const activePlayer = boardData.players.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
         c.drawImage(image, (-(activePlayer.position.x)*background.tileSize)-background.offset.x, (-(activePlayer.position.y)*background.tileSize-background.offset.y))
 
-        players.forEach(plyr=> {
+        boardData.players.forEach(plyr=> {
             if(plyr.active){
                 c.drawImage(
                     playerImage,
@@ -88,8 +84,8 @@ export default function BoardAlt() {
                     playerImage.height*2,
                 )
             } else{
-                let newPositionRelative = getPositionFrom(players.find(item => item.active), plyr)
-                let noPeopleOnTile = players.filter(plyr => plyr.position.x === plyr.position.x && plyr.position.y === plyr.position.y).length
+                let newPositionRelative = getPositionFrom(activePlayer, plyr)
+                let noPeopleOnTile = boardData.players.filter(plyr => plyr.position.x === plyr.position.x && plyr.position.y === plyr.position.y).length
 
                 c.drawImage(
                     playerImage,
@@ -109,53 +105,52 @@ export default function BoardAlt() {
     }
 
     function handleUserKey(e){
-        let newPlayers = [...players]
-        let activePlayer = newPlayers.find(plyr => plyr.active)
+        let newBoard = {...boardData}
+        let newPlayers = [...newBoard.players]
+        let activePlayer = newPlayers.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
         let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.id === activePlayer.id)
 
         if(e.key === 'w'){
             console.log('w')
             activePlayer.position.y -= 1
             newPlayers.splice(activePlayerIndex, 1, activePlayer)
-            setPlayers(newPlayers)
         }
 
         if(e.key === 's'){
             console.log('s')
             activePlayer.position.y += 1
             newPlayers.splice(activePlayerIndex, 1, activePlayer)
-            setPlayers(newPlayers)
         }
 
         if(e.key === 'a'){
             console.log('a')
             activePlayer.position.x -= 1
             newPlayers.splice(activePlayerIndex, 1, activePlayer)
-            setPlayers(newPlayers)
         }
 
         if(e.key === 'd'){
             console.log('d')
             activePlayer.position.x += 1
             newPlayers.splice(activePlayerIndex, 1, activePlayer)
-            setPlayers(newPlayers)
         }
+
+        newBoard.players = newPlayers
+        setBoardData(newBoard)
     }
 
     useEffect(() => {
         c = canvasRef.current.getContext('2d')
         window.addEventListener("keydown", handleUserKey)
         window.requestAnimationFrame(render)
-        let tile0 = boardData.find(tile => tile.tileId === 0)
-        goTo(tile0.mapPosition.x, tile0.mapPosition.y)
     }, [])
 
     function goTo(x, y){
         setMoving(true)
         setTimeout(() => {
-            let newPlayers = [...players]
-            let activePlayer = newPlayers.find(plyr => plyr.active)
-            let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.id === activePlayer.id)
+            let newBoard = {...boardData}
+            let newPlayers = [...newBoard.players]
+            let activePlayer = newPlayers.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
+            let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.socketId === activePlayer.socketId)
 
             console.log("goto", x, y)
 
@@ -163,35 +158,39 @@ export default function BoardAlt() {
 
                 activePlayer.position.x -= .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
-                setPlayers(newPlayers)
                 goTo(x,y)
             } else if(activePlayer.position.x !== x && activePlayer.position.x < x){
 
                 activePlayer.position.x += .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
-                setPlayers(newPlayers)
                 goTo(x,y)
             } else if(activePlayer.position.y !== y && activePlayer.position.y > y){
 
                 activePlayer.position.y -= .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
-                setPlayers(newPlayers)
                 goTo(x,y)
             } else if(activePlayer.position.y !== y && activePlayer.position.y < y){
 
                 activePlayer.position.y += .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
-                setPlayers(newPlayers)
                 goTo(x,y)
             } else{
                 setMoving(false)
             }
+
+            newBoard.players = newPlayers
+            setBoardData(newBoard)
         }, 100)
+    }
+
+    function clickDice(){
+        goTo(0,0)
     }
 
   return (
     <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', height: '100vh'}}>
         <canvas ref={canvasRef} style={{border: "10px solid white"}}/>
+        {playerTurn && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
     </div>
   )
 }

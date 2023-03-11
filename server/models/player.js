@@ -30,6 +30,13 @@ const playerSchema = new mongoose.Schema({
             "price": 200
         },
     },
+    position: {
+        type: Object,
+        default: {
+            "x": 26,
+            "y": 5
+        }
+    }
 })
 
 module.exports = {playerSchema}

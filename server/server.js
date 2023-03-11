@@ -230,7 +230,6 @@ io.on('connection', async function (socket) {
     socket.on("rollDice", async(data) => {
         let board = await findBoard(roomId);
         let currentPlayer = await findPlayer(board, board.currentPlayer.socketId)
-
         if(!(socket.id === currentPlayer.socketId)){
             socket.emit("error", "Not your turn!")
             return
@@ -248,7 +247,7 @@ io.on('connection', async function (socket) {
         await board.save()
         io.to(roomId).emit("boardUpdate", {board, diceRoll})
 
-        if(currentPlayer.newTile.tileId === 4 || currentPlayer.newTile.tileId === 38){
+        if(newTile.tileId === 4 || newTile.tileId === 38){
             let price = await getRentPrice(currentPlayer.currentTile)
             socket.emit("payRent", {board, property:currentPlayer.currentTile, price})
             return

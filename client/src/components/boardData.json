@@ -408,8 +408,8 @@
             "special": true,
             "price": 200,
             "mapPosition": {
-                "x": 26,
-                "y": 5
+                "x": 23,
+                "y": 15
             }
         }
 ]

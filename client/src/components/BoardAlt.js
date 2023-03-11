@@ -19,13 +19,14 @@ export default function BoardAlt() {
     const [playerSprite, setPlayerSprite] = useState({
         image: playerPng
     })
+    const [moving, setMoving] = useState(false)
 
     const [players, setPlayers]=useState([
         {
             id:0,
             position:{
-                x:22,
-                y:11
+                x:2,
+                y:1
             },
             active: true
         },
@@ -34,6 +35,13 @@ export default function BoardAlt() {
             position:{
                 x:24,
                 y:10
+            }
+        },
+        {
+            id:2,
+            position:{
+                x:18,
+                y:5
             }
         }
     ])
@@ -80,15 +88,17 @@ export default function BoardAlt() {
                     playerImage.height*2,
                 )
             } else{
-                let newPosition = getPositionFrom(players.find(item => item.active), plyr)
+                let newPositionRelative = getPositionFrom(players.find(item => item.active), plyr)
+                let noPeopleOnTile = players.filter(plyr => plyr.position.x === plyr.position.x && plyr.position.y === plyr.position.y).length
+
                 c.drawImage(
                     playerImage,
                     0,
                     0,
                     playerImage.width/4,
                     playerImage.height,
-                    canvas.width/2 - newPosition.x,
-                    canvas.height/2 - newPosition.y,
+                    canvas.width/2 - newPositionRelative.x,
+                    canvas.height/2 - newPositionRelative.y,
                     playerImage.width/4*2,
                     playerImage.height*2,
             )
@@ -99,33 +109,36 @@ export default function BoardAlt() {
     }
 
     function handleUserKey(e){
-        const activePlayer = players.find(plyr => plyr.active)
+        let newPlayers = [...players]
+        let activePlayer = newPlayers.find(plyr => plyr.active)
+        let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.id === activePlayer.id)
+
         if(e.key === 'w'){
             console.log('w')
-            let newBackground = {...background}
-            newBackground.position.y -= 1
-            setBackground(newBackground)
+            activePlayer.position.y -= 1
+            newPlayers.splice(activePlayerIndex, 1, activePlayer)
+            setPlayers(newPlayers)
         }
 
         if(e.key === 's'){
             console.log('s')
-            let newBackground = {...background}
-            newBackground.position.y += 1
-            setBackground(newBackground)
+            activePlayer.position.y += 1
+            newPlayers.splice(activePlayerIndex, 1, activePlayer)
+            setPlayers(newPlayers)
         }
 
         if(e.key === 'a'){
             console.log('a')
-            let newBackground = {...background}
-            newBackground.position.x -= 1
-            setBackground(newBackground)
+            activePlayer.position.x -= 1
+            newPlayers.splice(activePlayerIndex, 1, activePlayer)
+            setPlayers(newPlayers)
         }
 
         if(e.key === 'd'){
             console.log('d')
-            let newBackground = {...background}
-            newBackground.position.x += 1
-            setBackground(newBackground)
+            activePlayer.position.x += 1
+            newPlayers.splice(activePlayerIndex, 1, activePlayer)
+            setPlayers(newPlayers)
         }
     }
 
@@ -138,6 +151,7 @@ export default function BoardAlt() {
     }, [])
 
     function goTo(x, y){
+        setMoving(true)
         setTimeout(() => {
             let newPlayers = [...players]
             let activePlayer = newPlayers.find(plyr => plyr.active)
@@ -169,6 +183,8 @@ export default function BoardAlt() {
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
                 setPlayers(newPlayers)
                 goTo(x,y)
+            } else{
+                setMoving(false)
             }
         }, 100)
     }

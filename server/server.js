@@ -242,8 +242,19 @@ io.on('connection', async function (socket) {
         const newTileId = currentPlayer.currentTile.tileId + diceRoll;
         const newTile = await findTile(board, newTileId)
         currentPlayer.currentTile = newTile;
+        currentPlayer.position = {
+            x: newTile.mapPosition.x,
+            y: newTile.mapPosition.y
+        }
+
+        console.log(currentPlayer)
 
         board.players.splice(currentPlayerIndex, 1, currentPlayer);
+        board.currentPlayer.currentTile = newTile
+        board.currentPlayer.position = {
+            x: newTile.mapPosition.x,
+            y: newTile.mapPosition.y
+        }
         await board.save()
         io.to(roomId).emit("boardUpdate", {board, diceRoll})
 

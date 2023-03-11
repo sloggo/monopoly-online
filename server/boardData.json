@@ -343,7 +343,11 @@
             "orientation": "bottom",
             "colour": null,
             "name": "Chance",
-            "special": true
+            "special": true,
+            "mapPosition": {
+                "x": 21,
+                "y": 11
+            }
         },
         {
             "tileId": 6,
@@ -353,7 +357,11 @@
             "name": "Rathgar",
             "special": false,
             "forSale": true,
-            "price": 100
+            "price": 100,
+            "mapPosition": {
+                "x": 22,
+                "y": 11
+            }
         },
         {
             "tileId": 5,
@@ -363,7 +371,11 @@
             "name": "Busarus",
             "special": false,
             "forSale": true,
-            "price": 200
+            "price": 200,
+            "mapPosition": {
+                "x": 23,
+                "y": 13
+            }
         },
         {
             "tileId": 4,
@@ -372,7 +384,11 @@
             "colour": null,
             "name": "Income Tax",
             "special": false,
-            "price": 200
+            "price": 200,
+            "mapPosition": {
+                "x": 4,
+                "y": 10
+            }
         },{
             "tileId": 3,
             "type": "tile",
@@ -381,7 +397,11 @@
             "name": "Kimmage",
             "special": false,
             "forSale": true,
-            "price": 60
+            "price": 60,
+            "mapPosition": {
+                "x": 9,
+                "y": 1
+            }
         },
         {
             "tileId": 2,
@@ -389,7 +409,11 @@
             "orientation": "bottom",
             "colour": null,
             "name": "Community Chest",
-            "special": true
+            "special": true,
+            "mapPosition": {
+                "x": 8,
+                "y": 3
+            }
         },{
             "tileId": 1,
             "type": "tile",
@@ -398,7 +422,11 @@
             "name": "Crumlin",
             "special": false,
             "forSale": true,
-            "price": 60
+            "price": 60,
+            "mapPosition": {
+                "x":7,
+                "y": 6
+            }
         },
         {
             "tileId": 0,

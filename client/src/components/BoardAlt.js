@@ -23,32 +23,35 @@ export default function BoardAlt(props) {
 
     //network states
     const [visible, setVisible] = useState(props.visible)
+    const [boardDataLive, setBoardDataLive] = useState(props.boardData)
     const [boardData, setBoardData] = useState(props.boardData)
+    const [live, setLive] = useState(true)
     const [playerTurn, setPlayerTurn] = useState(false)
     const [socketID, setSocketID] = useState(props.socketID)
     const [diceRoll, setDiceRoll] = useState(props.diceRoll)
 
     useEffect(() => {
         setVisible(props.visible)
-        setBoardData(props.boardData)
+        setBoardDataLive(props.boardData)
         setDiceRoll(props.diceRoll)
         setSocketID(props.socketID)
     }, [props])
 
     useEffect(()=>{
-        if(boardData && boardData.currentPlayer.socketId === socketID){
+        setLive(false)
+        if(boardDataLive && boardDataLive.currentPlayer.socketId === socketID){
             setPlayerTurn(true)
         } else{
             setPlayerTurn(false)
         }
-    }, [boardData])
+        const activePlayer = boardDataLive.currentPlayer.currentTile.tileId
+        const tile = boardDataLive.tileData.find(tile => tile.tileId === activePlayer)
+        goTo(tile.mapPosition.x, tile.mapPosition.y)
+    }, [boardDataLive])
 
     function getPositionFrom(active, relative){
         let xDifference = active.position.x - relative.position.x
         let yDifference = active.position.y - relative.position.y
-        console.log("Player 1:", active.position.x, active.position.y)
-        console.log("Player 2:", relative.position.x, relative.position.y)
-        console.log("diff:", xDifference, yDifference)
 
         return {x: xDifference*background.tileSize, y: yDifference*background.tileSize}
     }   
@@ -135,6 +138,7 @@ export default function BoardAlt(props) {
         }
 
         newBoard.players = newPlayers
+        newBoard.currentPlayer = activePlayer
         setBoardData(newBoard)
     }
 
@@ -145,14 +149,13 @@ export default function BoardAlt(props) {
     }, [])
 
     function goTo(x, y){
+        console.log(x,y)
         setMoving(true)
         setTimeout(() => {
             let newBoard = {...boardData}
             let newPlayers = [...newBoard.players]
             let activePlayer = newPlayers.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
             let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.socketId === activePlayer.socketId)
-
-            console.log("goto", x, y)
 
             if(activePlayer.position.x !== x && activePlayer.position.x > x){
 
@@ -174,11 +177,14 @@ export default function BoardAlt(props) {
                 activePlayer.position.y += .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
                 goTo(x,y)
-            } else{
+            } else {
                 setMoving(false)
+                setBoardData(boardDataLive)
+                setLive(true)
             }
 
             newBoard.players = newPlayers
+            newBoard.currentPlayer = activePlayer
             setBoardData(newBoard)
         }, 100)
     }
@@ -190,7 +196,7 @@ export default function BoardAlt(props) {
   return (
     <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', height: '100vh'}}>
         <canvas ref={canvasRef} style={{border: "10px solid white"}}/>
-        {playerTurn && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
+        {playerTurn && !moving && live && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
     </div>
   )
 }

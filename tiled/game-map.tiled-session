@@ -39,21 +39,23 @@
         },
         "map.tmx": {
             "expandedGroupLayers": [
-                9,
-                10
+                10,
+                9
             ],
             "scale": 2,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 457.75,
-                "y": 340
+                "x": 399.25,
+                "y": 416
             }
         }
     },
     "last.imagePath": "C:/Users/switc/Downloads/Texture",
+    "map.height": 70,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 256,
-    "map.tileWidth": 256,
+    "map.tileHeight": 32,
+    "map.tileWidth": 32,
+    "map.width": 70,
     "openFiles": [
         "map.tmx"
     ],

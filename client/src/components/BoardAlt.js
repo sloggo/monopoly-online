@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import mapPng from '../assets/map.png'
 import playerPng from '../assets/TX Player.png'
 import boardDatas from './boardData.json'
+import './BoardAlt.scss'
 let c;
 
 export default function BoardAlt() {
@@ -13,42 +14,33 @@ export default function BoardAlt() {
             y:-420
         },
         position: {
-            x: 30,
-            y: 20
+            x: 26,
+            y: 15
         },
         tileSize: 32*2 //1.5 zoom
     })
-
-    const [grid, setGrid] = useState([
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
-    ])
     const [boardData, setBoardData] = useState(boardDatas)
-
-    const [movementCounter, setMovementCounter] = useState(0)
-
     const [playerSprite, setPlayerSprite] = useState({
         image: playerPng
     })
+
+    const [players, setPlayers]=useState([
+        {
+            id:0,
+            position:{
+                x:1,
+                y:1
+            },
+            active: true
+        },
+        {
+            id:1,
+            position:{
+                x:24,
+                y:10
+            }
+        }
+    ])
 
     function render(){
         let canvas = canvasRef.current
@@ -65,17 +57,34 @@ export default function BoardAlt() {
         playerImage.src = playerSprite.image
 
         c.drawImage(image, (-(background.position.x)*background.tileSize)-background.offset.x, (-(background.position.y)*background.tileSize-background.offset.y))
-        c.drawImage(
-                playerImage,
-                0,
-                0,
-                playerImage.width/4,
-                playerImage.height,
-                canvas.width/2,
-                canvas.height/2,
-                playerImage.width/4*2,
-                playerImage.height*2,
-        )
+
+        players.forEach(plyr=> {
+            if(plyr.active){
+                c.drawImage(
+                    playerImage,
+                    0,
+                    0,
+                    playerImage.width/4,
+                    playerImage.height,
+                    canvas.width/2,
+                    canvas.height/2,
+                    playerImage.width/4*2,
+                    playerImage.height*2,
+                )
+            } else{
+                c.drawImage(
+                    playerImage,
+                    0,
+                    0,
+                    playerImage.width/4,
+                    playerImage.height,
+                    canvas.width/4,
+                    canvas.height/4,
+                    playerImage.width/4*2,
+                    playerImage.height*2,
+            )
+            }
+        })
 
         window.requestAnimationFrame(render)
     }
@@ -114,7 +123,9 @@ export default function BoardAlt() {
         c = canvasRef.current.getContext('2d')
         window.addEventListener("keydown", handleUserKey)
         window.requestAnimationFrame(render)
+        let tile0 = boardData.find(tile => tile.tileId === 0)
 
+        goTo(tile0.mapPosition.x, tile0.mapPosition.y)
     }, [])
 
     function goTo(x, y){

@@ -406,6 +406,10 @@
             "colour": null,
             "name": "Go!",
             "special": true,
-            "price": 200
+            "price": 200,
+            "mapPosition": {
+                "x": 26,
+                "y": 5
+            }
         }
 ]

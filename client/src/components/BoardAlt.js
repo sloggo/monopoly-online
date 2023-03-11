@@ -27,21 +27,23 @@ export default function BoardAlt() {
                 x:22,
                 y:11
             },
+            active: true
         },
         {
             id:1,
             position:{
                 x:24,
                 y:10
-            },
-            active: true
+            }
         }
     ])
 
     function getPositionFrom(active, relative){
         let xDifference = active.position.x - relative.position.x
         let yDifference = active.position.y - relative.position.y
-        console.log(xDifference, yDifference)
+        console.log("Player 1:", active.position.x, active.position.y)
+        console.log("Player 2:", relative.position.x, relative.position.y)
+        console.log("diff:", xDifference, yDifference)
 
         return {x: xDifference*background.tileSize, y: yDifference*background.tileSize}
     }   
@@ -85,8 +87,8 @@ export default function BoardAlt() {
                     0,
                     playerImage.width/4,
                     playerImage.height,
-                    canvas.width/2 + newPosition.x,
-                    canvas.height/2 + newPosition.y,
+                    canvas.width/2 - newPosition.x,
+                    canvas.height/2 - newPosition.y,
                     playerImage.width/4*2,
                     playerImage.height*2,
             )

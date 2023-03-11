@@ -3,8 +3,9 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "map.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "exportAsImage.useCurrentScale": true,
     "fileStates": {
@@ -35,15 +36,30 @@
         "Wall.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "map.tmx": {
+            "expandedGroupLayers": [
+                9,
+                10
+            ],
+            "scale": 2,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 457.75,
+                "y": 340
+            }
         }
     },
     "last.imagePath": "C:/Users/switc/Downloads/Texture",
+    "map.lastUsedFormat": "tmx",
     "map.tileHeight": 256,
     "map.tileWidth": 256,
     "openFiles": [
+        "map.tmx"
     ],
     "project": "game-map.tiled-project",
     "recentFiles": [
+        "map.tmx",
         "Grass.tsx",
         "TX Struct.tsx",
         "TX Shadow Plant.tsx",

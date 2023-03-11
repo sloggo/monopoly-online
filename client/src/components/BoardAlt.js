@@ -13,10 +13,6 @@ export default function BoardAlt() {
             x:-576,
             y:-420
         },
-        position: {
-            x: 26,
-            y: 15
-        },
         tileSize: 32*2 //1.5 zoom
     })
     const [boardData, setBoardData] = useState(boardDatas)
@@ -28,19 +24,27 @@ export default function BoardAlt() {
         {
             id:0,
             position:{
-                x:1,
-                y:1
+                x:22,
+                y:11
             },
-            active: true
         },
         {
             id:1,
             position:{
                 x:24,
                 y:10
-            }
+            },
+            active: true
         }
     ])
+
+    function getPositionFrom(active, relative){
+        let xDifference = active.position.x - relative.position.x
+        let yDifference = active.position.y - relative.position.y
+        console.log(xDifference, yDifference)
+
+        return {x: xDifference*background.tileSize, y: yDifference*background.tileSize}
+    }   
 
     function render(){
         let canvas = canvasRef.current
@@ -56,7 +60,9 @@ export default function BoardAlt() {
         const playerImage = new Image()
         playerImage.src = playerSprite.image
 
-        c.drawImage(image, (-(background.position.x)*background.tileSize)-background.offset.x, (-(background.position.y)*background.tileSize-background.offset.y))
+        const activePlayer = players.find(plyr => plyr.active)
+
+        c.drawImage(image, (-(activePlayer.position.x)*background.tileSize)-background.offset.x, (-(activePlayer.position.y)*background.tileSize-background.offset.y))
 
         players.forEach(plyr=> {
             if(plyr.active){
@@ -72,14 +78,15 @@ export default function BoardAlt() {
                     playerImage.height*2,
                 )
             } else{
+                let newPosition = getPositionFrom(players.find(item => item.active), plyr)
                 c.drawImage(
                     playerImage,
                     0,
                     0,
                     playerImage.width/4,
                     playerImage.height,
-                    canvas.width/4,
-                    canvas.height/4,
+                    canvas.width/2 + newPosition.x,
+                    canvas.height/2 + newPosition.y,
                     playerImage.width/4*2,
                     playerImage.height*2,
             )
@@ -90,6 +97,7 @@ export default function BoardAlt() {
     }
 
     function handleUserKey(e){
+        const activePlayer = players.find(plyr => plyr.active)
         if(e.key === 'w'){
             console.log('w')
             let newBackground = {...background}
@@ -124,37 +132,40 @@ export default function BoardAlt() {
         window.addEventListener("keydown", handleUserKey)
         window.requestAnimationFrame(render)
         let tile0 = boardData.find(tile => tile.tileId === 0)
-
         goTo(tile0.mapPosition.x, tile0.mapPosition.y)
     }, [])
 
     function goTo(x, y){
         setTimeout(() => {
+            let newPlayers = [...players]
+            let activePlayer = newPlayers.find(plyr => plyr.active)
+            let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.id === activePlayer.id)
+
             console.log("goto", x, y)
 
-            if(background.position.x !== x && background.position.x > x){
-                let newBack = {...background}
+            if(activePlayer.position.x !== x && activePlayer.position.x > x){
 
-                newBack.position.x -= .5
-                setBackground(newBack)
+                activePlayer.position.x -= .5
+                newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                setPlayers(newPlayers)
                 goTo(x,y)
-            } else if(background.position.x !== x && background.position.x < x){
-                let newBack = {...background}
+            } else if(activePlayer.position.x !== x && activePlayer.position.x < x){
 
-                newBack.position.x += .5
-                setBackground(newBack)
+                activePlayer.position.x += .5
+                newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                setPlayers(newPlayers)
                 goTo(x,y)
-            } else if(background.position.y !== y && background.position.y > y){
-                let newBack = {...background}
+            } else if(activePlayer.position.y !== y && activePlayer.position.y > y){
 
-                newBack.position.y -= .5
-                setBackground(newBack)
+                activePlayer.position.y -= .5
+                newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                setPlayers(newPlayers)
                 goTo(x,y)
-            } else if(background.position.y !== y && background.position.y < y){
-                let newBack = {...background}
+            } else if(activePlayer.position.y !== y && activePlayer.position.y < y){
 
-                newBack.position.y += .5
-                setBackground(newBack)
+                activePlayer.position.y += .5
+                newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                setPlayers(newPlayers)
                 goTo(x,y)
             }
         }, 100)

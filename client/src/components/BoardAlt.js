@@ -3,6 +3,7 @@ import mapPng from '../assets/map.png'
 import playerPng from '../assets/TX Player.png'
 import './BoardAlt.scss'
 import diceSVG from '../assets/dice.svg'
+import PopUp from './PopUp'
 let c;
 
 export default function BoardAlt(props) {
@@ -23,31 +24,26 @@ export default function BoardAlt(props) {
 
     //network states
     const [visible, setVisible] = useState(props.visible)
-    const [boardDataLive, setBoardDataLive] = useState(props.boardData)
     const [boardData, setBoardData] = useState(props.boardData)
-    const [live, setLive] = useState(true)
     const [playerTurn, setPlayerTurn] = useState(false)
     const [socketID, setSocketID] = useState(props.socketID)
     const [diceRoll, setDiceRoll] = useState(props.diceRoll)
 
     useEffect(() => {
         setVisible(props.visible)
-        setBoardDataLive(props.boardData)
+        setBoardData(props.boardData)
         setDiceRoll(props.diceRoll)
         setSocketID(props.socketID)
     }, [props])
 
     useEffect(()=>{
-        setLive(false)
-        if(boardDataLive && boardDataLive.currentPlayer.socketId === socketID){
+        if(boardData && boardData.currentPlayer.socketId === socketID){
             setPlayerTurn(true)
         } else{
             setPlayerTurn(false)
         }
-        const activePlayer = boardDataLive.currentPlayer.currentTile.tileId
-        const tile = boardDataLive.tileData.find(tile => tile.tileId === activePlayer)
-        goTo(tile.mapPosition.x, tile.mapPosition.y)
-    }, [boardDataLive])
+        window.requestAnimationFrame(render)
+    }, [boardData])
 
     function getPositionFrom(active, relative){
         let xDifference = active.position.x - relative.position.x
@@ -70,7 +66,8 @@ export default function BoardAlt(props) {
         const playerImage = new Image()
         playerImage.src = playerSprite.image
 
-        const activePlayer = boardData.players.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
+        let activePlayer = boardData.currentPlayer
+      
         c.drawImage(image, (-(activePlayer.position.x)*background.tileSize)-background.offset.x, (-(activePlayer.position.y)*background.tileSize-background.offset.y))
 
         boardData.players.forEach(plyr=> {
@@ -110,7 +107,7 @@ export default function BoardAlt(props) {
     function handleUserKey(e){
         let newBoard = {...boardData}
         let newPlayers = [...newBoard.players]
-        let activePlayer = newPlayers.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
+        let activePlayer = newBoard.players.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
         let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.id === activePlayer.id)
 
         if(e.key === 'w'){
@@ -148,13 +145,13 @@ export default function BoardAlt(props) {
         window.requestAnimationFrame(render)
     }, [])
 
-    function goTo(x, y){
+    function goTo(x, y, id){
         console.log(x,y)
         setMoving(true)
         setTimeout(() => {
             let newBoard = {...boardData}
             let newPlayers = [...newBoard.players]
-            let activePlayer = newPlayers.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
+            let activePlayer = boardData.players.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
             let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.socketId === activePlayer.socketId)
 
             if(activePlayer.position.x !== x && activePlayer.position.x > x){
@@ -179,8 +176,7 @@ export default function BoardAlt(props) {
                 goTo(x,y)
             } else {
                 setMoving(false)
-                setBoardData(boardDataLive)
-                setLive(true)
+                return
             }
 
             newBoard.players = newPlayers
@@ -195,8 +191,9 @@ export default function BoardAlt(props) {
 
   return (
     <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', height: '100vh'}}>
+        {playerTurn && !moving && <PopUp closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} propertyBuy={props.propertyBuy} declineBuy={props.declineBuy} buyProperty={props.buyProperty} rentPay={props.rentPay}></PopUp>}
         <canvas ref={canvasRef} style={{border: "10px solid white"}}/>
-        {playerTurn && !moving && live && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
+        {playerTurn && !moving && !props.rentPay && !props.propertyBuy && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
     </div>
   )
 }

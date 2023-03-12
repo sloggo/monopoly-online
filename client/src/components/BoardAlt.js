@@ -24,26 +24,61 @@ export default function BoardAlt(props) {
 
     //network states
     const [visible, setVisible] = useState(props.visible)
-    const [boardData, setBoardData] = useState(props.boardData)
+    const [boardDataLocal, setBoardDataLocal] = useState(props.boardData)
+    const [boardDataLive, setBoardDataLive] = useState(props.boardData)
+    const [isLive, setIsLive] = useState(false)
     const [playerTurn, setPlayerTurn] = useState(false)
     const [socketID, setSocketID] = useState(props.socketID)
     const [diceRoll, setDiceRoll] = useState(props.diceRoll)
 
     useEffect(() => {
         setVisible(props.visible)
-        setBoardData(props.boardData)
         setDiceRoll(props.diceRoll)
         setSocketID(props.socketID)
     }, [props])
 
     useEffect(()=>{
-        if(boardData && boardData.currentPlayer.socketId === socketID){
-            setPlayerTurn(true)
-        } else{
-            setPlayerTurn(false)
-        }
+        onBoardUpdate(props.boardData)
         window.requestAnimationFrame(render)
-    }, [boardData])
+    }, [props.boardData, boardDataLocal, boardDataLive])
+
+    function onBoardUpdate(newData){
+        setBoardDataLive(newData)
+
+        if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position === boardDataLocal.currentPlayer.position){
+            // current player is the same and their in their live position
+            setIsLive(true)
+            setBoardDataLocal(newData)
+
+            if(newData.currentPlayer.socketId === socketID){
+                setPlayerTurn(true)
+            } else{
+                setPlayerTurn(false)
+            }
+        } else if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position !== boardDataLocal.currentPlayer.position){
+            // current player is not yet fully updated
+            setIsLive(false)
+            goTo(newData.currentPlayer.position.x, newData.currentPlayer.position.y)
+
+            if(boardDataLocal.currentPlayer.socketId === socketID){
+                setPlayerTurn(true)
+            } else{
+                setPlayerTurn(false)
+            }
+
+        } else{
+            // next player
+            setIsLive(true)
+            setBoardDataLocal(newData)
+
+            if(newData.currentPlayer.socketId === socketID){
+                setPlayerTurn(true)
+            } else{
+                setPlayerTurn(false)
+            }
+        }
+
+    }
 
     function getPositionFrom(active, relative){
         let xDifference = active.position.x - relative.position.x
@@ -66,11 +101,11 @@ export default function BoardAlt(props) {
         const playerImage = new Image()
         playerImage.src = playerSprite.image
 
-        let activePlayer = boardData.currentPlayer
+        let activePlayer = boardDataLocal.currentPlayer
       
         c.drawImage(image, (-(activePlayer.position.x)*background.tileSize)-background.offset.x, (-(activePlayer.position.y)*background.tileSize-background.offset.y))
 
-        boardData.players.forEach(plyr=> {
+        boardDataLocal.players.forEach(plyr=> {
             if(plyr.active){
                 c.drawImage(
                     playerImage,
@@ -80,12 +115,12 @@ export default function BoardAlt(props) {
                     playerImage.height,
                     canvas.width/2,
                     canvas.height/2,
-                    playerImage.width/4*2,
-                    playerImage.height*2,
+                    playerImage.width/4*2.1,
+                    playerImage.height*2.1,
                 )
             } else{
                 let newPositionRelative = getPositionFrom(activePlayer, plyr)
-                let noPeopleOnTile = boardData.players.filter(plyr => plyr.position.x === plyr.position.x && plyr.position.y === plyr.position.y).length
+                let noPeopleOnTile = boardDataLocal.players.filter(plyr => plyr.position.x === plyr.position.x && plyr.position.y === plyr.position.y).length
 
                 c.drawImage(
                     playerImage,
@@ -105,9 +140,9 @@ export default function BoardAlt(props) {
     }
 
     function handleUserKey(e){
-        let newBoard = {...boardData}
+        let newBoard = {...boardDataLocal}
         let newPlayers = [...newBoard.players]
-        let activePlayer = newBoard.players.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
+        let activePlayer = newBoard.players.find(plyr => plyr.socketId === boardDataLocal.currentPlayer.socketId)
         let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.id === activePlayer.id)
 
         if(e.key === 'w'){
@@ -136,7 +171,7 @@ export default function BoardAlt(props) {
 
         newBoard.players = newPlayers
         newBoard.currentPlayer = activePlayer
-        setBoardData(newBoard)
+        setBoardDataLocal(newBoard)
     }
 
     useEffect(() => {
@@ -149,9 +184,9 @@ export default function BoardAlt(props) {
         console.log(x,y)
         setMoving(true)
         setTimeout(() => {
-            let newBoard = {...boardData}
+            let newBoard = {...boardDataLocal}
             let newPlayers = [...newBoard.players]
-            let activePlayer = boardData.players.find(plyr => plyr.socketId === boardData.currentPlayer.socketId)
+            let activePlayer = boardDataLocal.players.find(plyr => plyr.socketId === boardDataLocal.currentPlayer.socketId)
             let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.socketId === activePlayer.socketId)
 
             if(activePlayer.position.x !== x && activePlayer.position.x > x){
@@ -181,7 +216,7 @@ export default function BoardAlt(props) {
 
             newBoard.players = newPlayers
             newBoard.currentPlayer = activePlayer
-            setBoardData(newBoard)
+            setBoardDataLocal(newBoard)
         }, 100)
     }
 

@@ -3,14 +3,23 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "monopoly-city-map.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "Modern_Exteriors_Complete_Tileset.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "monopoly-city-map.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 293.9999999999999,
+                "y": 1181.3333333333333
+            }
         }
     },
     "last.imagePath": "C:/Users/switc/Downloads/modernexteriors-win/Modern_Exteriors_16x16",
@@ -20,10 +29,13 @@
     "map.tileWidth": 16,
     "map.width": 100,
     "openFiles": [
+        "Modern_Exteriors_Complete_Tileset.tsx",
+        "monopoly-city-map.tmx"
     ],
     "project": "monopoly.tiled-project",
     "recentFiles": [
-        "Modern_Exteriors_Complete_Tileset.tsx"
+        "Modern_Exteriors_Complete_Tileset.tsx",
+        "monopoly-city-map.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

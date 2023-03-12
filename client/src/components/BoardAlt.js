@@ -55,10 +55,11 @@ export default function BoardAlt(props) {
             } else{
                 setPlayerTurn(false)
             }
+
         } else if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position !== boardDataLocal.currentPlayer.position){
             // current player is not yet fully updated
             setIsLive(false)
-            goTo(newData.currentPlayer.position.x, newData.currentPlayer.position.y)
+            if(!moving) goTo(newData.currentPlayer.position.x, newData.currentPlayer.position.y)
 
             if(boardDataLocal.currentPlayer.socketId === socketID){
                 setPlayerTurn(true)

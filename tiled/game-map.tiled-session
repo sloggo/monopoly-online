@@ -39,10 +39,10 @@
         },
         "biggermap.tmx": {
             "scale": 0.75,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 792.6666666666665,
-                "y": 1618.6666666666665
+                "x": 1149.9999999999998,
+                "y": 987.9999999999999
             }
         },
         "map.tmx": {
@@ -53,8 +53,8 @@
             "scale": 2,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 399.25,
-                "y": 337.5
+                "x": 873.75,
+                "y": 401.5
             }
         }
     },

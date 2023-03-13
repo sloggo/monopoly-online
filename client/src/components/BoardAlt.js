@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
-import mapPng from '../assets/map.png'
-import playerPng from '../assets/TX Player.png'
+import mapPng from '../assets/monopoly-city-map.png'
+import playerPng from '../assets/player1.png'
 import './BoardAlt.scss'
 import diceSVG from '../assets/dice.svg'
 import PopUp from './PopUp'
@@ -12,10 +12,10 @@ export default function BoardAlt(props) {
     const [background, setBackground] = useState({
         image: mapPng,
         offset:{
-            x:-576,
+            x:-505,
             y:-420
         },
-        tileSize: 32*2 //2x zoom
+        tileSize: 16*4 //4x zoom
     })
     const [playerSprite, setPlayerSprite] = useState({
         image: playerPng
@@ -93,9 +93,6 @@ export default function BoardAlt(props) {
         canvas.width = 1024
         canvas.height = 700
 
-        c.fillStyle = '#D8F2FF'
-        c.fillRect(0, 0, canvas.width, canvas.height)
-
         const image = new Image()
         image.src = background.image
 
@@ -110,14 +107,14 @@ export default function BoardAlt(props) {
             if(plyr.active){
                 c.drawImage(
                     playerImage,
+                    (playerImage.width/24)*3,
                     0,
-                    0,
-                    playerImage.width/4,
-                    playerImage.height,
+                    (playerImage.width/24)*4,
+                    playerImage.height/7,
                     canvas.width/2,
                     canvas.height/2,
-                    playerImage.width/4*2.1,
-                    playerImage.height*2.1,
+                    playerImage.width*0.4,
+                    playerImage.height*0.4,
                 )
             } else{
                 let newPositionRelative = getPositionFrom(activePlayer, plyr)
@@ -125,14 +122,14 @@ export default function BoardAlt(props) {
 
                 c.drawImage(
                     playerImage,
+                    (playerImage.width/24)*3,
                     0,
-                    0,
-                    playerImage.width/4,
-                    playerImage.height,
+                    (playerImage.width/24)*4,
+                    playerImage.height/7,
                     canvas.width/2 - newPositionRelative.x,
                     canvas.height/2 - newPositionRelative.y,
-                    playerImage.width/4*2,
-                    playerImage.height*2,
+                    playerImage.width*0.5,
+                    playerImage.height*0.5,
             )
             }
         })

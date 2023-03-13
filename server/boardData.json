@@ -315,7 +315,11 @@
             "type": "square",
             "colour": null,
             "name": "Jail",
-            "special": true
+            "special": true,
+            "mapPosition": {
+                "x": 65,
+                "y": 72
+            }
         },
         {
             "tileId": 9,
@@ -325,7 +329,11 @@
             "name": "Rathmines",
             "special": false,
             "forSale": true,
-            "price": 120
+            "price": 120,
+            "mapPosition": {
+                "x": 35,
+                "y": 75
+            }
         },
         {
             "tileId": 8,
@@ -335,7 +343,11 @@
             "name": "South Circular Road",
             "special": false,
             "forSale": true,
-            "price": 100
+            "price": 100,
+            "mapPosition": {
+                "x": 27,
+                "y": 75
+            }
         },
         {
             "tileId": 7,
@@ -345,8 +357,8 @@
             "name": "Chance",
             "special": true,
             "mapPosition": {
-                "x": 21,
-                "y": 11
+                "x": 20,
+                "y": 75
             }
         },
         {
@@ -359,8 +371,8 @@
             "forSale": true,
             "price": 100,
             "mapPosition": {
-                "x": 22,
-                "y": 11
+                "x": 13,
+                "y": 75
             }
         },
         {
@@ -373,8 +385,8 @@
             "forSale": true,
             "price": 200,
             "mapPosition": {
-                "x": 23,
-                "y": 13
+                "x": 6,
+                "y": 75
             }
         },
         {
@@ -386,8 +398,8 @@
             "special": false,
             "price": 200,
             "mapPosition": {
-                "x": 4,
-                "y": 10
+                "x": 6,
+                "y": 90
             }
         },{
             "tileId": 3,
@@ -399,8 +411,8 @@
             "forSale": true,
             "price": 60,
             "mapPosition": {
-                "x": 9,
-                "y": 1
+                "x": 14,
+                "y": 90
             }
         },
         {
@@ -411,8 +423,8 @@
             "name": "Community Chest",
             "special": true,
             "mapPosition": {
-                "x": 8,
-                "y": 3
+                "x": 20,
+                "y": 90
             }
         },{
             "tileId": 1,
@@ -424,8 +436,8 @@
             "forSale": true,
             "price": 60,
             "mapPosition": {
-                "x":7,
-                "y": 6
+                "x":26,
+                "y": 90
             }
         },
         {
@@ -436,8 +448,8 @@
             "special": true,
             "price": 200,
             "mapPosition": {
-                "x": 23,
-                "y": 15
+                "x": 49,
+                "y": 90
             }
         }
 ]

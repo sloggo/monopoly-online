@@ -98,19 +98,15 @@ export default function BoardAlt(props) {
     }   
 
     async function progressToTile(originalTile, finalTile){
-        let originalTileOb = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
 
-        setTimeout(()=>{
-            if(progressingToTile){
-                progressToTile(originalTile, finalTile)
-                return
-            } else{
-                setMoving(true)
-                let nextTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
-                goTo(nextTile.mapPosition.x, nextTile.mapPosition.y)
-                progressToTile(originalTile+1, finalTile)
-            }
-        }, 100)
+        if(originalTile !== finalTile){
+            let origTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
+            let newTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
+            await goTo(newTile.mapPosition.x, newTile.mapPosition.y)
+            if((boardDataLocal.currentPlayer.position !== boardDataLive.currentPlayer.position) && (boardDataLocal.currentPlayer.position === origTile.mapPosition)) progressToTile(originalTile+1, finalTile)
+        } else{
+            return
+        }
     }
 
     function render(){
@@ -261,75 +257,74 @@ export default function BoardAlt(props) {
         window.requestAnimationFrame(render)
     }, [])
 
-    function goTo(x, y, tileId){
+    async function goTo(x, y, tileId){
         console.log(x,y)
         setProgessingToTile(true)
-        setTimeout(() => {
+        
+        while(boardDataLocal.currentPlayer.position.x !== x && boardDataLocal.currentPlayer.position.y !== y){
             let newBoard = {...boardDataLocal}
             let newPlayers = [...newBoard.players]
             let activePlayer = boardDataLocal.players.find(plyr => plyr.socketId === boardDataLocal.currentPlayer.socketId)
             let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.socketId === activePlayer.socketId)
-
-            if(activePlayer.position.x !== x && activePlayer.position.x > x){
-
-                activePlayer.position.x -= .5
-                newPlayers.splice(activePlayerIndex, 1, activePlayer)
-                
-                setMovingData({
-                    up: false,
-                    down: false,
-                    left: true,
-                    right: false,
-                })
-                goTo(x,y)
-            } else if(activePlayer.position.x !== x && activePlayer.position.x < x){
-
-                activePlayer.position.x += .5
-                newPlayers.splice(activePlayerIndex, 1, activePlayer)
-                setMovingData({
-                    up: false,
-                    down: false,
-                    left: false,
-                    right: true,
-                })
-                goTo(x,y)
-            } else if(activePlayer.position.y !== y && activePlayer.position.y > y){
-
-                activePlayer.position.y -= .5
-                newPlayers.splice(activePlayerIndex, 1, activePlayer)
-                setMovingData({
-                    up: true,
-                    down: false,
-                    left: false,
-                    right: false,
-                })
-                goTo(x,y)
-            } else if(activePlayer.position.y !== y && activePlayer.position.y < y){
-
-                activePlayer.position.y += .5
-                newPlayers.splice(activePlayerIndex, 1, activePlayer)
-                setMovingData({
-                    up: false,
-                    down: true,
-                    left: false,
-                    right: false,
-                })
-                goTo(x,y)
-            } else {
-                setMovingData({
-                    up: false,
-                    down: false,
-                    left: false,
-                    right: false,
-                })
-                setProgessingToTile(null)
-                return
-            }
-
-            newBoard.players = newPlayers
-            newBoard.currentPlayer = activePlayer
-            setBoardDataLocal(newBoard)
-        }, 100)
+            setTimeout(() => {
+    
+                if(activePlayer.position.x !== x && activePlayer.position.x > x){
+    
+                    activePlayer.position.x -= .5
+                    newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                    
+                    setMovingData({
+                        up: false,
+                        down: false,
+                        left: true,
+                        right: false,
+                    })
+                } else if(activePlayer.position.x !== x && activePlayer.position.x < x){
+    
+                    activePlayer.position.x += .5
+                    newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                    setMovingData({
+                        up: false,
+                        down: false,
+                        left: false,
+                        right: true,
+                    })
+                } else if(activePlayer.position.y !== y && activePlayer.position.y > y){
+    
+                    activePlayer.position.y -= .5
+                    newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                    setMovingData({
+                        up: true,
+                        down: false,
+                        left: false,
+                        right: false,
+                    })
+                } else if(activePlayer.position.y !== y && activePlayer.position.y < y){
+    
+                    activePlayer.position.y += .5
+                    newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                    setMovingData({
+                        up: false,
+                        down: true,
+                        left: false,
+                        right: false,
+                    })
+                } else {
+                    setMovingData({
+                        up: false,
+                        down: false,
+                        left: false,
+                        right: false,
+                    })
+                    setProgessingToTile(false)
+                    return
+                }
+    
+                newBoard.players = newPlayers
+                newBoard.currentPlayer = activePlayer
+                setBoardDataLocal(newBoard)
+            }, 100)
+        }
     }
 
     function clickDice(){

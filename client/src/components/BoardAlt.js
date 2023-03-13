@@ -21,6 +21,7 @@ export default function BoardAlt(props) {
         image: playerPng
     })
     const [moving, setMoving] = useState(false)
+    let frameNum = 0
 
     //network states
     const [visible, setVisible] = useState(props.visible)
@@ -30,6 +31,13 @@ export default function BoardAlt(props) {
     const [playerTurn, setPlayerTurn] = useState(false)
     const [socketID, setSocketID] = useState(props.socketID)
     const [diceRoll, setDiceRoll] = useState(props.diceRoll)
+    const [movingData, setMovingData] = useState({
+        up: false,
+        down: false,
+        left: false,
+        right: false,
+        frame: 0
+    })
 
     useEffect(() => {
         setVisible(props.visible)
@@ -104,37 +112,96 @@ export default function BoardAlt(props) {
         c.drawImage(image, (-(activePlayer.position.x)*background.tileSize)-background.offset.x, (-(activePlayer.position.y)*background.tileSize-background.offset.y))
 
         boardDataLocal.players.forEach(plyr=> {
-            if(plyr.active){
-                c.drawImage(
-                    playerImage,
-                    (playerImage.width/24)*3,
-                    0,
-                    (playerImage.width/24)*4,
-                    playerImage.height/7,
-                    canvas.width/2,
-                    canvas.height/2,
-                    playerImage.width*0.4,
-                    playerImage.height*0.4,
-                )
+            if(plyr.socketId === activePlayer.socketId){
+                if(moving){
+                    let data = getAnimationFrame(playerImage)
+                    c.drawImage(
+                        playerImage,
+                        data.startX,
+                        data.startY,
+                        data.endX,
+                        data.endY,
+                        canvas.width/2,
+                        canvas.height/2,
+                        16*3,
+                        32*3,
+                    )
+                } else{
+                    c.drawImage(
+                        playerImage,
+                        (playerImage.width/24)*3,
+                        0,
+                        16,
+                        32,
+                        canvas.width/2,
+                        canvas.height/2,
+                        16*3,
+                        32*3
+                        )
+                    }
             } else{
                 let newPositionRelative = getPositionFrom(activePlayer, plyr)
                 let noPeopleOnTile = boardDataLocal.players.filter(plyr => plyr.position.x === plyr.position.x && plyr.position.y === plyr.position.y).length
-
                 c.drawImage(
                     playerImage,
                     (playerImage.width/24)*3,
                     0,
-                    (playerImage.width/24)*4,
-                    playerImage.height/7,
+                    16,
+                    32,
                     canvas.width/2 - newPositionRelative.x,
                     canvas.height/2 - newPositionRelative.y,
-                    playerImage.width*0.5,
-                    playerImage.height*0.5,
-            )
-            }
+                    16*3,
+                    32*3
+                    )
+                }
         })
 
         window.requestAnimationFrame(render)
+    }
+
+    function getAnimationFrame(playerImage){
+        frameNum = frameNum + 1
+        let imageData={};
+        if(movingData.right){
+            imageData = {
+                startY: (playerImage.height/7)*2,
+                startX: (playerImage.width/24)*(frameNum%5),
+                endY: 32,
+                endX: 16,
+            }
+        } else if(movingData.up){
+            imageData = {
+                startY: (playerImage.height/7)*2,
+                startX: (playerImage.width/24)*((frameNum%5)+6),
+                endY: 32,
+                endX: 16,
+            }
+        } else if(movingData.left){
+            imageData = {
+                startY: (playerImage.height/7)*2,
+                startX: (playerImage.width/24)*((frameNum%5)+12),
+                endY: 32,
+                endX: 16,
+            }
+            return imageData
+        } else if(movingData.down){
+            imageData = {
+                startY: (playerImage.height/7)*2,
+                startX: (playerImage.width/24)*((frameNum%5)+18),
+                endY: 32,
+                endX: 16,
+            }
+        }else{
+            imageData = {
+                startX: (playerImage.width/24)*3,
+                startY: 0,
+                endY: 32,
+                endX: 16,
+            }
+        }
+        console.log(imageData, frameNum)
+
+        return imageData
     }
 
     function handleUserKey(e){
@@ -191,24 +258,55 @@ export default function BoardAlt(props) {
 
                 activePlayer.position.x -= .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                
+                setMovingData({
+                    up: false,
+                    down: false,
+                    left: true,
+                    right: false,
+                })
                 goTo(x,y)
             } else if(activePlayer.position.x !== x && activePlayer.position.x < x){
 
                 activePlayer.position.x += .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                setMovingData({
+                    up: false,
+                    down: false,
+                    left: false,
+                    right: true,
+                })
                 goTo(x,y)
             } else if(activePlayer.position.y !== y && activePlayer.position.y > y){
 
                 activePlayer.position.y -= .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                setMovingData({
+                    up: true,
+                    down: false,
+                    left: false,
+                    right: false,
+                })
                 goTo(x,y)
             } else if(activePlayer.position.y !== y && activePlayer.position.y < y){
 
                 activePlayer.position.y += .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                setMovingData({
+                    up: false,
+                    down: true,
+                    left: false,
+                    right: false,
+                })
                 goTo(x,y)
             } else {
                 setMoving(false)
+                setMovingData({
+                    up: false,
+                    down: false,
+                    left: false,
+                    right: false,
+                })
                 return
             }
 

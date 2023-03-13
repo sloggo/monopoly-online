@@ -38,6 +38,7 @@ export default function BoardAlt(props) {
         right: false,
         frame: 0
     })
+    const [progressingToTile, setProgessingToTile]=useState(false)
 
     useEffect(() => {
         setVisible(props.visible)
@@ -67,7 +68,7 @@ export default function BoardAlt(props) {
         } else if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position !== boardDataLocal.currentPlayer.position){
             // current player is not yet fully updated
             setIsLive(false)
-            if(!moving) goTo(newData.currentPlayer.position.x, newData.currentPlayer.position.y)
+            if(!moving) progressToTile(boardDataLocal.currentPlayer.currentTile.tileId, boardDataLive.currentPlayer.currentTile.tileId)
 
             if(boardDataLocal.currentPlayer.socketId === socketID){
                 setPlayerTurn(true)
@@ -95,6 +96,22 @@ export default function BoardAlt(props) {
 
         return {x: xDifference*background.tileSize, y: yDifference*background.tileSize}
     }   
+
+    async function progressToTile(originalTile, finalTile){
+        let originalTileOb = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
+
+        setTimeout(()=>{
+            if(progressingToTile){
+                progressToTile(originalTile, finalTile)
+                return
+            } else{
+                setMoving(true)
+                let nextTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
+                goTo(nextTile.mapPosition.x, nextTile.mapPosition.y)
+                progressToTile(originalTile+1, finalTile)
+            }
+        }, 100)
+    }
 
     function render(){
         let canvas = canvasRef.current
@@ -199,7 +216,6 @@ export default function BoardAlt(props) {
                 endX: 16,
             }
         }
-        console.log(imageData, frameNum)
 
         return imageData
     }
@@ -245,9 +261,9 @@ export default function BoardAlt(props) {
         window.requestAnimationFrame(render)
     }, [])
 
-    function goTo(x, y, id){
+    function goTo(x, y, tileId){
         console.log(x,y)
-        setMoving(true)
+        setProgessingToTile(true)
         setTimeout(() => {
             let newBoard = {...boardDataLocal}
             let newPlayers = [...newBoard.players]
@@ -300,13 +316,13 @@ export default function BoardAlt(props) {
                 })
                 goTo(x,y)
             } else {
-                setMoving(false)
                 setMovingData({
                     up: false,
                     down: false,
                     left: false,
                     right: false,
                 })
+                setProgessingToTile(null)
                 return
             }
 

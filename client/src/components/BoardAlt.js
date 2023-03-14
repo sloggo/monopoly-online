@@ -13,7 +13,7 @@ export default function BoardAlt(props) {
         image: mapPng,
         offset:{
             x:-505,
-            y:-420
+            y:-405
         },
         tileSize: 16*4 //4x zoom
     })
@@ -160,7 +160,7 @@ export default function BoardAlt(props) {
 
         boardDataLocal.players.forEach(plyr=> {
             if(plyr.socketId === activePlayer.socketId){
-                if(moving){
+                if(moving && (movingData)){
                     let data = getAnimationFrame(playerImage)
                     c.drawImage(
                         playerImage,
@@ -363,7 +363,7 @@ export default function BoardAlt(props) {
             newBoard.players = newPlayers
             newBoard.currentPlayer = activePlayer
             setBoardDataLocal(newBoard)
-        }, 100)
+        }, 75)
     }
 
     function clickDice(){

@@ -4,6 +4,7 @@ import playerPng from '../assets/player1.png'
 import './BoardAlt.scss'
 import diceSVG from '../assets/dice.svg'
 import PopUp from './PopUp'
+import PlayerInfo from './PlayerInfo'
 let c;
 
 export default function BoardAlt(props) {
@@ -371,10 +372,16 @@ export default function BoardAlt(props) {
     }
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', height: '100vh'}}>
+    <div className='boardworld-container'>
         {playerTurn && !moving && <PopUp closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} propertyBuy={props.propertyBuy} declineBuy={props.declineBuy} buyProperty={props.buyProperty} rentPay={props.rentPay}></PopUp>}
-        <canvas ref={canvasRef} style={{border: "10px solid white"}}/>
         {playerTurn && !moving && !props.rentPay && !props.propertyBuy && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
+        <canvas ref={canvasRef} style={{border: "10px solid white"}}/>
+        <div className='players-container'>{boardDataLocal.players.map(player => {
+            return (
+                <PlayerInfo openManage={props.openManage} boardData={boardDataLocal}player={player} thisPlayer={props.thisPlayer} playerTurn={playerTurn}></PlayerInfo>
+            )
+        })}</div>
     </div>
+    
   )
 }

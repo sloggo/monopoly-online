@@ -14,7 +14,7 @@ export default function BoardAlt(props) {
         image: mapPng,
         offset:{
             x:-505,
-            y:-405
+            y:-520
         },
         tileSize: 16*4 //4x zoom
     })
@@ -170,7 +170,7 @@ export default function BoardAlt(props) {
                         data.endX,
                         data.endY,
                         canvas.width/2,
-                        canvas.height/2,
+                        canvas.height/1.5,
                         16*3,
                         32*3,
                     )
@@ -182,7 +182,7 @@ export default function BoardAlt(props) {
                         16,
                         32,
                         canvas.width/2,
-                        canvas.height/2,
+                        canvas.height/1.5,
                         16*3,
                         32*3
                         )

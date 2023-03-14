@@ -15,11 +15,11 @@
             "scaleInEditor": 1
         },
         "monopoly-city-map.tmx": {
-            "scale": 4,
+            "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 772.875,
-                "y": 985
+                "x": 561.5,
+                "y": 1332
             }
         }
     },

@@ -5,7 +5,11 @@
             "type": "square",
             "colour": null,
             "name": "Free Parking",
-            "special": true
+            "special": true,
+            "mapPosition":{
+                "x":27,
+                "y":57
+            }
         },
         {
             "tileId": 21,
@@ -132,7 +136,11 @@
             "name": "Dame Street",
             "special": false,
             "forSale": true,
-            "price": 180
+            "price": 180,
+            "mapPosition":{
+                "x":40,
+                "y":57
+            }
         }, 
         {
             "tileId": null,
@@ -154,7 +162,11 @@
             "orientation": "left",
             "colour": null,
             "name": "Community Chest",
-            "special": true
+            "special": true,
+            "mapPosition":{
+                "x":55,
+                "y":57
+            }
         }, 
         {
             "tileId": null,
@@ -176,7 +188,11 @@
             "name": "Pearse Street",
             "special": false,
             "forSale": true,
-            "price": 180
+            "price": 180,
+            "mapPosition":{
+                "x":51,
+                "y":57
+            }
         }, 
         {
             "tileId": null,
@@ -201,7 +217,11 @@
             "name": "Dublin Airport",
             "special": false,
             "forSale": true,
-            "price": 200
+            "price": 200,
+            "mapPosition":{
+                "x":75,
+                "y":57
+            }
         }, 
         {
             "tileId": null,
@@ -225,7 +245,11 @@
             "name": "Nassau Street",
             "special": false,
             "forSale": true,
-            "price": 160
+            "price": 160,
+            "mapPosition":{
+                "x":91,
+                "y":57
+            }
         }, 
         {
             "tileId": null,
@@ -247,7 +271,11 @@
             "name": "Kildare Street",
             "special": false,
             "forSale": true,
-            "price": 140
+            "price": 140,
+            "mapPosition":{
+                "x":96,
+                "y":65
+            }
         }, 
         {
             "tileId": null,
@@ -271,7 +299,11 @@
             "name": "Electric Company",
             "special": false,
             "forSale": true,
-            "price": 150
+            "price": 150,
+            "mapPosition":{
+                "x":96,
+                "y":76
+            }
         }, 
         {
             "tileId": null,
@@ -294,7 +326,11 @@
             "name": "Dawson Street",
             "special": false,
             "forSale": true,
-            "price": 140
+            "price": 140,
+            "mapPosition":{
+                "x":96,
+                "y":83
+            }
         }, 
         {
             "tileId": null,
@@ -317,8 +353,8 @@
             "name": "Jail",
             "special": true,
             "mapPosition": {
-                "x": 65,
-                "y": 72
+                "x": 75,
+                "y": 82
             }
         },
         {
@@ -331,8 +367,8 @@
             "forSale": true,
             "price": 120,
             "mapPosition": {
-                "x": 35,
-                "y": 75
+                "x": 45,
+                "y": 85
             }
         },
         {
@@ -345,8 +381,8 @@
             "forSale": true,
             "price": 100,
             "mapPosition": {
-                "x": 27,
-                "y": 75
+                "x": 37,
+                "y": 85
             }
         },
         {
@@ -357,8 +393,8 @@
             "name": "Chance",
             "special": true,
             "mapPosition": {
-                "x": 20,
-                "y": 75
+                "x": 30,
+                "y": 85
             }
         },
         {
@@ -371,8 +407,8 @@
             "forSale": true,
             "price": 100,
             "mapPosition": {
-                "x": 13,
-                "y": 75
+                "x": 23,
+                "y": 85
             }
         },
         {
@@ -385,8 +421,8 @@
             "forSale": true,
             "price": 200,
             "mapPosition": {
-                "x": 6,
-                "y": 75
+                "x": 16,
+                "y": 85
             }
         },
         {
@@ -398,8 +434,8 @@
             "special": false,
             "price": 200,
             "mapPosition": {
-                "x": 6,
-                "y": 90
+                "x": 16,
+                "y": 100
             }
         },{
             "tileId": 3,
@@ -411,8 +447,8 @@
             "forSale": true,
             "price": 60,
             "mapPosition": {
-                "x": 14,
-                "y": 90
+                "x": 24,
+                "y": 100
             }
         },
         {
@@ -423,8 +459,8 @@
             "name": "Community Chest",
             "special": true,
             "mapPosition": {
-                "x": 20,
-                "y": 90
+                "x": 30,
+                "y": 100
             }
         },{
             "tileId": 1,
@@ -436,8 +472,8 @@
             "forSale": true,
             "price": 60,
             "mapPosition": {
-                "x":26,
-                "y": 90
+                "x": 36,
+                "y": 100
             }
         },
         {
@@ -448,8 +484,8 @@
             "special": true,
             "price": 200,
             "mapPosition": {
-                "x": 49,
-                "y": 90
+                "x": 59,
+                "y": 100
             }
         }
 ]

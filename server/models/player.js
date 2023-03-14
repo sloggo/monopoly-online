@@ -33,8 +33,8 @@ const playerSchema = new mongoose.Schema({
     position: {
         type: Object,
         default: {
-            "x": 49,
-            "y": 90
+            "x": 59,
+            "y": 100
         }
     }
 })

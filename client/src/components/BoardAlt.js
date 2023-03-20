@@ -56,10 +56,29 @@ export default function BoardAlt(props) {
     function onBoardUpdate(newData){
         setBoardDataLive(newData)
 
+        if((newData._v - boardDataLocal._v) > 1){
+            skipMove()
+            setMoving(false)
+            setProgessingToTile(null)
+            setIsLive(true)
+            setBoardDataLocal(newData)
+
+            if(newData.currentPlayer.socketId === socketID){
+                setPlayerTurn(true)
+            } else{
+                setPlayerTurn(false)
+            }
+
+            return
+        }
+
         if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position === boardDataLocal.currentPlayer.position){
             // current player is the same and their in their live position
             setIsLive(true)
             setBoardDataLocal(newData)
+            setMovementSkipped(false)
+            setMoving(false)
+            setProgessingToTile(null)
 
             if(newData.currentPlayer.socketId === socketID){
                 setPlayerTurn(true)
@@ -84,6 +103,9 @@ export default function BoardAlt(props) {
 
         } else{
             // next player
+            setMovementSkipped(false)
+            setMoving(false)
+            setProgessingToTile(null)
             setIsLive(true)
             setBoardDataLocal(newData)
 
@@ -325,11 +347,7 @@ export default function BoardAlt(props) {
                 newBoard.players = newPlayers
                 newBoard.currentPlayer = activePlayer
                 setBoardDataLocal(newBoard)
-                setProgessingToTile({x,
-                    y,
-                    tileId,
-                    finalTile,
-                    status: "finished"})
+                setProgessingToTile(null)
                 return
             }
 

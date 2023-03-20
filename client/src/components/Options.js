@@ -49,7 +49,7 @@ export default function Options(props) {
             <motion.div className='ball-of-colour' animate={{x: mousePosition.x - 200, y: mousePosition.y - 200}} transition={{ duration: .05, type: "tween" }}/>
         </div>
 
-        {games.map(game => {
+        {games&&games.map(game => {
           return <p style={{zIndex: 15}}onClick={(e) => enterGameCode(game._id)}>{game._id} {game.players.map(player => <p>{player.username}</p>)}</p>
         })}
 

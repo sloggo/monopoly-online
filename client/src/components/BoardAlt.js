@@ -56,10 +56,11 @@ export default function BoardAlt(props) {
     function onBoardUpdate(newData){
         setBoardDataLive(newData)
 
-        if((newData._v - boardDataLocal._v) > 1){
-            skipMove()
-            setMoving(false)
-            setProgessingToTile(null)
+        if((Math.abs(newData._v - boardDataLocal._v)) > 1){
+            if(boardDataLocal.currentPlayer.socketID !== newData.currentPlayer.socketID){
+                setMovementSkipped(true)
+                setProgessingToTile(null)
+            }
             setIsLive(true)
             setBoardDataLocal(newData)
 
@@ -76,9 +77,7 @@ export default function BoardAlt(props) {
             // current player is the same and their in their live position
             setIsLive(true)
             setBoardDataLocal(newData)
-            setMovementSkipped(false)
-            setMoving(false)
-            setProgessingToTile(null)
+
 
             if(newData.currentPlayer.socketId === socketID){
                 setPlayerTurn(true)
@@ -101,11 +100,18 @@ export default function BoardAlt(props) {
             console.log(localTile,liveTile)
             progressToTile(localTile, liveTile)
 
+        } else if(!moving && boardDataLive.currentPlayer.position === boardDataLocal.currentPlayer.position){
+            // next player
+            setIsLive(true)
+            setBoardDataLocal(newData)
+
+            if(newData.currentPlayer.socketId === socketID){
+                setPlayerTurn(true)
+            } else{
+                setPlayerTurn(false)
+            }
         } else{
             // next player
-            setMovementSkipped(false)
-            setMoving(false)
-            setProgessingToTile(null)
             setIsLive(true)
             setBoardDataLocal(newData)
 
@@ -127,19 +133,14 @@ export default function BoardAlt(props) {
 
     async function progressToTile(originalTile, finalTile){
         setMoving(true)
-        if(boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position){
+        if(boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position || movementSkipped === true){
+            console.log("done progressing")
+            setMovementSkipped(false)
+            setMoving(false)
             return
         }
         let origTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
         let newTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
-
-        if(movementSkipped){
-            let finalTileObj = boardDataLocal.tileData.find(tile => tile.tileId === finalTile)
-            goTo(finalTileObj.mapPosition.x, finalTileObj.mapPosition.y, finalTile, finalTile)
-            setMoving(false)
-            setProgessingToTile(null)
-            return
-        }
 
         console.log(originalTile, finalTile)
 
@@ -175,6 +176,14 @@ export default function BoardAlt(props) {
             progressToTile(progressingToTile.tileId, progressingToTile.finalTile)
         }
     }, [progressingToTile])
+
+    useEffect(()=> {
+        if(movementSkipped){
+            setBoardDataLocal(boardDataLive)
+            setIsLive(true)
+            setMoving(false)
+        }
+    }, [movementSkipped])
 
     function render(){
         let canvas = canvasRef.current
@@ -332,7 +341,7 @@ export default function BoardAlt(props) {
         let activePlayer = boardDataLocal.players.find(plyr => plyr.socketId === boardDataLocal.currentPlayer.socketId)
         let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.socketId === activePlayer.socketId)
         setTimeout(() => {
-            if(movementSkipped){
+            if(movementSkipped === true){
                 let finalTileObj = boardDataLocal.tileData.find(tile=> tile.tileId === finalTile)
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)
                 setMovingData({
@@ -344,14 +353,13 @@ export default function BoardAlt(props) {
                 activePlayer.position.x = finalTileObj.mapPosition.x
                 activePlayer.position.y = finalTileObj.mapPosition.y
 
-                newBoard.players = newPlayers
-                newBoard.currentPlayer = activePlayer
-                setBoardDataLocal(newBoard)
-                setProgessingToTile(null)
-                return
-            }
-
-            if(activePlayer.position.x !== x && activePlayer.position.x > x){
+                setProgessingToTile({x,
+                    y,
+                    tileId,
+                    finalTile,
+                    status: "finished"})
+                
+            } else if(activePlayer.position.x !== x && activePlayer.position.x > x){
 
                 activePlayer.position.x -= .5
                 newPlayers.splice(activePlayerIndex, 1, activePlayer)

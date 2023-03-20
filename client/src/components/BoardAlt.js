@@ -40,6 +40,7 @@ export default function BoardAlt(props) {
         frame: 0
     })
     const [progressingToTile, setProgessingToTile]=useState(null)
+    const [movementSkipped, setMovementSkipped] = useState(false)
 
     useEffect(() => {
         setVisible(props.visible)
@@ -109,6 +110,15 @@ export default function BoardAlt(props) {
         }
         let origTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
         let newTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
+
+        if(movementSkipped){
+            let finalTileObj = boardDataLocal.tileData.find(tile => tile.tileId === finalTile)
+            goTo(finalTileObj.mapPosition.x, finalTileObj.mapPosition.y, finalTile, finalTile)
+            setMoving(false)
+            setProgessingToTile(null)
+            return
+        }
+
         console.log(originalTile, finalTile)
 
         if(originalTile === finalTile){
@@ -300,6 +310,28 @@ export default function BoardAlt(props) {
         let activePlayer = boardDataLocal.players.find(plyr => plyr.socketId === boardDataLocal.currentPlayer.socketId)
         let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.socketId === activePlayer.socketId)
         setTimeout(() => {
+            if(movementSkipped){
+                let finalTileObj = boardDataLocal.tileData.find(tile=> tile.tileId === finalTile)
+                newPlayers.splice(activePlayerIndex, 1, activePlayer)
+                setMovingData({
+                    up: false,
+                    down: false,
+                    left: false,
+                    right: false,
+                })
+                activePlayer.position.x = finalTileObj.mapPosition.x
+                activePlayer.position.y = finalTileObj.mapPosition.y
+
+                newBoard.players = newPlayers
+                newBoard.currentPlayer = activePlayer
+                setBoardDataLocal(newBoard)
+                setProgessingToTile({x,
+                    y,
+                    tileId,
+                    finalTile,
+                    status: "finished"})
+                return
+            }
 
             if(activePlayer.position.x !== x && activePlayer.position.x > x){
 
@@ -371,6 +403,10 @@ export default function BoardAlt(props) {
         goTo(0,0)
     }
 
+    function skipMove(){
+        setMovementSkipped(true)
+    }
+
   return (
     <div className='boardworld-container'>
         {playerTurn && !moving && <PopUp closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} propertyBuy={props.propertyBuy} declineBuy={props.declineBuy} buyProperty={props.buyProperty} rentPay={props.rentPay}></PopUp>}
@@ -380,7 +416,10 @@ export default function BoardAlt(props) {
             return (
                 <PlayerInfo openManage={props.openManage} boardData={boardDataLocal}player={player} thisPlayer={props.thisPlayer} playerTurn={playerTurn}></PlayerInfo>
             )
-        })}</div>
+        })}
+            {moving && <div className='player-info-manage' onClick={skipMove}>Skip Movement</div>}
+        
+        </div>
     </div>
     
   )

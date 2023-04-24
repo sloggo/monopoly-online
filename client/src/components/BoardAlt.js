@@ -13,16 +13,17 @@ export default function BoardAlt(props) {
     const [background, setBackground] = useState({
         image: mapPng,
         offset:{
-            x:-505,
-            y:-520
+            x:-505/1024,
+            y:-520/700
         },
-        tileSize: 16*4 //4x zoom
+        tileSize: 16*4, //4x zoom
     })
     const [playerSprite, setPlayerSprite] = useState({
         image: playerPng
     })
     const [moving, setMoving] = useState(false)
     let frameNum = 0
+    const [canvasSize, setCanvasSize] = useState({x: window.innerWidth*0.6, y: window.innerWidth*0.6*0.68359375})
 
     //network states
     const [visible, setVisible] = useState(props.visible)
@@ -51,6 +52,10 @@ export default function BoardAlt(props) {
         onBoardUpdate(props.boardData)
         window.requestAnimationFrame(render)
     }, [props.boardData, boardDataLocal, boardDataLive])
+
+    useEffect(()=> {
+        setCanvasSize({x: window.innerWidth*0.6, y: window.innerWidth*0.6*0.68359375})
+    })
 
     function onBoardUpdate(newData){
         setBoardDataLive(newData)
@@ -146,8 +151,8 @@ export default function BoardAlt(props) {
 
     function render(){
         let canvas = canvasRef.current
-        canvas.width = 1024
-        canvas.height = 700
+        canvas.width = canvasSize.x
+        canvas.height = canvasSize.y
 
         const image = new Image()
         image.src = background.image
@@ -157,7 +162,7 @@ export default function BoardAlt(props) {
 
         let activePlayer = boardDataLocal.currentPlayer
       
-        c.drawImage(image, (-(activePlayer.position.x)*background.tileSize)-background.offset.x, (-(activePlayer.position.y)*background.tileSize-background.offset.y))
+        c.drawImage(image, (-(activePlayer.position.x)*background.tileSize)-canvas.width*background.offset.x, (-(activePlayer.position.y)*background.tileSize-canvas.height*background.offset.y))
 
         boardDataLocal.players.forEach(plyr=> {
             if(plyr.socketId === activePlayer.socketId){
@@ -197,7 +202,7 @@ export default function BoardAlt(props) {
                     16,
                     32,
                     canvas.width/2 - newPositionRelative.x,
-                    canvas.height/2 - newPositionRelative.y,
+                    canvas.height/1.5 - newPositionRelative.y,
                     16*3,
                     32*3
                     )

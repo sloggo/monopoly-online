@@ -42,6 +42,20 @@ export default function BoardAlt(props) {
     })
     const [progressingToTile, setProgessingToTile]=useState(null)
 
+    useEffect(()=>{
+        document.addEventListener("visibilitychange", visibilityChange);
+    },[])
+
+    function visibilityChange(){
+        if(document.hidden){
+            console.log("hidden")
+
+        } else{
+            console.log("visible")
+            setMoving(false)
+        }
+    }
+
     useEffect(() => {
         setVisible(props.visible)
         setDiceRoll(props.diceRoll)
@@ -55,7 +69,7 @@ export default function BoardAlt(props) {
 
     useEffect(()=> {
         setCanvasSize({x: window.innerWidth*0.6, y: window.innerWidth*0.6*0.68359375})
-    })
+    }, [window])
 
     function onBoardUpdate(newData){
         setBoardDataLive(newData)
@@ -83,11 +97,13 @@ export default function BoardAlt(props) {
 
             let localTile = boardDataLocal.currentPlayer.currentTile.tileId
             let liveTile = newData.currentPlayer.currentTile.tileId
+            setMoving(true)
             console.log(localTile,liveTile)
             progressToTile(localTile, liveTile)
 
         } else{
             // next player
+            setMoving(false)
             setIsLive(true)
             setBoardDataLocal(newData)
 
@@ -108,7 +124,6 @@ export default function BoardAlt(props) {
     }   
 
     async function progressToTile(originalTile, finalTile){
-        setMoving(true)
         if(boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position){
             return
         }
@@ -298,7 +313,7 @@ export default function BoardAlt(props) {
     }, [])
 
     function goTo(x, y, tileId, finalTile){
-        setProgessingToTile({x, y, tileId, finalTile, status: "moving"})
+        setProgessingToTile({x, y, tileId, finalTile, status: "moving", plyr: boardDataLocal.currentPlayer.socketID})
         
         let newBoard = {...boardDataLocal}
         let newPlayers = [...newBoard.players]

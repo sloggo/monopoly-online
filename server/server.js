@@ -106,6 +106,10 @@ const getAllPropertiesOwned = async(board, playerSocketId) => {
     return board.tileData.filter(tile => tile.owner === playerSocketId)
 }
 
+const rollEventCheck = async(newTile, currentPlayer, board, roomId)=>{
+    
+}
+
 
 io.on('connection', async function (socket) {
     console.log(`New connection: ${socket.id}`);
@@ -260,20 +264,20 @@ io.on('connection', async function (socket) {
 
         if(newTile.tileId === 4 || newTile.tileId === 38){
             let price = await getRentPrice(currentPlayer.currentTile)
-            socket.emit("payRent", {board, property:currentPlayer.currentTile, price})
+            socket.emit("newNotification", {board, property:currentPlayer.currentTile, price, type:"payRent"})
             return
         }    
-
+    
         if(currentPlayer.currentTile && (currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner)){
-            socket.emit("buyProperty", {property:currentPlayer.currentTile, board})
+            socket.emit("newNotification", {board, property:currentPlayer.currentTile, type:"buyProperty?"})
             return
         } else if(currentPlayer.currentTile && currentPlayer.currentTile.owner && (currentPlayer.currentTile.owner !== currentPlayer.socketId)){
             let price = await getRentPrice(currentPlayer.currentTile)
-            socket.emit("payRent", {board, property:currentPlayer.currentTile, price})
+            socket.emit("newNotification", {board, property:currentPlayer.currentTile, price, type:"payRent"})
             return
+        } else{
+            nextPlayer(board, roomId);
         }
-
-        nextPlayer(board, roomId);
     })
 
     socket.on("wantsToBuyProperty", async(property) => {

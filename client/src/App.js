@@ -18,8 +18,7 @@ function App() {
   const [socketID, setSocketID] = useState(null)
 
   const [diceRoll, setDiceRoll] = useState(null)
-  const [propertyBuy, setPropertyBuy] = useState(null)
-  const [rentPay, setRentPay] = useState(null)
+  const [notification, setNotification] = useState(null)
   const [manageOpen, setManageOpen]= useState(false)
 
   const setOptionsTab = () =>{
@@ -55,24 +54,24 @@ function App() {
   }
 
   const buyProperty = () => {
-    socket.emit("wantsToBuyProperty", propertyBuy)
-    setPropertyBuy(null)
+    socket.emit("wantsToBuyProperty", notification.property)
+    setNotification(null)
   }
 
   const declineBuy = () => {
-    setPropertyBuy(null)
+    setNotification(null)
     socket.emit("declineBuy", boardData)
   }
 
   const payRent = () => {
-    if(!rentPay.property) return 
-    let prop = rentPay.property
+    if(!notification.property) return 
+    let prop = notification.property
     socket.emit("rentPaid", {thisPlayer, rentPay: prop})
-    setRentPay(null)
+    setNotification(null)
   }
 
   const openManage = () => {
-    if(!rentPay && !propertyBuy){
+    if(!notification){
       socket.emit("seeProperties", thisPlayer)
       console.log("open")
     }
@@ -118,22 +117,14 @@ function App() {
       setCurrentTab("board")
     })
 
-    socket.off("buyProperty")
-    socket.on("buyProperty", (data) => {
+    socket.off("newNotification")
+    socket.on("newNotification", (data) => {
       let thisPlyr = data.board.players.find(player => player.socketId === socketID)
-      setBoardData(data.board)
-      setThisPlayer(thisPlyr)
-      console.log("buy?", data.property)
-      setPropertyBuy(data.property)
-    })
 
-    socket.off("payRent")
-    socket.on("payRent", (data) => {
-      let thisPlyr = data.board.players.find(player => player.socketId === socketID)
       setBoardData(data.board)
       setThisPlayer(thisPlyr)
-      console.log("pay", data.property.price*0.1)
-      setRentPay({property: data.property, price: data.price})
+      console.log("pay", data.price)
+      setNotification(data)
     })
 
     socket.off("ownedProperties")
@@ -148,7 +139,7 @@ function App() {
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
-      {currentTab === "board" && <BoardAlt closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} rentPay={rentPay} propertyBuy={propertyBuy} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></BoardAlt>}
+      {currentTab === "board" && <BoardAlt closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} notification={notification} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></BoardAlt>}
     </div>
   );
 }

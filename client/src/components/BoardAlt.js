@@ -42,20 +42,6 @@ export default function BoardAlt(props) {
     })
     const [progressingToTile, setProgessingToTile]=useState(null)
 
-    useEffect(()=>{
-        document.addEventListener("visibilitychange", visibilityChange);
-    },[])
-
-    function visibilityChange(){
-        if(document.hidden){
-            console.log("hidden")
-
-        } else{
-            console.log("visible")
-            setMoving(false)
-        }
-    }
-
     useEffect(() => {
         setVisible(props.visible)
         setDiceRoll(props.diceRoll)
@@ -73,7 +59,7 @@ export default function BoardAlt(props) {
 
     function onBoardUpdate(newData){
         setBoardDataLive(newData)
-
+        
         if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position === boardDataLocal.currentPlayer.position){
             // current player is the same and their in their live position
             setIsLive(true)
@@ -401,8 +387,8 @@ export default function BoardAlt(props) {
             })}</div>
         </div>
         
-        {playerTurn && !moving && <PopUp closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} propertyBuy={props.propertyBuy} declineBuy={props.declineBuy} buyProperty={props.buyProperty} rentPay={props.rentPay}></PopUp>}
-        {playerTurn && !moving && !props.rentPay && !props.propertyBuy && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
+        {playerTurn && !moving && <PopUp closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
+        {playerTurn && !moving && !props.notification && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
 
         <canvas ref={canvasRef} style={{border: "10px solid white"}}/>
     </div>

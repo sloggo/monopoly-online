@@ -4,16 +4,16 @@ import './PopUp.scss'
 export default function (props) {
   return (
     <>
-    { (props.rentPay || props.propertyBuy || props.manageOpen) && <div className='popup-overlay'>
-        {props.propertyBuy && <div className='popup-container'>
+    { (props.notification || props.manageOpen) && <div className='popup-overlay'>
+        {props.notification && props.notification.type === 'buyProperty?' && <div className='popup-container'>
             <h2>Property for sale!</h2>
 
             <div className='property-info'>
-                <div className='property-dot-colour' style={{backgroundColor: props.buyProperty.color}}></div>
-                <h3>{props.propertyBuy.name}</h3>
+                <div className='property-dot-colour' style={{backgroundColor: props.notification.property.color}}></div>
+                <h3>{props.notification.property.name}</h3>
             </div>
 
-            <p className='property-price'>{props.propertyBuy.price}$</p>
+            <p className='property-price'>{props.notification.property.price}$</p>
 
             <div className='option-buttons'>
                 <div className='option-button buy' onClick={props.buyProperty}>Buy</div>
@@ -21,18 +21,18 @@ export default function (props) {
             </div>
         </div>}
 
-        {props.rentPay &&
+        {props.notification && props.notification.type === "payRent" &&
             <div className='popup-container'>
             <h2>Rent is due!</h2>
 
             <div className='property-info'>
-            <div className={'colour-strip '+props.rentPay.property.colour}></div>
-                <h3>{props.rentPay.property.name}</h3>
+            <div className={'colour-strip '+props.notification.property.colour}></div>
+                <h3>{props.notification.property.name}</h3>
             </div>
 
-            <p>Owned by - {props.rentPay.property.owner}</p>
+            <p>Owned by - {props.notification.property.owner}</p>
 
-            <p className='property-price'>{props.rentPay.price}$</p>
+            <p className='property-price'>{props.notification.property.price}$</p>
 
             <div className='option-buttons'>
                 <div className='option-button decline' onClick={props.payRent}>Pay Up!</div>

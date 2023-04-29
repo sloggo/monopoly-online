@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './PopUp.scss'
 
 export default function (props) {
+    const [currentProperty, setCurrentProperty] = useState(null)
+
+    function clickPropertyManage(property){
+        setCurrentProperty(property)
+        console.log(property)
+    }
+
+    function handleClose(){
+        setCurrentProperty(null)
+        props.closeManage()
+    }
+
+    function buyHouseButton(property){
+        console.log('popup')
+        props.buyHouse(property)
+    }
+
   return (
     <>
     { (props.notification || props.manageOpen) && <div className='popup-overlay'>
-        {props.notification && props.notification.type === 'buyProperty?' && <div className='popup-container'>
+        {!currentProperty && props.notification && props.notification.type === 'buyProperty?' && <div className='popup-container'>
             <h2>Property for sale!</h2>
 
             <div className='property-info'>
@@ -21,7 +38,7 @@ export default function (props) {
             </div>
         </div>}
 
-        {props.notification && props.notification.type === "payRent" &&
+        {!currentProperty && props.notification && props.notification.type === "payRent" &&
             <div className='popup-container'>
             <h2>Rent is due!</h2>
 
@@ -40,7 +57,7 @@ export default function (props) {
         </div>
         }
 
-        {props.manageOpen &&
+        {!currentProperty && props.manageOpen &&
             <div className='popup-container'>
             <h2>Your Properties</h2>
 
@@ -49,14 +66,31 @@ export default function (props) {
                     return <div className='popup-player-property'>
                         <div className={'colour-strip '+property.colour}></div>
                         <p>{property.name} {property.colour ? (property.houses  ? property.houses+"- houses": "- 0 houses") : null}</p>
+                        <div className='option-button decline' style={{width: 100, fontSize: 8, textAlign: 'center'}} onClick={() => clickPropertyManage(property)}>Manage</div>
                     </div>
                 })}
             </div>
 
             <div className='option-buttons'>
-                <div className='option-button decline bottom' onClick={props.closeManage}>Close</div>
+                <div className='option-button decline bottom' onClick={handleClose}>Close</div>
             </div>
         </div>
+        }
+
+        {currentProperty && 
+                    <div className='popup-container'>
+                    <h2>{currentProperty.name}</h2>
+
+                    <div className='popup-player-properties' style={{alignItems: 'center', justifyContent: 'center'}}>
+                        {!currentProperty.houses && <p>No houses yet, buy one!</p>}
+                        {currentProperty.houses && currentProperty.houses.map(house => <p>House</p>)}
+                        <div className='option-button buy' style={{width: 100, fontSize: 8, textAlign: 'center'}} onClick={()=>buyHouseButton(currentProperty)}>Buy House</div>
+                    </div>
+
+                    <div className='option-buttons'>
+                    <div className='option-button decline bottom' onClick={handleClose}>Close</div>
+                    </div>
+                </div>
         }
     </div>}
     </>

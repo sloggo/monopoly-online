@@ -63,6 +63,11 @@ function App() {
     socket.emit("declineBuy", boardData)
   }
 
+  const buyHouse = (property) => {
+    console.log('sent')
+    socket.emit("buyHouse", {boardData, property, thisPlayer})
+  }
+
   const payRent = () => {
     if(!notification.property) return 
     let prop = notification.property
@@ -139,7 +144,7 @@ function App() {
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
-      {currentTab === "board" && <BoardAlt closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} notification={notification} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></BoardAlt>}
+      {currentTab === "board" && <BoardAlt buyHouse={buyHouse} closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} notification={notification} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></BoardAlt>}
     </div>
   );
 }

@@ -87,7 +87,7 @@ const getRentPrice = (property) => {
         return property.price
     }
 
-    let noHouses = property.houses
+    let noHouses = property.houses.length
     switch (noHouses){
         case 1:
             return property.price*(1/8)
@@ -104,10 +104,6 @@ const getAllPropertiesOwned = async(board, playerSocketId) => {
     let player = await findPlayer(board, playerSocketId)
 
     return board.tileData.filter(tile => tile.owner === playerSocketId)
-}
-
-const rollEventCheck = async(newTile, currentPlayer, board, roomId)=>{
-    
 }
 
 
@@ -322,6 +318,43 @@ io.on('connection', async function (socket) {
         let ownedTiles = await getAllPropertiesOwned(board, player.socketId);
 
         socket.emit("ownedProperties", ownedTiles)
+    })
+
+    socket.on("buyHouse", async(data)=> {
+        console.log("buying house")
+        let board = await findBoard(roomId)
+        let currentPlayer = await findPlayer(board, socket.id)
+        let currentPlayerIndex = await findPlayerIndex(board, socket.id)
+        let property = data.property
+        let propertyInBoard = await findTile(board, property.tileId)
+        let propertyInBoardIndex = await findTileIndex(board, property)
+
+        if(propertyInBoard.owner !== currentPlayer.socketId){
+            //error not owner
+            console.log("house owner err")
+            return
+        }
+
+        if(currentPlayer.money < propertyInBoard.housePrice){
+            //error not enough money
+            console.log("house money err")
+            return
+        }
+
+        currentPlayer.money = currentPlayer.money - propertyInBoard.housePrice
+        board.currentPlayer = currentPlayer
+
+        if(propertyInBoard.houses){
+            propertyInBoard.houses.push('h')
+        } else{
+            propertyInBoard.houses = ['h']
+        }
+
+        board.players.splice(currentPlayerIndex, 1, currentPlayer);
+        board.tileData.splice(propertyInBoardIndex, 1, propertyInBoard)
+        console.log(board)
+        await board.save()
+        io.in(roomId).emit("boardUpdate", {board})
     })
 });
 

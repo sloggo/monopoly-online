@@ -11,15 +11,15 @@
     "fileStates": {
         "Modern_Exteriors_Complete_Tileset.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "monopoly-city-map.tmx": {
-            "scale": 1,
+            "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 561.5,
-                "y": 1332
+                "x": 502.3333333333333,
+                "y": 789.1666666666666
             }
         }
     },

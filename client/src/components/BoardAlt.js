@@ -57,6 +57,11 @@ export default function BoardAlt(props) {
         setCanvasSize({x: window.innerWidth*0.6, y: window.innerWidth*0.6*0.68359375})
     }, [window])
 
+    function buyHouse(property){
+        console.log('board')
+        props.buyHouse(property)
+    }
+
     function onBoardUpdate(newData){
         setBoardDataLive(newData)
         
@@ -380,14 +385,14 @@ export default function BoardAlt(props) {
   return (
     <div className='boardworld-container'> 
         <div className='board-header'>
-            <div className='players-container'>{boardDataLocal.players.map(player => {
+            <div className='players-container'>{boardDataLive.players.map(player => {
                 return (
                     <PlayerInfo openManage={props.openManage} boardData={boardDataLocal}player={player} thisPlayer={props.thisPlayer} playerTurn={playerTurn}></PlayerInfo>
                 )
             })}</div>
         </div>
         
-        {playerTurn && !moving && <PopUp closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
+        {playerTurn && !moving && <PopUp buyHouse={buyHouse} closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
         {playerTurn && !moving && !props.notification && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
 
         <canvas ref={canvasRef} style={{border: "10px solid white"}}/>

@@ -1,7 +1,7 @@
 [
     
         {
-            "tileId": 20,
+            "housePrice": 100, "tileId": 20,
             "type": "square",
             "colour": null,
             "name": "Free Parking",
@@ -12,7 +12,7 @@
             }
         },
         {
-            "tileId": 21,
+            "housePrice": 100, "tileId": 21,
             "type": "tile",
             "orientation": "top",
             "colour": "red",
@@ -22,7 +22,7 @@
             "price": 220
         },
         {
-            "tileId": 22,
+            "housePrice": 100, "tileId": 22,
             "type": "tile",
             "orientation": "top",
             "colour": null,
@@ -30,7 +30,7 @@
             "special": true
         },
         {
-            "tileId": 23,
+            "housePrice": 100, "tileId": 23,
             "type": "tile",
             "orientation": "top",
             "colour": "red",
@@ -40,7 +40,7 @@
             "price": 220
         },
         {
-            "tileId": 24,
+            "housePrice": 100, "tileId": 24,
             "type": "tile",
             "orientation": "top",
             "colour": "red",
@@ -50,7 +50,7 @@
             "price": 240
         },
         {
-            "tileId": 25,
+            "housePrice": 100, "tileId": 25,
             "type": "tile",
             "orientation": "top",
             "colour": null,
@@ -60,7 +60,7 @@
             "price": 200
         },
         {
-            "tileId": 26,
+            "housePrice": 100, "tileId": 26,
             "type": "tile",
             "orientation": "top",
             "colour": "yellow",
@@ -70,7 +70,7 @@
             "price": 260
         },
         {
-            "tileId": 27,
+            "housePrice": 100, "tileId": 27,
             "type": "tile",
             "orientation": "top",
             "colour": "yellow",
@@ -79,7 +79,7 @@
             "forSale": true,
             "price": 260
         },{
-            "tileId": 28,
+            "housePrice": 100, "tileId": 28,
             "type": "tile",
             "orientation": "top",
             "colour": null,
@@ -88,7 +88,7 @@
             "forSale": true,
             "price": 150
         },{
-            "tileId": 29,
+            "housePrice": 100, "tileId": 29,
             "type": "tile",
             "orientation": "top",
             "colour": "yellow",
@@ -98,14 +98,14 @@
             "price": 220
         },
         {
-            "tileId": 30,
+            "housePrice": 100, "tileId": 30,
             "type": "square",
             "colour": null,
             "name": "Go To Jail",
             "special": true
         },
         {
-            "tileId": 19,
+            "housePrice": 100, "tileId": 19,
             "type": "tile",
             "orientation": "left",
             "colour": "orange",
@@ -115,11 +115,11 @@
             "price": 200
         }, 
         {
-            "tileId": null,
+            "housePrice": 100, "tileId": null,
             "type": "center"
         }, 
         {
-            "tileId": 31,
+            "housePrice": 100, "tileId": 31,
             "type": "tile",
             "orientation": "right",
             "colour": "green",
@@ -129,7 +129,7 @@
             "price": 300
         },
         {
-            "tileId": 18,
+            "housePrice": 100, "tileId": 18,
             "type": "tile",
             "orientation": "left",
             "colour": "orange",
@@ -143,11 +143,11 @@
             }
         }, 
         {
-            "tileId": null,
+            "housePrice": 100, "tileId": null,
             "type": "center"
         }, 
         {
-            "tileId": 32,
+            "housePrice": 100, "tileId": 32,
             "type": "tile",
             "orientation": "right",
             "colour": "green",
@@ -157,7 +157,7 @@
             "price": 300
         },
         {
-            "tileId": 17,
+            "housePrice": 100, "tileId": 17,
             "type": "tile",
             "orientation": "left",
             "colour": null,
@@ -169,11 +169,11 @@
             }
         }, 
         {
-            "tileId": null,
+            "housePrice": 100, "tileId": null,
             "type": "center"
         }, 
         {
-            "tileId": 33,
+            "housePrice": 100, "tileId": 33,
             "type": "tile",
             "orientation": "right",
             "colour": null,
@@ -181,7 +181,7 @@
             "special": true
         },
         {
-            "tileId": 16,
+            "housePrice": 100, "tileId": 16,
             "type": "tile",
             "orientation": "left",
             "colour": "orange",
@@ -195,12 +195,12 @@
             }
         }, 
         {
-            "tileId": null,
+            "housePrice": 100, "tileId": null,
             "type": "center"
         },
 
         {
-            "tileId": 34,
+            "housePrice": 100, "tileId": 34,
             "type": "tile",
             "orientation": "right",
             "colour": "green",
@@ -210,7 +210,7 @@
             "price": 180
         },
         {
-            "tileId": 15,
+            "housePrice": 100, "tileId": 15,
             "type": "tile",
             "orientation": "left",
             "colour": null,
@@ -224,11 +224,11 @@
             }
         }, 
         {
-            "tileId": null,
+            "housePrice": 100, "tileId": null,
             "type": "center"
         },
         {
-            "tileId": 35,
+            "housePrice": 100, "tileId": 35,
             "type": "tile",
             "orientation": "right",
             "colour": null,
@@ -238,7 +238,7 @@
             "price": 200
         },
         {
-            "tileId": 14,
+            "housePrice": 100, "tileId": 14,
             "type": "tile",
             "orientation": "left",
             "colour": "pink",
@@ -252,11 +252,11 @@
             }
         }, 
         {
-            "tileId": null,
+            "housePrice": 100, "tileId": null,
             "type": "center"
         }, 
         {
-            "tileId": 36,
+            "housePrice": 100, "tileId": 36,
             "type": "tile",
             "orientation": "right",
             "colour": null,
@@ -264,7 +264,7 @@
             "special": true
         },
         {
-            "tileId": 13,
+            "housePrice": 100, "tileId": 13,
             "type": "tile",
             "orientation": "left",
             "colour": "pink",
@@ -278,11 +278,11 @@
             }
         }, 
         {
-            "tileId": null,
+            "housePrice": 100, "tileId": null,
             "type": "center"
         }, 
         {
-            "tileId": 37,
+            "housePrice": 100, "tileId": 37,
             "type": "tile",
             "orientation": "right",
             "colour": "blue",
@@ -292,7 +292,7 @@
             "price": 350
         },
         {
-            "tileId": 12,
+            "housePrice": 100, "tileId": 12,
             "type": "tile",
             "orientation": "left",
             "colour": null,
@@ -306,11 +306,11 @@
             }
         }, 
         {
-            "tileId": null,
+            "housePrice": 100, "tileId": null,
             "type": "center"
         }, 
         {
-            "tileId": 38,
+            "housePrice": 100, "tileId": 38,
             "type": "tile",
             "orientation": "right",
             "colour": null,
@@ -319,7 +319,7 @@
             "price": 100
         },
         {
-            "tileId": 11,
+            "housePrice": 100, "tileId": 11,
             "type": "tile",
             "orientation": "left",
             "colour": "pink",
@@ -333,11 +333,11 @@
             }
         }, 
         {
-            "tileId": null,
+            "housePrice": 100, "tileId": null,
             "type": "center"
         }, 
         {
-            "tileId": 39,
+            "housePrice": 100, "tileId": 39,
             "type": "tile",
             "orientation": "right",
             "colour": "blue",
@@ -347,7 +347,7 @@
             "price": 400
         },
         {
-            "tileId": 10,
+            "housePrice": 100, "tileId": 10,
             "type": "square",
             "colour": null,
             "name": "Jail",
@@ -358,7 +358,7 @@
             }
         },
         {
-            "tileId": 9,
+            "housePrice": 100, "tileId": 9,
             "type": "tile",
             "orientation": "bottom",
             "colour": "cyan",
@@ -372,7 +372,7 @@
             }
         },
         {
-            "tileId": 8,
+            "housePrice": 100, "tileId": 8,
             "type": "tile",
             "orientation": "bottom",
             "colour": "cyan",
@@ -386,7 +386,7 @@
             }
         },
         {
-            "tileId": 7,
+            "housePrice": 100, "tileId": 7,
             "type": "tile",
             "orientation": "bottom",
             "colour": null,
@@ -398,7 +398,7 @@
             }
         },
         {
-            "tileId": 6,
+            "housePrice": 100, "tileId": 6,
             "type": "tile",
             "orientation": "bottom",
             "colour": "cyan",
@@ -412,7 +412,7 @@
             }
         },
         {
-            "tileId": 5,
+            "housePrice": 100, "tileId": 5,
             "type": "tile",
             "orientation": "bottom",
             "colour": null,
@@ -426,7 +426,7 @@
             }
         },
         {
-            "tileId": 4,
+            "housePrice": 100, "tileId": 4,
             "type": "tile",
             "orientation": "bottom",
             "colour": null,
@@ -438,7 +438,7 @@
                 "y": 100
             }
         },{
-            "tileId": 3,
+            "housePrice": 100, "tileId": 3,
             "type": "tile",
             "orientation": "bottom",
             "colour": "brown",
@@ -452,7 +452,7 @@
             }
         },
         {
-            "tileId": 2,
+            "housePrice": 100, "tileId": 2,
             "type": "tile",
             "orientation": "bottom",
             "colour": null,
@@ -463,7 +463,7 @@
                 "y": 100
             }
         },{
-            "tileId": 1,
+            "housePrice": 100, "tileId": 1,
             "type": "tile",
             "orientation": "bottom",
             "colour": "brown",
@@ -477,7 +477,7 @@
             }
         },
         {
-            "tileId": 0,
+            "housePrice": 100, "tileId": 0,
             "type": "square",
             "colour": null,
             "name": "Go!",

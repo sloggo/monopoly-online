@@ -49,7 +49,7 @@ export default function (props) {
 
             <p>Owned by - {props.notification.property.owner}</p>
 
-            <p className='property-price'>{props.notification.property.price}$</p>
+            <p className='property-price'>{props.notification.price}$</p>
 
             <div className='option-buttons'>
                 <div className='option-button decline' onClick={props.payRent}>Pay Up!</div>

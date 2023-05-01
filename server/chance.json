@@ -1,0 +1,100 @@
+[
+    {
+        "name": "Advance to Boardwalk",
+        "type": "advance",
+        "location":{
+            "x": 0,
+            "y": 0
+        },
+        "collect": false
+    },
+    {
+        "name": "Advance to Go (Collect $200)",
+        "type": "advance",
+        "location":{
+            "x": 0,
+            "y": 0
+        },
+        "collect": true
+    },
+    {
+        "name": "Advance to St. Charles Place. If you pass Go, collect $200",
+        "type": "advance",
+        "location":{
+            "x": 0,
+            "y": 0
+        },
+        "collect": true
+    },
+    {
+        "name": "Advance to the nearest Railroad. If unowned, you may buy it from the Bank. If owned, pay wonder twice the rental to which they are otherwise entitled",
+        "type": "advancespecific",
+        "nearest": "railroad",
+        "buy": true,
+        "rentMultiplier": 2
+    },
+    {
+        "name": "Advance to the nearest Railroad. If unowned, you may buy it from the Bank. If owned, pay wonder twice the rental to which they are otherwise entitled",
+        "type": "advancespecific",
+        "nearest": "railroad",
+        "buy": true,
+        "rentMultiplier": 2
+    },
+    {
+        "name": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times amount thrown.",
+        "type": "advancespecific",
+        "nearest": "utility",
+        "buy": true,
+        "rentMultiplier": 10
+    },
+    {
+        "name": "Bank pays you dividend of $50",
+        "type": "earn",
+        "amount": 50
+    },
+    {
+        "name": "Get Out of Jail Free",
+        "type": "jailfree"
+    },
+    {
+        "name": "Go Back 3 Spaces",
+        "type": "moveback",
+        "amount": 3
+    },
+    {
+        "name": "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200",
+        "type": "advance"
+    },
+    {
+        "name": "Make general repairs on all your property. For each house pay $25. For each hotel pay $100",
+        "type": "payperhousehotel",
+        "amount": {
+            "house": 25,
+            "hotel": 100
+        }
+    },
+    {
+        "name": "Speeding fine $15",
+        "type": "pay",
+        "amount": 15
+    },
+    {
+        "name": "Take a trip to Reading Railroad. If you pass Go, collect $200",
+        "type": "advance",
+        "location": {
+            "x": 0,
+            "y": 0
+        },
+        "collect": true
+    },
+    {
+        "name": "You have been elected Chairman of the Board. Pay each player $50",
+        "type": "payplayers",
+        "amount": 50
+    },
+    {
+        "name": "Your building loan matures. Collect $150",
+        "type": "earn",
+        "amount": 150
+    }
+]

@@ -8,6 +8,7 @@ const {Player} = require("./models/player")
 const {Board} = require("./models/board");
 const { ObjectId } = require("mongodb");
 const db = require("./models/mongodb")
+const chanceData = require("../chance.json")
 
 const gamesRoute = require("./routes/games")
 
@@ -106,6 +107,30 @@ const getAllPropertiesOwned = async(board, playerSocketId) => {
     return board.tileData.filter(tile => tile.owner === playerSocketId)
 }
 
+const chanceCard = (board, currentPlayer)=>{
+    let randomChance = chanceData[Math.floor(Math.random()*chanceData.length)]
+    console.log(randomChance)
+
+    switch(randomChance.type){
+        case 'advance':
+            break;
+        case 'advancespecific':
+            break;
+        case 'earn':
+            break;
+        case 'jailfree':
+            break;
+        case 'moveback':
+            break;
+        case 'payperhousehotel':
+            break;
+        case 'pay':
+            break;
+        case 'payplayer':
+            break;
+    }
+
+}
 
 io.on('connection', async function (socket) {
     console.log(`New connection: ${socket.id}`);
@@ -257,6 +282,10 @@ io.on('connection', async function (socket) {
         }
         await board.save()
         io.to(roomId).emit("boardUpdate", {board, diceRoll})
+
+        if(tile.name === 'Chance'){
+            chanceCard(board, currentPlayer)
+        }
 
         if(newTile.tileId === 4 || newTile.tileId === 38){
             let price = await getRentPrice(currentPlayer.currentTile)

@@ -8,7 +8,7 @@ const {Player} = require("./models/player")
 const {Board} = require("./models/board");
 const { ObjectId } = require("mongodb");
 const db = require("./models/mongodb")
-const chanceData = require("../chance.json")
+const chanceData = require("./chance.json")
 
 const gamesRoute = require("./routes/games")
 
@@ -37,6 +37,7 @@ const nextPlayer = async (board, roomId) => {
     board.currentPlayer = newCurrentPlayer
     await board.save()
     io.in(roomId).emit("boardUpdate", {board})
+
 }
 
 const findBoard = async (boardId) => {
@@ -107,12 +108,45 @@ const getAllPropertiesOwned = async(board, playerSocketId) => {
     return board.tileData.filter(tile => tile.owner === playerSocketId)
 }
 
-const chanceCard = (board, currentPlayer)=>{
+const chanceCard = async(board, currentPlayer, currentPlayerIndex)=>{
     let randomChance = chanceData[Math.floor(Math.random()*chanceData.length)]
     console.log(randomChance)
 
     switch(randomChance.type){
         case 'advance':
+            const newTile = await findTile(board, randomChance.tileId)
+            currentPlayer.currentTile = newTile;
+            currentPlayer.position = {
+                x: newTile.mapPosition.x,
+                y: newTile.mapPosition.y
+            }
+            
+            board.players.splice(currentPlayerIndex, 1, currentPlayer);
+            board.currentPlayer.currentTile = newTile
+            board.currentPlayer.position = {
+                x: newTile.mapPosition.x,
+                y: newTile.mapPosition.y
+            }
+            await board.save()
+            io.to(roomId).emit("boardUpdate", {board, diceRoll})
+
+            if(newTile.tileId === 4 || newTile.tileId === 38){
+                let price = await getRentPrice(currentPlayer.currentTile)
+                socket.emit("newNotification", {board, property:currentPlayer.currentTile, price, type:"payRent"})
+                return
+            }    
+        
+            if(currentPlayer.currentTile && (currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner)){
+                socket.emit("newNotification", {board, property:currentPlayer.currentTile, type:"buyProperty?"})
+                return
+            } else if(currentPlayer.currentTile && currentPlayer.currentTile.owner && (currentPlayer.currentTile.owner !== currentPlayer.socketId)){
+                let price = await getRentPrice(currentPlayer.currentTile)
+                socket.emit("newNotification", {board, property:currentPlayer.currentTile, price, type:"payRent"})
+                return
+            } else{
+                nextPlayer(board, roomId);
+            }
+
             break;
         case 'advancespecific':
             break;
@@ -264,7 +298,7 @@ io.on('connection', async function (socket) {
 
         let currentPlayerIndex = await findPlayerIndex(board, board.currentPlayer.socketId)
 
-        const newTileId = currentPlayer.currentTile.tileId + diceRoll;
+        const newTileId = (currentPlayer.currentTile.tileId + diceRoll)%39;
         const newTile = await findTile(board, newTileId)
         currentPlayer.currentTile = newTile;
         currentPlayer.position = {
@@ -283,8 +317,8 @@ io.on('connection', async function (socket) {
         await board.save()
         io.to(roomId).emit("boardUpdate", {board, diceRoll})
 
-        if(tile.name === 'Chance'){
-            chanceCard(board, currentPlayer)
+        if(newTile.name === 'Chance'){
+            chanceCard(board, currentPlayer, currentPlayerIndex)
         }
 
         if(newTile.tileId === 4 || newTile.tileId === 38){

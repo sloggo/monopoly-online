@@ -2,28 +2,19 @@
     {
         "name": "Advance to Boardwalk",
         "type": "advance",
-        "location":{
-            "x": 0,
-            "y": 0
-        },
+        "tileId": 0,
         "collect": false
     },
     {
         "name": "Advance to Go (Collect $200)",
         "type": "advance",
-        "location":{
-            "x": 0,
-            "y": 0
-        },
+        "tileId": 0,
         "collect": true
     },
     {
         "name": "Advance to St. Charles Place. If you pass Go, collect $200",
         "type": "advance",
-        "location":{
-            "x": 0,
-            "y": 0
-        },
+        "tileId": 0,
         "collect": true
     },
     {

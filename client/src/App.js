@@ -21,6 +21,11 @@ function App() {
   const [notification, setNotification] = useState(null)
   const [manageOpen, setManageOpen]= useState(false)
 
+  const confirmChance = (randomChance) => {
+    socket.emit("confirmChance", {boardData, randomChance, thisPlayer})
+    setNotification(null)
+  }
+
   const setOptionsTab = () =>{
     setCurrentTab("options")
   }
@@ -144,7 +149,7 @@ function App() {
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
-      {currentTab === "board" && <BoardAlt buyHouse={buyHouse} closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} notification={notification} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></BoardAlt>}
+      {currentTab === "board" && <BoardAlt confirmChance={confirmChance} buyHouse={buyHouse} closeManage={closeManage} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} notification={notification} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></BoardAlt>}
     </div>
   );
 }

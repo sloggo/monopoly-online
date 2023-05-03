@@ -79,9 +79,11 @@ const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId) => 
         await board.players.splice(playerPaidIndex, 1, playerPaid)
     }
 
-    playerPaying.money = playerPaying.money - amount
-    board.currentPlayer = playerPaying
-    await board.players.splice(playerPayingIndex, 1, playerPaying)
+    if(playerPayingID){
+        playerPaying.money = playerPaying.money - amount
+        board.currentPlayer = playerPaying
+        await board.players.splice(playerPayingIndex, 1, playerPaying)
+    }
 
     await nextPlayer(board, roomId)
 }
@@ -114,7 +116,7 @@ const getAllPropertiesOwned = async(board, playerSocketId) => {
     return board.tileData.filter(tile => tile.owner === playerSocketId)
 }
 
-const chanceCard = async(board, currentPlayer, currentPlayerIndex, socket, roomId)=>{
+const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex, socket, roomId)=>{
     
     await sleep(100)
 
@@ -211,6 +213,8 @@ const chanceCard = async(board, currentPlayer, currentPlayerIndex, socket, roomI
 
             break;
         case 'earn':
+            payPlayer(board, null, currentPlayer.socketId, randomChance.amount, roomId)
+
             break;
         case 'jailfree':
             break;
@@ -375,7 +379,7 @@ io.on('connection', async function (socket) {
             y: newTile.mapPosition.y
         }
         await board.save()
-        
+
         if(newTile.name === 'Chance'){
             //chanceCard(board, currentPlayer, currentPlayerIndex, socket, roomId)
             let randomChance = chanceData[Math.floor(Math.random()*chanceData.length)]
@@ -484,6 +488,13 @@ io.on('connection', async function (socket) {
         console.log(board)
         await board.save()
         io.in(roomId).emit("boardUpdate", {board})
+    })
+
+    socket.on("confirmChance", async({boardData, randomChance, thisPlayer})=> {
+        let board = await findBoard(roomId);
+        let currentPlayer = await findPlayer(board, socket.id)
+        let currentPlayerIndex = await findPlayerIndex(board, socket.id)
+        chanceCard(randomChance, board, currentPlayer, currentPlayerIndex, socket, roomId)
     })
 });
 

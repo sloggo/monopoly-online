@@ -100,7 +100,7 @@ export default function (props) {
             <p style={{width: 300, textAlign: 'center', color: 'lightgray'}}>{props.notification.randomChance.name}</p>
 
             <div className='option-buttons'>
-                <div className='option-button decline' onClick={props.payRent}>Okay</div>
+                <div className='option-button decline' onClick={() => props.confirmChance(props.notification.randomChance)}>Okay</div>
             </div>
         </div>
         }

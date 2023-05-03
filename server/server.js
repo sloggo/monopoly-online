@@ -65,7 +65,7 @@ const findTile = async(board, tileId) => {
 const findTileIndex = async(board, tileInput) => {
     return board.tileData.findIndex(tile => tile.tileId === tileInput.tileId)
 }
-const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId) => {
+const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId, next = true) => {
     let playerPaying = await findPlayer(board, playerPayingID);
     let playerPayingIndex = await findPlayerIndex(board, playerPayingID);
 
@@ -85,7 +85,11 @@ const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId) => 
         await board.players.splice(playerPayingIndex, 1, playerPaying)
     }
 
-    await nextPlayer(board, roomId)
+    if(next){
+        await nextPlayer(board, roomId)
+    } else{
+        await board.save()
+    }
 }
 
 const getRentPrice = (property) => {
@@ -217,14 +221,97 @@ const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex,
 
             break;
         case 'jailfree':
+            if(currentPlayer.getOutOfJailFree){
+                currentPlayer.getOutOfJailFree = currentPlayer.getOutOfJailFree + 1
+            } else{
+                currentPlayer.getOutOfJailFree = 1
+            }
+            
+            board.players.splice(currentPlayerIndex, 1, currentPlayer);
+            if(board.currentPlayer.getOutOfJailFree){
+                board.currentPlayer.getOutOfJailFree = board.currentPlayer.getOutOfJailFree + 1
+            } else{
+                board.currentPlayer.getOutOfJailFree = 1
+            }
+
+            await board.save()
+            io.to(roomId).emit("boardUpdate", {board})
+            nextPlayer(board, roomId);
+
             break;
         case 'moveback':
+            const backTile = await findTile(board, Math.abs(currentPlayer.currentTile.tileId-randomChance.amount))
+            console.log(backTile)
+            currentPlayer.currentTile = backTile;
+            currentPlayer.position = {
+                x: backTile.mapPosition.x,
+                y: backTile.mapPosition.y
+            }
+            
+            board.players.splice(currentPlayerIndex, 1, currentPlayer);
+            board.currentPlayer.currentTile = backTile
+            board.currentPlayer.position = {
+                x: backTile.mapPosition.x,
+                y: backTile.mapPosition.y
+            }
+            await board.save()
+            io.to(roomId).emit("boardUpdate", {board})
+
+            if(backTile.tileId === 4 || backTile.tileId === 38){
+                let price = await getRentPrice(currentPlayer.currentTile)
+                socket.emit("newNotification", {board, property:currentPlayer.currentTile, price, type:"payRent"})
+                return
+            }    
+        
+            if(currentPlayer.currentTile && (currentPlayer.currentTile.forSale === true && !currentPlayer.currentTile.owner)){
+                socket.emit("newNotification", {board, property:currentPlayer.currentTile, type:"buyProperty?"})
+                return
+            } else if(currentPlayer.currentTile && currentPlayer.currentTile.owner && (currentPlayer.currentTile.owner !== currentPlayer.socketId)){
+                let price = await getRentPrice(currentPlayer.currentTile)
+                socket.emit("newNotification", {board, property:currentPlayer.currentTile, price, type:"payRent"})
+                return
+            } else{
+                nextPlayer(board, roomId);
+            }
+
             break;
         case 'payperhousehotel':
+            let ownedTiles = board.tileData.filter(tile => tile.owner === currentPlayer.socketId)
+            let noHouses;
+            
+            ownedTiles.map(tile => {
+                if(tile.houses){
+                    noHouses = noHouses + tile.houses.length
+                }
+                return
+            })
+
+            let cost = noHouses ? noHouses*randomChance.amount.house : 0;
+
+            if(cost){
+                payPlayer(board, currentPlayer.socketId, null, cost, roomId)
+            } else{
+                nextPlayer(board, roomId)
+            }
+
             break;
         case 'pay':
+            payPlayer(board, currentPlayer.socketId, null, randomChance.amount, roomId)
+
             break;
         case 'payplayer':
+            for(let i=0; i < board.players.length ; i++){
+                console.log(board.players[i])
+                if(board.players[i].socketId === socket.id){
+                    return
+                }
+
+                payPlayer(board, currentPlayer.socketId, board.players[i].socketId, randomChance.amount, roomId, false)
+            }
+
+            await board.save()
+            io.to(roomId).emit("boardUpdate", {board})
+            nextPlayer(board, roomId);
             break;
     }
 

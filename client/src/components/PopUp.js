@@ -92,6 +92,18 @@ export default function (props) {
                     </div>
                 </div>
         }
+
+        {!currentProperty && props.notification && props.notification.type === "chance" &&
+            <div className='popup-container' style={{height: 300}}>
+            <h2>Chance!</h2>
+
+            <p style={{width: 300, textAlign: 'center', color: 'lightgray'}}>{props.notification.randomChance.name}</p>
+
+            <div className='option-buttons'>
+                <div className='option-button decline' onClick={props.payRent}>Okay</div>
+            </div>
+        </div>
+        }
     </div>}
     </>
   )

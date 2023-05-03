@@ -54,7 +54,8 @@
     },
     {
         "name": "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200",
-        "type": "advance"
+        "type": "advance",
+        "tileId": 0
     },
     {
         "name": "Make general repairs on all your property. For each house pay $25. For each hotel pay $100",
@@ -72,10 +73,7 @@
     {
         "name": "Take a trip to Reading Railroad. If you pass Go, collect $200",
         "type": "advance",
-        "location": {
-            "x": 0,
-            "y": 0
-        },
+        "tileId": 0,
         "collect": true
     },
     {

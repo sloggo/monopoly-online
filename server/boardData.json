@@ -18,7 +18,7 @@
             "colour": "red",
             "name": "Abbey Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 220
         },
         {
@@ -36,7 +36,7 @@
             "colour": "red",
             "name": "Capel Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 220
         },
         {
@@ -46,7 +46,7 @@
             "colour": "red",
             "name": "Henry Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 240
         },
         {
@@ -55,8 +55,8 @@
             "orientation": "top",
             "colour": null,
             "name": "Heuston Station",
-            "special": false,
-            "forSale": true,
+            "special": "railroad",
+            "forSale": false,
             "price": 200
         },
         {
@@ -66,7 +66,7 @@
             "colour": "yellow",
             "name": "Talbot Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 260
         },
         {
@@ -76,7 +76,7 @@
             "colour": "yellow",
             "name": "North Earl Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 260
         },{
             "housePrice": 100, "tileId": 28,
@@ -84,8 +84,8 @@
             "orientation": "top",
             "colour": null,
             "name": "Water Works",
-            "special": false,
-            "forSale": true,
+            "special": "utility",
+            "forSale": false,
             "price": 150
         },{
             "housePrice": 100, "tileId": 29,
@@ -94,7 +94,7 @@
             "colour": "yellow",
             "name": "O Connell Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 220
         },
         {
@@ -111,7 +111,7 @@
             "colour": "orange",
             "name": "Westmoreland Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 200
         }, 
         {
@@ -125,7 +125,7 @@
             "colour": "green",
             "name": "Georges Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 300
         },
         {
@@ -135,7 +135,7 @@
             "colour": "orange",
             "name": "Dame Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 180,
             "mapPosition":{
                 "x":40,
@@ -153,7 +153,7 @@
             "colour": "green",
             "name": "Wicklow Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 300
         },
         {
@@ -187,7 +187,7 @@
             "colour": "orange",
             "name": "Pearse Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 180,
             "mapPosition":{
                 "x":51,
@@ -206,7 +206,7 @@
             "colour": "green",
             "name": "Grafton Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 180
         },
         {
@@ -215,8 +215,8 @@
             "orientation": "left",
             "colour": null,
             "name": "Dublin Airport",
-            "special": false,
-            "forSale": true,
+            "special": "railroad",
+            "forSale": false,
             "price": 200,
             "mapPosition":{
                 "x":75,
@@ -233,8 +233,8 @@
             "orientation": "right",
             "colour": null,
             "name": "Shannon Airport",
-            "special": false,
-            "forSale": true,
+            "special": "railroad",
+            "forSale": false,
             "price": 200
         },
         {
@@ -244,7 +244,7 @@
             "colour": "pink",
             "name": "Nassau Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 160,
             "mapPosition":{
                 "x":91,
@@ -270,7 +270,7 @@
             "colour": "pink",
             "name": "Kildare Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 140,
             "mapPosition":{
                 "x":96,
@@ -288,7 +288,7 @@
             "colour": "blue",
             "name": "Ailesbury Road",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 350
         },
         {
@@ -297,8 +297,8 @@
             "orientation": "left",
             "colour": null,
             "name": "Electric Company",
-            "special": false,
-            "forSale": true,
+            "special": "utility",
+            "forSale": false,
             "price": 150,
             "mapPosition":{
                 "x":96,
@@ -325,7 +325,7 @@
             "colour": "pink",
             "name": "Dawson Street",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 140,
             "mapPosition":{
                 "x":96,
@@ -343,7 +343,7 @@
             "colour": "blue",
             "name": "Shrewsbury Road",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 400
         },
         {
@@ -364,7 +364,7 @@
             "colour": "cyan",
             "name": "Rathmines",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 120,
             "mapPosition": {
                 "x": 45,
@@ -378,7 +378,7 @@
             "colour": "cyan",
             "name": "South Circular Road",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 100,
             "mapPosition": {
                 "x": 37,
@@ -404,7 +404,7 @@
             "colour": "cyan",
             "name": "Rathgar",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 100,
             "mapPosition": {
                 "x": 23,
@@ -418,7 +418,7 @@
             "colour": null,
             "name": "Busarus",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 200,
             "mapPosition": {
                 "x": 16,
@@ -444,7 +444,7 @@
             "colour": "brown",
             "name": "Kimmage",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 60,
             "mapPosition": {
                 "x": 24,
@@ -469,7 +469,7 @@
             "colour": "brown",
             "name": "Crumlin",
             "special": false,
-            "forSale": true,
+            "forSale": false,
             "price": 60,
             "mapPosition": {
                 "x": 36,

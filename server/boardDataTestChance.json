@@ -1,0 +1,491 @@
+[
+    
+    {
+        "housePrice": 100, "tileId": 20,
+        "type": "square",
+        "colour": null,
+        "name": "Chance",
+        "special": true,
+        "mapPosition":{
+            "x":27,
+            "y":57
+        }
+    },
+    {
+        "housePrice": 100, "tileId": 21,
+        "type": "tile",
+        "orientation": "top",
+        "colour": "red",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 220
+    },
+    {
+        "housePrice": 100, "tileId": 22,
+        "type": "tile",
+        "orientation": "top",
+        "colour": null,
+        "name": "Chance",
+        "special": true
+    },
+    {
+        "housePrice": 100, "tileId": 23,
+        "type": "tile",
+        "orientation": "top",
+        "colour": "red",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 220
+    },
+    {
+        "housePrice": 100, "tileId": 24,
+        "type": "tile",
+        "orientation": "top",
+        "colour": "red",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 240
+    },
+    {
+        "housePrice": 100, "tileId": 25,
+        "type": "tile",
+        "orientation": "top",
+        "colour": null,
+        "name": "Chance",
+        "special": "railroad",
+        "forSale": true,
+        "price": 200
+    },
+    {
+        "housePrice": 100, "tileId": 26,
+        "type": "tile",
+        "orientation": "top",
+        "colour": "yellow",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 260
+    },
+    {
+        "housePrice": 100, "tileId": 27,
+        "type": "tile",
+        "orientation": "top",
+        "colour": "yellow",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 260
+    },{
+        "housePrice": 100, "tileId": 28,
+        "type": "tile",
+        "orientation": "top",
+        "colour": null,
+        "name": "Chance",
+        "special": "utility",
+        "forSale": true,
+        "price": 150
+    },{
+        "housePrice": 100, "tileId": 29,
+        "type": "tile",
+        "orientation": "top",
+        "colour": "yellow",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 220
+    },
+    {
+        "housePrice": 100, "tileId": 30,
+        "type": "square",
+        "colour": null,
+        "name": "Chance",
+        "special": true
+    },
+    {
+        "housePrice": 100, "tileId": 19,
+        "type": "tile",
+        "orientation": "left",
+        "colour": "orange",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 200
+    }, 
+    {
+        "housePrice": 100, "tileId": null,
+        "type": "center"
+    }, 
+    {
+        "housePrice": 100, "tileId": 31,
+        "type": "tile",
+        "orientation": "right",
+        "colour": "green",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 300
+    },
+    {
+        "housePrice": 100, "tileId": 18,
+        "type": "tile",
+        "orientation": "left",
+        "colour": "orange",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 180,
+        "mapPosition":{
+            "x":40,
+            "y":57
+        }
+    }, 
+    {
+        "housePrice": 100, "tileId": null,
+        "type": "center"
+    }, 
+    {
+        "housePrice": 100, "tileId": 32,
+        "type": "tile",
+        "orientation": "right",
+        "colour": "green",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 300
+    },
+    {
+        "housePrice": 100, "tileId": 17,
+        "type": "tile",
+        "orientation": "left",
+        "colour": null,
+        "name": "Chance",
+        "special": true,
+        "mapPosition":{
+            "x":55,
+            "y":57
+        }
+    }, 
+    {
+        "housePrice": 100, "tileId": null,
+        "type": "center"
+    }, 
+    {
+        "housePrice": 100, "tileId": 33,
+        "type": "tile",
+        "orientation": "right",
+        "colour": null,
+        "name": "Chance",
+        "special": true
+    },
+    {
+        "housePrice": 100, "tileId": 16,
+        "type": "tile",
+        "orientation": "left",
+        "colour": "orange",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 180,
+        "mapPosition":{
+            "x":51,
+            "y":57
+        }
+    }, 
+    {
+        "housePrice": 100, "tileId": null,
+        "type": "center"
+    },
+
+    {
+        "housePrice": 100, "tileId": 34,
+        "type": "tile",
+        "orientation": "right",
+        "colour": "green",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 180
+    },
+    {
+        "housePrice": 100, "tileId": 15,
+        "type": "tile",
+        "orientation": "left",
+        "colour": null,
+        "name": "Chance",
+        "special": "railroad",
+        "forSale": true,
+        "price": 200,
+        "mapPosition":{
+            "x":75,
+            "y":57
+        }
+    }, 
+    {
+        "housePrice": 100, "tileId": null,
+        "type": "center"
+    },
+    {
+        "housePrice": 100, "tileId": 35,
+        "type": "tile",
+        "orientation": "right",
+        "colour": null,
+        "name": "Chance",
+        "special": "railroad",
+        "forSale": true,
+        "price": 200
+    },
+    {
+        "housePrice": 100, "tileId": 14,
+        "type": "tile",
+        "orientation": "left",
+        "colour": "pink",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 160,
+        "mapPosition":{
+            "x":91,
+            "y":57
+        }
+    }, 
+    {
+        "housePrice": 100, "tileId": null,
+        "type": "center"
+    }, 
+    {
+        "housePrice": 100, "tileId": 36,
+        "type": "tile",
+        "orientation": "right",
+        "colour": null,
+        "name": "Chance",
+        "special": true
+    },
+    {
+        "housePrice": 100, "tileId": 13,
+        "type": "tile",
+        "orientation": "left",
+        "colour": "pink",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 140,
+        "mapPosition":{
+            "x":96,
+            "y":65
+        }
+    }, 
+    {
+        "housePrice": 100, "tileId": null,
+        "type": "center"
+    }, 
+    {
+        "housePrice": 100, "tileId": 37,
+        "type": "tile",
+        "orientation": "right",
+        "colour": "blue",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 350
+    },
+    {
+        "housePrice": 100, "tileId": 12,
+        "type": "tile",
+        "orientation": "left",
+        "colour": null,
+        "name": "Chance",
+        "special": "utility",
+        "forSale": true,
+        "price": 150,
+        "mapPosition":{
+            "x":96,
+            "y":76
+        }
+    }, 
+    {
+        "housePrice": 100, "tileId": null,
+        "type": "center"
+    }, 
+    {
+        "housePrice": 100, "tileId": 38,
+        "type": "tile",
+        "orientation": "right",
+        "colour": null,
+        "name": "Chance",
+        "special": true,
+        "price": 100
+    },
+    {
+        "housePrice": 100, "tileId": 11,
+        "type": "tile",
+        "orientation": "left",
+        "colour": "pink",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 140,
+        "mapPosition":{
+            "x":96,
+            "y":83
+        }
+    }, 
+    {
+        "housePrice": 100, "tileId": null,
+        "type": "center"
+    }, 
+    {
+        "housePrice": 100, "tileId": 39,
+        "type": "tile",
+        "orientation": "right",
+        "colour": "blue",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 400
+    },
+    {
+        "housePrice": 100, "tileId": 10,
+        "type": "square",
+        "colour": null,
+        "name": "Chance",
+        "special": true,
+        "mapPosition": {
+            "x": 75,
+            "y": 82
+        }
+    },
+    {
+        "housePrice": 100, "tileId": 9,
+        "type": "tile",
+        "orientation": "bottom",
+        "colour": "cyan",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 120,
+        "mapPosition": {
+            "x": 45,
+            "y": 85
+        }
+    },
+    {
+        "housePrice": 100, "tileId": 8,
+        "type": "tile",
+        "orientation": "bottom",
+        "colour": "cyan",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 100,
+        "mapPosition": {
+            "x": 37,
+            "y": 85
+        }
+    },
+    {
+        "housePrice": 100, "tileId": 7,
+        "type": "tile",
+        "orientation": "bottom",
+        "colour": null,
+        "name": "Chance",
+        "special": true,
+        "mapPosition": {
+            "x": 30,
+            "y": 85
+        }
+    },
+    {
+        "housePrice": 100, "tileId": 6,
+        "type": "tile",
+        "orientation": "bottom",
+        "colour": "cyan",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 100,
+        "mapPosition": {
+            "x": 23,
+            "y": 85
+        }
+    },
+    {
+        "housePrice": 100, "tileId": 5,
+        "type": "tile",
+        "orientation": "bottom",
+        "colour": null,
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 200,
+        "mapPosition": {
+            "x": 16,
+            "y": 85
+        }
+    },
+    {
+        "housePrice": 100, "tileId": 4,
+        "type": "tile",
+        "orientation": "bottom",
+        "colour": null,
+        "name": "Chance",
+        "special": false,
+        "price": 200,
+        "mapPosition": {
+            "x": 16,
+            "y": 100
+        }
+    },{
+        "housePrice": 100, "tileId": 3,
+        "type": "tile",
+        "orientation": "bottom",
+        "colour": "brown",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 60,
+        "mapPosition": {
+            "x": 24,
+            "y": 100
+        }
+    },
+    {
+        "housePrice": 100, "tileId": 2,
+        "type": "tile",
+        "orientation": "bottom",
+        "colour": null,
+        "name": "Chance",
+        "special": true,
+        "mapPosition": {
+            "x": 30,
+            "y": 100
+        }
+    },{
+        "housePrice": 100, "tileId": 1,
+        "type": "tile",
+        "orientation": "bottom",
+        "colour": "brown",
+        "name": "Chance",
+        "special": false,
+        "forSale": true,
+        "price": 60,
+        "mapPosition": {
+            "x": 36,
+            "y": 100
+        }
+    },
+    {
+        "housePrice": 100, "tileId": 0,
+        "type": "square",
+        "colour": null,
+        "name": "Chance",
+        "special": true,
+        "price": 200,
+        "mapPosition": {
+            "x": 59,
+            "y": 100
+        }
+    }
+]

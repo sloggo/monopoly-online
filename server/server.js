@@ -8,7 +8,7 @@ const {Player} = require("./models/player")
 const {Board} = require("./models/board");
 const { ObjectId } = require("mongodb");
 const db = require("./models/mongodb")
-const chanceData = require("./chanceDebug.json")
+const chanceData = require("./chance.json")
 
 const gamesRoute = require("./routes/games")
 
@@ -231,6 +231,7 @@ const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex,
             } else{
                 board.currentPlayer.getOutOfJailFree = 1
             }
+
             let newCurPlayer = {...board.currentPlayer}
 
             board.players.splice(currentPlayerIndex, 1, newCurPlayer);

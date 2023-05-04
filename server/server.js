@@ -8,7 +8,7 @@ const {Player} = require("./models/player")
 const {Board} = require("./models/board");
 const { ObjectId } = require("mongodb");
 const db = require("./models/mongodb")
-const chanceData = require("./chance.json")
+const chanceData = require("./chanceDebug.json")
 
 const gamesRoute = require("./routes/games")
 
@@ -87,8 +87,6 @@ const payPlayer = async(board, playerPayingID, playerPaidID, amount, roomId, nex
 
     if(next){
         await nextPlayer(board, roomId)
-    } else{
-        await board.save()
     }
 }
 
@@ -166,20 +164,26 @@ const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex,
             let nearestTile;
 
             let validTiles = board.tileData.filter(i => i.special && i.special === randomChance.nearest)
+            console.log("Valid:",validTiles)
 
             for(let i = 0; i < validTiles.length; i++){
                 if(!nearestTile){
                     nearestTile = validTiles[i]
-                    return
-                }
+                } else{
+                    if(!nearestTile.mapPosition && validTiles[i].mapPosition){
+                        nearestTile = validTiles[i]
+                    } else if(nearestTile.mapPosition && validTiles[i].mapPosition){
+                        let currentNearestTileDistance = Math.abs((currentPlayer.position.x - nearestTile.mapPosition.x) + (currentPlayer.position.y - nearestTile.mapPosition.y))
+                        let iTileDistance = Math.abs((currentPlayer.position.x - validTiles[i].mapPosition.x) + (currentPlayer.position.y - validTiles[i].mapPosition.y))
 
-                let currentNearestTileDistance = abs((currentPlayer.position.x - nearestTile.position.x) + (currentPlayer.position.y - nearestTile.position.y))
-                let iTileDistance = abs((currentPlayer.position.x - validTiles[i].position.x) + (currentPlayer.position.y - validTiles[i].position.y))
-
-                if(iTileDistance < currentNearestTileDistance){
-                    nearestTile = iTileDistance
+                        if(iTileDistance < currentNearestTileDistance){
+                            nearestTile = validTiles[i]
+                        }
+                    }
                 }
             }
+
+            console.log("Nearest:", nearestTile)
 
             currentPlayer.currentTile = nearestTile;
             currentPlayer.position = {
@@ -196,7 +200,7 @@ const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex,
             await board.save()
             io.to(roomId).emit("boardUpdate", {board})
 
-            if(newTile.tileId === 4 || newTile.tileId === 38){
+            if(nearestTile.tileId === 4 || nearestTile.tileId === 38){
                 let multiplier = randomChance.rentMultiplier ? randomChance.rentMultiplier : 1;
                 let price = await getRentPrice(currentPlayer.currentTile)*multiplier
                 socket.emit("newNotification", {board, property:currentPlayer.currentTile, price, type:"payRent"})
@@ -221,18 +225,16 @@ const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex,
 
             break;
         case 'jailfree':
-            if(currentPlayer.getOutOfJailFree){
-                currentPlayer.getOutOfJailFree = currentPlayer.getOutOfJailFree + 1
-            } else{
-                currentPlayer.getOutOfJailFree = 1
-            }
             
-            board.players.splice(currentPlayerIndex, 1, currentPlayer);
             if(board.currentPlayer.getOutOfJailFree){
                 board.currentPlayer.getOutOfJailFree = board.currentPlayer.getOutOfJailFree + 1
             } else{
                 board.currentPlayer.getOutOfJailFree = 1
             }
+            let newCurPlayer = {...board.currentPlayer}
+
+            board.players.splice(currentPlayerIndex, 1, newCurPlayer);
+            console.log(board.currentPlayer, board.players)
 
             await board.save()
             io.to(roomId).emit("boardUpdate", {board})
@@ -299,14 +301,11 @@ const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex,
             payPlayer(board, currentPlayer.socketId, null, randomChance.amount, roomId)
 
             break;
-        case 'payplayer':
+        case 'payplayers':
             for(let i=0; i < board.players.length ; i++){
-                console.log(board.players[i])
-                if(board.players[i].socketId === socket.id){
-                    return
+                if(board.players[i].socketId !== socket.id){
+                    payPlayer(board, currentPlayer.socketId, board.players[i].socketId, randomChance.amount, roomId, false)
                 }
-
-                payPlayer(board, currentPlayer.socketId, board.players[i].socketId, randomChance.amount, roomId, false)
             }
 
             await board.save()

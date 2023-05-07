@@ -138,8 +138,6 @@ const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex,
                 x: newTile.mapPosition.x,
                 y: newTile.mapPosition.y
             }
-            await board.save()
-            io.to(roomId).emit("boardUpdate", {board})
 
             if(newTile.tileId === 4 || newTile.tileId === 38){
                 let price = await getRentPrice(currentPlayer.currentTile)
@@ -465,7 +463,6 @@ io.on('connection', async function (socket) {
             x: newTile.mapPosition.x,
             y: newTile.mapPosition.y
         }
-        await board.save()
 
         if(newTile.name === 'Chance'){
             //chanceCard(board, currentPlayer, currentPlayerIndex, socket, roomId)

@@ -19,7 +19,11 @@
             "name": "Abbey Street",
             "special": false,
             "forSale": true,
-            "price": 220
+            "price": 220,
+            "mapPosition":{
+                "x": 15,
+                "y": 57
+            }
         },
         {
             "housePrice": 100, "tileId": 22,
@@ -27,7 +31,11 @@
             "orientation": "top",
             "colour": null,
             "name": "Chance",
-            "special": true
+            "special": true,
+            "mapPosition":{
+                "x": 15,
+                "y": 49
+            }
         },
         {
             "housePrice": 100, "tileId": 23,
@@ -37,7 +45,11 @@
             "name": "Capel Street",
             "special": false,
             "forSale": true,
-            "price": 220
+            "price": 220,
+            "mapPosition":{
+                "x": 15,
+                "y": 41
+            }
         },
         {
             "housePrice": 100, "tileId": 24,
@@ -47,7 +59,11 @@
             "name": "Henry Street",
             "special": false,
             "forSale": true,
-            "price": 240
+            "price": 240,
+            "mapPosition":{
+                "x": 26,
+                "y": 41
+            }
         },
         {
             "housePrice": 100, "tileId": 25,
@@ -57,7 +73,11 @@
             "name": "Heuston Station",
             "special": "railroad",
             "forSale": true,
-            "price": 200
+            "price": 200,
+            "mapPosition":{
+                "x": 30,
+                "y": 29
+            }
         },
         {
             "housePrice": 100, "tileId": 26,
@@ -67,7 +87,11 @@
             "name": "Talbot Street",
             "special": false,
             "forSale": true,
-            "price": 260
+            "price": 260,
+            "mapPosition":{
+                "x": 44,
+                "y": 29
+            }
         },
         {
             "housePrice": 100, "tileId": 27,
@@ -77,7 +101,11 @@
             "name": "North Earl Street",
             "special": false,
             "forSale": true,
-            "price": 260
+            "price": 260,
+            "mapPosition":{
+                "x": 59,
+                "y": 29
+            }
         },{
             "housePrice": 100, "tileId": 28,
             "type": "tile",
@@ -86,7 +114,11 @@
             "name": "Water Works",
             "special": "utility",
             "forSale": true,
-            "price": 150
+            "price": 150,
+            "mapPosition":{
+                "x": 59,
+                "y": 18
+            }
         },{
             "housePrice": 100, "tileId": 29,
             "type": "tile",
@@ -95,14 +127,22 @@
             "name": "O Connell Street",
             "special": false,
             "forSale": true,
-            "price": 220
+            "price": 220,
+            "mapPosition":{
+                "x": 78,
+                "y": 18
+            }
         },
         {
             "housePrice": 100, "tileId": 30,
             "type": "square",
             "colour": null,
             "name": "Go To Jail",
-            "special": true
+            "special": true,
+            "mapPosition":{
+                "x": 98,
+                "y": 18
+            }
         },
         {
             "housePrice": 100, "tileId": 19,
@@ -112,7 +152,11 @@
             "name": "Westmoreland Street",
             "special": false,
             "forSale": true,
-            "price": 200
+            "price": 200,
+            "mapPosition":{
+                "x": 113,
+                "y": 18
+            }
         }, 
         {
             "housePrice": 100, "tileId": null,
@@ -126,7 +170,11 @@
             "name": "Georges Street",
             "special": false,
             "forSale": true,
-            "price": 300
+            "price": 300,
+            "mapPosition":{
+                "x": 113,
+                "y": 31
+            }
         },
         {
             "housePrice": 100, "tileId": 18,
@@ -154,7 +202,11 @@
             "name": "Wicklow Street",
             "special": false,
             "forSale": true,
-            "price": 300
+            "price": 300,
+            "mapPosition":{
+                "x": 113,
+                "y": 43
+            }
         },
         {
             "housePrice": 100, "tileId": 17,
@@ -178,7 +230,11 @@
             "orientation": "right",
             "colour": null,
             "name": "Community Chest",
-            "special": true
+            "special": true,
+            "mapPosition":{
+                "x": 113,
+                "y": 62
+            }
         },
         {
             "housePrice": 100, "tileId": 16,
@@ -207,7 +263,11 @@
             "name": "Grafton Street",
             "special": false,
             "forSale": true,
-            "price": 180
+            "price": 180,
+            "mapPosition":{
+                "x": 113,
+                "y": 81
+            }
         },
         {
             "housePrice": 100, "tileId": 15,
@@ -219,8 +279,8 @@
             "forSale": true,
             "price": 200,
             "mapPosition":{
-                "x":75,
-                "y":57
+                "x": 75,
+                "y": 57
             }
         }, 
         {
@@ -235,7 +295,11 @@
             "name": "Shannon Airport",
             "special": "railroad",
             "forSale": true,
-            "price": 200
+            "price": 200,
+            "mapPosition":{
+                "x": 100,
+                "y": 100
+            }
         },
         {
             "housePrice": 100, "tileId": 14,
@@ -261,7 +325,11 @@
             "orientation": "right",
             "colour": null,
             "name": "Chance",
-            "special": true
+            "special": true,
+            "mapPosition":{
+                "x": 85,
+                "y": 100
+            }
         },
         {
             "housePrice": 100, "tileId": 13,
@@ -289,7 +357,11 @@
             "name": "Ailesbury Road",
             "special": false,
             "forSale": true,
-            "price": 350
+            "price": 350,
+            "mapPosition":{
+                "x": 75,
+                "y": 100
+            }
         },
         {
             "housePrice": 100, "tileId": 12,
@@ -316,7 +388,11 @@
             "colour": null,
             "name": "Super Tax",
             "special": true,
-            "price": 100
+            "price": 100,
+            "mapPosition":{
+                "x": 70,
+                "y": 100
+            }
         },
         {
             "housePrice": 100, "tileId": 11,
@@ -344,7 +420,11 @@
             "name": "Shrewsbury Road",
             "special": false,
             "forSale": true,
-            "price": 400
+            "price": 400,
+            "mapPosition":{
+                "x": 65,
+                "y": 100
+            }
         },
         {
             "housePrice": 100, "tileId": 10,

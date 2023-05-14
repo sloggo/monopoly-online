@@ -51,7 +51,15 @@ export default function BoardAlt(props) {
     useEffect(()=>{
         onBoardUpdate(props.boardData)
         window.requestAnimationFrame(render)
+
+        console.log(boardDataLocal.currentPlayer.position, boardDataLive.currentPlayer.position)
     }, [props.boardData, boardDataLocal, boardDataLive])
+
+    useEffect(()=> {
+        if(props.notification && props.notification.board){
+            onBoardUpdate(props.notification.board)
+        }
+    }, [props.notification])
 
     useEffect(()=> {
         setCanvasSize({x: window.innerWidth*0.6, y: window.innerWidth*0.6*0.68359375})

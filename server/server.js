@@ -466,13 +466,12 @@ io.on('connection', async function (socket) {
 
         await board.save()
 
+        io.to(roomId).emit("boardUpdate", {board, diceRoll})
         if(newTile.name === 'Chance'){
             let randomChance = chanceData[Math.floor(Math.random()*chanceData.length)]
 
             socket.emit("newNotification", {board, randomChance, type:"chance"})
             return
-        } else{
-            io.to(roomId).emit("boardUpdate", {board, diceRoll})
         }
 
         if(newTile.tileId === 4 || newTile.tileId === 38){

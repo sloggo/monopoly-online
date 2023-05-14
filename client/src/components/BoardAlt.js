@@ -51,8 +51,6 @@ export default function BoardAlt(props) {
     useEffect(()=>{
         onBoardUpdate(props.boardData)
         window.requestAnimationFrame(render)
-
-        console.log(boardDataLocal.currentPlayer.position, boardDataLive.currentPlayer.position)
     }, [props.boardData, boardDataLocal, boardDataLive])
 
     useEffect(()=> {
@@ -77,6 +75,7 @@ export default function BoardAlt(props) {
             // current player is the same and their in their live position
             setIsLive(true)
             setBoardDataLocal(newData)
+            setMoving(false)
 
             if(newData.currentPlayer.socketId === socketID){
                 setPlayerTurn(true)
@@ -84,15 +83,16 @@ export default function BoardAlt(props) {
                 setPlayerTurn(false)
             }
 
-        } else if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position !== boardDataLocal.currentPlayer.position){
+        } else if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position !== boardDataLocal.currentPlayer.position || progressingToTile){
             // current player is not yet fully updated
-            setIsLive(false)
-            setPlayerTurn(true)
-
-            let localTile = boardDataLocal.currentPlayer.currentTile.tileId
-            let liveTile = newData.currentPlayer.currentTile.tileId
+            if(isLive || !playerTurn){
+                setIsLive(false)
+                setPlayerTurn(true)
+            }
 
             if(!moving){
+                let localTile = boardDataLocal.currentPlayer.currentTile.tileId
+                let liveTile = newData.currentPlayer.currentTile.tileId
                 console.log(localTile,liveTile)
                 progressToTile(localTile, liveTile)
             }
@@ -132,7 +132,7 @@ export default function BoardAlt(props) {
         let newTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
         console.log(originalTile, finalTile)
 
-        if(originalTile === finalTile || (boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId) || boardDataLocal.currentPlayer.socketId !== boardDataLive.currentPlayer.socketId){
+        if(originalTile === finalTile || (boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId)){
             //fully finished
             console.log("fully finished")
             setMoving(false)
@@ -144,22 +144,43 @@ export default function BoardAlt(props) {
         } else{
             setMoving(true)
         }
-        
-        if(progressingToTile && (progressingToTile.status === 'finished' && newTile.mapPosition.x === progressingToTile.x && newTile.mapPosition.y === progressingToTile.y)){
-            console.log("tile done")
-            progressToTile(originalTile+1, finalTile)
-            return
-        } else if(!progressingToTile && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId){
-            // new initialisation
-            console.log("tile started from null")
-            goTo(newTile.mapPosition.x, newTile.mapPosition.y, originalTile, finalTile)
-        } else if((progressingToTile.status === 'finished' && (newTile.mapPosition.x !== progressingToTile.x || newTile.mapPosition.y !== progressingToTile.y))){
-            // finished last tile
-            console.log("tile started")
-            goTo(newTile.mapPosition.x, newTile.mapPosition.y, originalTile, finalTile)
-        } else{
-            // moving
-            console.log("still moving")
+
+        //if going forward
+        if(originalTile <= finalTile){
+            if(progressingToTile && (progressingToTile.status === 'finished' && newTile.mapPosition.x === progressingToTile.x && newTile.mapPosition.y === progressingToTile.y)){
+                console.log("tile done")
+                progressToTile(originalTile+1, finalTile)
+                return
+            } else if(!progressingToTile && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId){
+                // new initialisation
+                console.log("tile started from null")
+                goTo(newTile.mapPosition.x, newTile.mapPosition.y, originalTile, finalTile)
+            } else if((progressingToTile.status === 'finished' && (newTile.mapPosition.x !== progressingToTile.x || newTile.mapPosition.y !== progressingToTile.y))){
+                // finished last tile
+                console.log("tile started")
+                goTo(newTile.mapPosition.x, newTile.mapPosition.y, originalTile, finalTile)
+            } else{
+                // moving
+                console.log("still moving")
+            }
+        } else if(originalTile > finalTile && props.notification && props.notification.type === 'moveback'){
+            // moving back
+            if(progressingToTile && (progressingToTile.status === 'finished' && newTile.mapPosition.x === progressingToTile.x && newTile.mapPosition.y === progressingToTile.y)){
+                console.log("tile done")
+                progressToTile(originalTile-1, finalTile)
+                return
+            } else if(!progressingToTile && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId){
+                // new initialisation
+                console.log("tile started from null")
+                goTo(newTile.mapPosition.x, newTile.mapPosition.y, originalTile, finalTile)
+            } else if((progressingToTile.status === 'finished' && (newTile.mapPosition.x !== progressingToTile.x || newTile.mapPosition.y !== progressingToTile.y))){
+                // finished last tile
+                console.log("tile started")
+                goTo(newTile.mapPosition.x, newTile.mapPosition.y, originalTile, finalTile)
+            } else{
+                // moving
+                console.log("still moving")
+            }
         }
     }
 
@@ -391,7 +412,7 @@ export default function BoardAlt(props) {
             newBoard.players = newPlayers
             newBoard.currentPlayer = activePlayer
             setBoardDataLocal(newBoard)
-        }, 75)
+        }, 50)
     }
 
     function clickDice(){
@@ -408,8 +429,8 @@ export default function BoardAlt(props) {
             })}</div>
         </div>
         
-        {playerTurn && !moving && <PopUp confirmChance={props.confirmChance} buyHouse={buyHouse} closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
-        {playerTurn && !moving && !props.notification && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
+        {!moving && !progressingToTile && playerTurn && <PopUp confirmChance={props.confirmChance} buyHouse={buyHouse} closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
+        {!moving && !progressingToTile && playerTurn && !props.notification && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
 
         <canvas ref={canvasRef} style={{border: "10px solid white"}}/>
     </div>

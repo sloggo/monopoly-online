@@ -13,8 +13,8 @@ export default function BoardAlt(props) {
     const [background, setBackground] = useState({
         image: mapPng,
         offset:{
-            x:-505/1024,
-            y:-520/700
+            x:-490/1024,
+            y:-510/700
         },
         tileSize: 16*4, //4x zoom
     })
@@ -79,24 +79,29 @@ export default function BoardAlt(props) {
         } else if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position !== boardDataLocal.currentPlayer.position){
             // current player is not yet fully updated
             setIsLive(false)
-
-            if(boardDataLocal.currentPlayer.socketId === socketID){
-                setPlayerTurn(true)
-            } else{
-                setPlayerTurn(false)
-            }
+            setPlayerTurn(true)
 
             let localTile = boardDataLocal.currentPlayer.currentTile.tileId
             let liveTile = newData.currentPlayer.currentTile.tileId
-            setMoving(true)
-            console.log(localTile,liveTile)
-            progressToTile(localTile, liveTile)
+
+            if(!moving){
+                console.log(localTile,liveTile)
+                progressToTile(localTile, liveTile)
+            }
 
         } else{
             // next player
             setMoving(false)
             setIsLive(true)
             setBoardDataLocal(newData)
+            setMovingData({
+                up: false,
+                down: false,
+                left: false,
+                right: false,
+                frame: 0
+            })
+            setProgessingToTile(null)
 
             if(newData.currentPlayer.socketId === socketID){
                 setPlayerTurn(true)
@@ -115,26 +120,28 @@ export default function BoardAlt(props) {
     }   
 
     async function progressToTile(originalTile, finalTile){
-        if(boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position){
-            return
-        }
         let origTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
         let newTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
         console.log(originalTile, finalTile)
 
-        if(originalTile === finalTile){
+        if(originalTile === finalTile || (boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId) || boardDataLocal.currentPlayer.socketId !== boardDataLive.currentPlayer.socketId){
             //fully finished
             console.log("fully finished")
             setMoving(false)
             setProgessingToTile(null)
+
+            setBoardDataLocal(boardDataLive)
+            setIsLive(true)
             return
+        } else{
+            setMoving(true)
         }
         
         if(progressingToTile && (progressingToTile.status === 'finished' && newTile.mapPosition.x === progressingToTile.x && newTile.mapPosition.y === progressingToTile.y)){
             console.log("tile done")
             progressToTile(originalTile+1, finalTile)
             return
-        } else if(!progressingToTile){
+        } else if(!progressingToTile && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId){
             // new initialisation
             console.log("tile started from null")
             goTo(newTile.mapPosition.x, newTile.mapPosition.y, originalTile, finalTile)
@@ -149,7 +156,7 @@ export default function BoardAlt(props) {
     }
 
     useEffect(()=> {
-        if(progressingToTile){
+        if(progressingToTile && progressingToTile.status === 'finished'){
             console.log(progressingToTile)
             progressToTile(progressingToTile.tileId, progressingToTile.finalTile)
         }
@@ -304,6 +311,7 @@ export default function BoardAlt(props) {
     }, [])
 
     function goTo(x, y, tileId, finalTile){
+
         setProgessingToTile({x, y, tileId, finalTile, status: "moving", plyr: boardDataLocal.currentPlayer.socketID})
         
         let newBoard = {...boardDataLocal}

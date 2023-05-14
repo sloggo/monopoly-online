@@ -120,7 +120,7 @@ const getAllPropertiesOwned = async(board, playerSocketId) => {
 
 const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex, socket, roomId)=>{
     
-    await sleep(100)
+    console.log("chance")
 
     switch(randomChance.type){
         case 'advance':
@@ -447,7 +447,7 @@ io.on('connection', async function (socket) {
 
         let currentPlayerIndex = await findPlayerIndex(board, board.currentPlayer.socketId)
 
-        const newTileId = (currentPlayer.currentTile.tileId + diceRoll)%39;
+        const newTileId = (currentPlayer.currentTile.tileId + diceRoll);
         const newTile = await findTile(board, newTileId)
         currentPlayer.currentTile = newTile;
         currentPlayer.position = {
@@ -464,15 +464,13 @@ io.on('connection', async function (socket) {
             y: newTile.mapPosition.y
         }
 
+        io.to(roomId).emit("boardUpdate", {board, diceRoll})
+
         if(newTile.name === 'Chance'){
-            //chanceCard(board, currentPlayer, currentPlayerIndex, socket, roomId)
-            let randomChance = chanceData[Math.floor(Math.random()*chanceData.length)]
-            console.log(randomChance)
+            chanceCard(board, currentPlayer, currentPlayerIndex, socket, roomId)
 
             socket.emit("newNotification", {board, randomChance, type:"chance"})
             return
-        } else{
-            io.to(roomId).emit("boardUpdate", {board, diceRoll})
         }
 
         if(newTile.tileId === 4 || newTile.tileId === 38){

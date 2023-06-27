@@ -35,14 +35,28 @@ const rollDice = () => {
 }
 
 const nextPlayer = async (board, roomId) => {
+    let currentPlayer = board.players.find(player => player.socketId === board.currentPlayer.socketId)
+
+    let playablePlayers = board.players.filter(player => player.bankrupt === false)
+    let currentPlayerPlayableIndex = playablePlayers.findIndex(player => player.socketId === board.currentPlayer.socketId)
     let currentPlayerIndex = board.players.findIndex(player => player.socketId === board.currentPlayer.socketId)
 
-    let newIndex = (currentPlayerIndex + 1) % board.players.length
+    if(currentPlayer.money < 0 ){
+        currentPlayer.bankrupt = true
+    }
 
-    let newCurrentPlayer = board.players[newIndex]
-    board.currentPlayer = newCurrentPlayer
-    await board.save()
-    io.in(roomId).emit("boardUpdate", {board})
+    if((playablePlayers.length === 2 && currentPlayer.bankrupt === true) || playablePlayers.length === 1){
+        io.in(roomId).emit("gameOver", {winner: playablePlayers.find(player => player.bankrupt === false), type: "gameOver"})
+    } else{
+        let newIndexPlayable = (currentPlayerPlayableIndex + 1) % playablePlayers.length
+        let newIndexPlayerPlayable = playablePlayers[newIndexPlayable]
+        let newIndex = board.players.findIndex(player => player.socketId === newIndexPlayerPlayable.socketId)
+
+        let newCurrentPlayer = board.players[newIndex]
+        board.currentPlayer = newCurrentPlayer
+        await board.save()
+        io.in(roomId).emit("boardUpdate", {board})
+    }
 
 }
 
@@ -345,7 +359,34 @@ io.on('connection', async function (socket) {
         roomId = null
     });
 
+    socket.on('leaveRoom', async () => {
+        console.log(`Connection left (${socket.id})`)
+        const boardPlayerLeft = await findBoard(roomId)
+
+        if(!boardPlayerLeft){
+            return
+        }
+
+        const playerIndex = await findPlayerIndex(boardPlayerLeft, socket.id)
+        const playerLeft = await findPlayer(boardPlayerLeft, socket.id)
+        boardPlayerLeft.players.splice(playerIndex,1)
+
+        if(boardPlayerLeft.players.length >= 1){
+            if (boardPlayerLeft.currentPlayer.socketId === playerLeft.socketId){
+                nextPlayer(boardPlayerLeft, roomId)
+            } else{
+                boardPlayerLeft.save()
+                socket.to(roomId).emit("boardUpdate", {board: boardPlayerLeft})
+            }
+            return 
+        }
+
+        boardPlayerLeft.deleteOne()
+        roomId = null
+    });
+
     socket.on("createRoom", async(socketId) => {
+        console.log("Creating new room...")
         let newPlayer = {
             socketId: socket.id,
             username: "sloggo",
@@ -447,7 +488,7 @@ io.on('connection', async function (socket) {
 
         let currentPlayerIndex = await findPlayerIndex(board, board.currentPlayer.socketId)
 
-        const newTileId = (currentPlayer.currentTile.tileId + diceRoll);
+        const newTileId = ((currentPlayer.currentTile.tileId + diceRoll)%40);
         const newTile = await findTile(board, newTileId)
         currentPlayer.currentTile = newTile;
         currentPlayer.position = {
@@ -499,11 +540,11 @@ io.on('connection', async function (socket) {
         let propertyInBoard = await findTile(board, property.tileId)
         let propertyInBoardIndex = await findTileIndex(board, property)
 
-        if(currentPlayer.money < property.price){
+       /* if(currentPlayer.money < property.price){
             socket.emit("error", "Not enough money!")
             nextPlayer(board, roomId);
             return
-        }
+        } */
 
         currentPlayer.money = currentPlayer.money - property.price
         propertyInBoard.forSale = false

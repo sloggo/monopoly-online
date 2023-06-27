@@ -128,8 +128,11 @@ export default function BoardAlt(props) {
     }   
 
     async function progressToTile(originalTile, finalTile){
-        let origTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
-        let newTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
+        let origTile
+        let newTile
+        origTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
+        newTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
+
         console.log(originalTile, finalTile)
 
         if(originalTile === finalTile || (boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId)){
@@ -149,7 +152,8 @@ export default function BoardAlt(props) {
         if(originalTile <= finalTile){
             if(progressingToTile && (progressingToTile.status === 'finished' && newTile.mapPosition.x === progressingToTile.x && newTile.mapPosition.y === progressingToTile.y)){
                 console.log("tile done")
-                progressToTile(originalTile+1, finalTile)
+                progressToTile((originalTile+1)%40, finalTile)
+                
                 return
             } else if(!progressingToTile && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId){
                 // new initialisation
@@ -167,7 +171,7 @@ export default function BoardAlt(props) {
             // moving back
             if(progressingToTile && (progressingToTile.status === 'finished' && newTile.mapPosition.x === progressingToTile.x && newTile.mapPosition.y === progressingToTile.y)){
                 console.log("tile done")
-                progressToTile(originalTile-1, finalTile)
+                progressToTile((originalTile-1)%40, finalTile)
                 return
             } else if(!progressingToTile && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId){
                 // new initialisation
@@ -210,6 +214,10 @@ export default function BoardAlt(props) {
             if(plyr.socketId === activePlayer.socketId){
                 if(moving && (movingData)){
                     let data = getAnimationFrame(playerImage)
+                    c.font = '20px Comic Sans MS'
+                    c.fillStyle = 'white'
+                    c.textAlign = 'center'
+                    c.fillText(plyr.username, canvas.width/2 + canvas.width/50, canvas.height/1.5)
                     c.drawImage(
                         playerImage,
                         data.startX,
@@ -222,6 +230,10 @@ export default function BoardAlt(props) {
                         32*3,
                     )
                 } else{
+                    c.font = '20px Comic Sans MS'
+                    c.fillStyle = 'white'
+                    c.textAlign = 'center'
+                    c.fillText(plyr.username, canvas.width/2 + canvas.width/50, canvas.height/1.5)
                     c.drawImage(
                         playerImage,
                         (playerImage.width/24)*3,
@@ -237,6 +249,10 @@ export default function BoardAlt(props) {
             } else{
                 let newPositionRelative = getPositionFrom(activePlayer, plyr)
                 let noPeopleOnTile = boardDataLocal.players.filter(plyr => plyr.position.x === plyr.position.x && plyr.position.y === plyr.position.y).length
+                c.font = '20px Comic Sans MS'
+                c.fillStyle = 'white'
+                c.textAlign = 'center'
+                c.fillText(plyr.username, canvas.width/2 + canvas.width/50 - newPositionRelative.x, canvas.height/1.5 + - newPositionRelative.y)
                 c.drawImage(
                     playerImage,
                     (playerImage.width/24)*3,
@@ -429,7 +445,7 @@ export default function BoardAlt(props) {
             })}</div>
         </div>
         
-        {!moving && !progressingToTile && playerTurn && <PopUp confirmChance={props.confirmChance} buyHouse={buyHouse} closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
+        {!moving && !progressingToTile && playerTurn && <PopUp confirmChance={props.confirmChance} buyHouse={buyHouse} closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} gameOver={props.gameOver} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
         {!moving && !progressingToTile && playerTurn && !props.notification && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
 
         <canvas ref={canvasRef} style={{border: "10px solid white"}}/>

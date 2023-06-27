@@ -36,6 +36,10 @@ const playerSchema = new mongoose.Schema({
             "x": 59,
             "y": 100
         }
+    },
+    bankrupt: {
+        type: Boolean,
+        default: false
     }
 })
 

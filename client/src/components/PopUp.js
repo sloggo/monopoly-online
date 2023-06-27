@@ -104,6 +104,18 @@ export default function (props) {
             </div>
         </div>
         }
+
+        {!currentProperty && props.notification && props.notification.type === "gameOver" &&
+            <div className='popup-container' style={{height: 300}}>
+            <h2>Game Over!</h2>
+
+            <p style={{width: 300, textAlign: 'center', color: 'lightgray'}}>Winner:, {props.notification.winner}</p>
+
+            <div className='option-buttons'>
+                <div className='option-button decline' onClick={() => props.gameOver()}>Back to menu</div>
+            </div>
+        </div>
+        }
     </div>}
     </>
   )

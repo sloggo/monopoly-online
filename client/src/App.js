@@ -95,6 +95,12 @@ function App() {
 
   const gameOver = () => {
     setCurrentTab("home")
+    setNotification(null)
+    setThisPlayer(null)
+    setBoardData(null)
+    setDiceRoll(null)
+    setManageOpen(null)
+    setWinner(null)
     socket.emit("leaveRoom", {boardData})
   }
 

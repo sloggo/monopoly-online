@@ -26,14 +26,12 @@ export default function Home(props) {
         </div>
 
         <div className='home-header'>
-          <p>Home</p>
           
           <div className='text-holder'>
             <h1 className='home-header'>monopoly</h1>
             <motion.h1 className='home-header' initial={{x: 0, y: 100}} animate={{x:0, y:0}} transition={{delay:.3, duration:1}}>online</motion.h1>
           </div>
 
-          <p>Account</p>
         </div>
 
         <div className='start-playing' onClick={pressPlay}>Start Playing</div>

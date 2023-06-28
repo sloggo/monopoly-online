@@ -10,7 +10,8 @@ export default function PlayerInfo(props) {
             <div className='player-info-data'>
                 <div className='player-info-text'>
                     <p className='player-info-name'>{props.player.username}</p>
-                    <p className='player-info-money'>{props.player.money}$</p>
+                    {props.player.money >= 0 && <p className='player-info-money'>{props.player.money}$</p>}
+                    {props.player.money < 0 && <p className='player-info-money'>Bankrupt!</p>}
                 </div>
 
                 {props.thisPlayer.socketId === props.player.socketId && <div className='player-info-manage' onClick={props.openManage}>Manage</div>}
@@ -22,7 +23,8 @@ export default function PlayerInfo(props) {
             <div className='player-info-data'>
                 <div className='player-info-text'>
                     <p className='player-info-name'>{props.player.username}</p>
-                    <p className='player-info-money'>{props.player.money}$</p>
+                    {props.player.money >= 0 && <p className='player-info-money'>{props.player.money}$</p>}
+                    {props.player.money < 0 && <p className='player-info-money'>Bankrupt!</p>}
                 </div>
 
                 {(props.thisPlayer.socketId === props.player.socketId && props.playerTurn) && <div className='player-info-manage' onClick={props.openManage}>Manage</div>}

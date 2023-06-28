@@ -6,6 +6,7 @@ import Options from './components/Options'
 import io from "socket.io-client";
 import WaitingRoom from './components/WaitingRoom';
 import BoardAlt from './components/BoardAlt';
+import PopUp from './components/PopUp';
 
 const socket = io.connect("http://localhost:3001")
 
@@ -20,6 +21,7 @@ function App() {
   const [diceRoll, setDiceRoll] = useState(null)
   const [notification, setNotification] = useState(null)
   const [manageOpen, setManageOpen]= useState(false)
+  const [winner, setWinner] = useState(null)
 
   const confirmChance = (randomChance) => {
     socket.emit("confirmChance", {boardData, randomChance, thisPlayer})
@@ -147,9 +149,15 @@ function App() {
       setManageOpen({thisPlayer, ownedProperties})
     })
     
-    socket.off("gameEnd")
+    socket.off("gameOver")
     socket.on("gameOver", (data) => {
+      let thisPlyr = data.board.players.find(player => player.socketId === socketID)
+
+      setBoardData(data.board)
+      setThisPlayer(thisPlyr)
+      console.log(data)
       setNotification(data)
+      setWinner(data.winner)
     })
 
   })
@@ -159,7 +167,7 @@ function App() {
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
       <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
-      {currentTab === "board" && <BoardAlt confirmChance={confirmChance} buyHouse={buyHouse} closeManage={closeManage} gameOver={gameOver} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} notification={notification} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></BoardAlt>}
+      {currentTab === "board" && <BoardAlt winner={winner} visible={currentTab === "board"} confirmChance={confirmChance} buyHouse={buyHouse} closeManage={closeManage} gameOver={gameOver} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} notification={notification} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></BoardAlt>}
     </div>
   );
 }

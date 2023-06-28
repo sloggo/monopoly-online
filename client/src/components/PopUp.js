@@ -109,7 +109,7 @@ export default function (props) {
             <div className='popup-container' style={{height: 300}}>
             <h2>Game Over!</h2>
 
-            <p style={{width: 300, textAlign: 'center', color: 'lightgray'}}>Winner:, {props.notification.winner}</p>
+            <p style={{width: 300, textAlign: 'center', color: 'lightgray'}}>Winner: {props.notification.winner.username}</p>
 
             <div className='option-buttons'>
                 <div className='option-button decline' onClick={() => props.gameOver()}>Back to menu</div>

@@ -41,12 +41,12 @@ const nextPlayer = async (board, roomId) => {
     let currentPlayerPlayableIndex = playablePlayers.findIndex(player => player.socketId === board.currentPlayer.socketId)
     let currentPlayerIndex = board.players.findIndex(player => player.socketId === board.currentPlayer.socketId)
 
-    if(currentPlayer.money < 0 ){
+    if(currentPlayer && currentPlayer.money < 0 ){
         currentPlayer.bankrupt = true
     }
 
     if((playablePlayers.length === 2 && currentPlayer.bankrupt === true) || playablePlayers.length === 1){
-        io.in(roomId).emit("gameOver", {winner: playablePlayers.find(player => player.bankrupt === false), type: "gameOver"})
+        io.in(roomId).emit("gameOver", {board, winner: playablePlayers.find(player => player.bankrupt === false), type: "gameOver"})
     } else{
         let newIndexPlayable = (currentPlayerPlayableIndex + 1) % playablePlayers.length
         let newIndexPlayerPlayable = playablePlayers[newIndexPlayable]

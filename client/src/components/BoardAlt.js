@@ -49,8 +49,10 @@ export default function BoardAlt(props) {
     }, [props])
 
     useEffect(()=>{
-        onBoardUpdate(props.boardData)
-        window.requestAnimationFrame(render)
+        if(visible){
+            onBoardUpdate(props.boardData)
+            window.requestAnimationFrame(render)
+        }
     }, [props.boardData, boardDataLocal, boardDataLive])
 
     useEffect(()=> {
@@ -197,6 +199,9 @@ export default function BoardAlt(props) {
 
     function render(){
         let canvas = canvasRef.current
+        if(!canvas || !canvasSize){
+            return
+        }
         canvas.width = canvasSize.x
         canvas.height = canvasSize.y
 
@@ -436,20 +441,19 @@ export default function BoardAlt(props) {
     }
 
   return (
-    <div className='boardworld-container'> 
+    visible && <div className='boardworld-container'> 
         <div className='board-header'>
-            <div className='players-container'>{boardDataLive.players.map(player => {
+            {boardDataLive.players && <div className='players-container'>{boardDataLive.players.map(player => {
                 return (
                     <PlayerInfo openManage={props.openManage} boardData={boardDataLocal}player={player} thisPlayer={props.thisPlayer} playerTurn={playerTurn}></PlayerInfo>
                 )
-            })}</div>
+            })}</div>}
         </div>
         
-        {!moving && !progressingToTile && playerTurn && <PopUp confirmChance={props.confirmChance} buyHouse={buyHouse} closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} gameOver={props.gameOver} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
+        {!moving && !progressingToTile && (playerTurn || props.winner) && <PopUp confirmChance={props.confirmChance} buyHouse={buyHouse} closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} gameOver={props.gameOver} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
         {!moving && !progressingToTile && playerTurn && !props.notification && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
 
         <canvas ref={canvasRef} style={{border: "10px solid white"}}/>
     </div>
-    
   )
 }

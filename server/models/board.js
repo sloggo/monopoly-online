@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const {playerSchema} = require("./player");
-const boardData = require("../boardData.json")
+const boardData = require("../boardDataTestBankrupt.json")
 
 const boardSchema = new mongoose.Schema({
     players: [playerSchema],

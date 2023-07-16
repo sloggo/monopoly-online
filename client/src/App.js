@@ -6,7 +6,7 @@ import io from "socket.io-client";
 import WaitingRoom from './components/WaitingRoom';
 import BoardAlt from './components/BoardAlt';
 
-const socket = io.connect("https://localhost/:3001")
+const socket = io.connect("http://localhost:3001")
 
 
 function App() {

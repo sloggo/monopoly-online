@@ -35,6 +35,7 @@ const rollDice = () => {
 }
 
 const nextPlayer = async (board, roomId) => {
+    // move to next player in the game
     let currentPlayer = board.players.find(player => player.socketId === board.currentPlayer.socketId)
 
     let playablePlayers = board.players.filter(player => player.bankrupt === false)
@@ -133,6 +134,7 @@ const getAllPropertiesOwned = async(board, playerSocketId) => {
 }
 
 const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex, socket, roomId)=>{
+    // carries out all computation of chance cards
     
     console.log("chance")
 
@@ -329,6 +331,7 @@ const chanceCard = async(randomChance, board, currentPlayer, currentPlayerIndex,
 
 }
 
+// network functions
 io.on('connection', async function (socket) {
     console.log(`New connection: ${socket.id}`);
     let roomId;

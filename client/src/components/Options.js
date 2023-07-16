@@ -26,7 +26,7 @@ export default function Options(props) {
       }
 
       fetchGames()
-    },[])
+    }, [props])
       
     const enterGameCode = (codeInput) => {
         props.joinRoom(codeInput)

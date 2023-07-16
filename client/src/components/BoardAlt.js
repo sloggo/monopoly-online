@@ -12,18 +12,18 @@ export default function BoardAlt(props) {
     const canvasRef = useRef(null)
     const [background, setBackground] = useState({
         image: mapPng,
-        offset:{
+        offset:{ // to keep the character in the middle
             x:-490/1024,
             y:-510/700
         },
-        tileSize: 16*4, //4x zoom
+        tileSize: 16*4, // 4x zoom with 16pixel tiles
     })
     const [playerSprite, setPlayerSprite] = useState({
         image: playerPng
     })
     const [moving, setMoving] = useState(false)
     let frameNum = 0
-    const [canvasSize, setCanvasSize] = useState({x: window.innerWidth*0.6, y: window.innerWidth*0.6*0.68359375})
+    const [canvasSize, setCanvasSize] = useState({x: window.innerWidth*0.6, y: window.innerWidth*0.6*0.68359375}) // ratio to get canvas size from the window size
 
     //network states
     const [visible, setVisible] = useState(props.visible)
@@ -62,7 +62,7 @@ export default function BoardAlt(props) {
     }, [props.notification])
 
     useEffect(()=> {
-        setCanvasSize({x: window.innerWidth*0.6, y: window.innerWidth*0.6*0.68359375})
+        setCanvasSize({x: window.innerWidth*0.6, y: window.innerWidth*0.6*0.68359375}) // dynamically update the canvas size
     }, [window])
 
     function buyHouse(property){
@@ -71,6 +71,7 @@ export default function BoardAlt(props) {
     }
 
     function onBoardUpdate(newData){
+        // runs everytime the board is updated
         setBoardDataLive(newData)
         
         if(newData.currentPlayer.socketId === boardDataLocal.currentPlayer.socketId && newData.currentPlayer.position === boardDataLocal.currentPlayer.position){
@@ -123,6 +124,7 @@ export default function BoardAlt(props) {
     }
 
     function getPositionFrom(active, relative){
+        // gets relative position of other players to the current active player
         let xDifference = active.position.x - relative.position.x
         let yDifference = active.position.y - relative.position.y
 
@@ -130,19 +132,19 @@ export default function BoardAlt(props) {
     }   
 
     async function progressToTile(originalTile, finalTile){
-        let origTile
-        let newTile
-        origTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
-        newTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
+        // determine the tiles to move to
+        let origTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile)
+        let newTile = boardDataLocal.tileData.find(tile => tile.tileId === originalTile+1)
 
         console.log(originalTile, finalTile)
 
-        if(originalTile === finalTile || (boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId)){
+        if(originalTile === finalTile || (boardDataLocal.currentPlayer.position === boardDataLive.currentPlayer.position && boardDataLocal.currentPlayer.socketId === boardDataLive.currentPlayer.socketId)){ // finsihed moving
             //fully finished
             console.log("fully finished")
             setMoving(false)
             setProgessingToTile(null)
 
+            // set the board to live
             setBoardDataLocal(boardDataLive)
             setIsLive(true)
             return
@@ -198,6 +200,7 @@ export default function BoardAlt(props) {
     }, [progressingToTile])
 
     function render(){
+        // renders board on every frame
         let canvas = canvasRef.current
         if(!canvas || !canvasSize){
             return
@@ -218,6 +221,7 @@ export default function BoardAlt(props) {
         boardDataLocal.players.forEach(plyr=> {
             if(plyr.socketId === activePlayer.socketId){
                 if(moving && (movingData)){
+                    // need to animate movement
                     let data = getAnimationFrame(playerImage)
                     c.font = '20px Comic Sans MS'
                     c.fillStyle = 'white'
@@ -235,6 +239,7 @@ export default function BoardAlt(props) {
                         32*3,
                     )
                 } else{
+                    // standing still
                     c.font = '20px Comic Sans MS'
                     c.fillStyle = 'white'
                     c.textAlign = 'center'
@@ -252,6 +257,7 @@ export default function BoardAlt(props) {
                         )
                     }
             } else{
+                // non active player
                 let newPositionRelative = getPositionFrom(activePlayer, plyr)
                 let noPeopleOnTile = boardDataLocal.players.filter(plyr => plyr.position.x === plyr.position.x && plyr.position.y === plyr.position.y).length
                 c.font = '20px Comic Sans MS'
@@ -276,6 +282,7 @@ export default function BoardAlt(props) {
     }
 
     function getAnimationFrame(playerImage){
+        // determine the animation state of the characters
         frameNum = frameNum + 1
         let imageData={};
         if(movingData.right){
@@ -320,6 +327,7 @@ export default function BoardAlt(props) {
     }
 
     function handleUserKey(e){
+        // legacy wsad movement
         let newBoard = {...boardDataLocal}
         let newPlayers = [...newBoard.players]
         let activePlayer = newBoard.players.find(plyr => plyr.socketId === boardDataLocal.currentPlayer.socketId)
@@ -361,6 +369,7 @@ export default function BoardAlt(props) {
     }, [])
 
     function goTo(x, y, tileId, finalTile){
+        // progresses from one tile to another
 
         setProgessingToTile({x, y, tileId, finalTile, status: "moving", plyr: boardDataLocal.currentPlayer.socketID})
         
@@ -369,6 +378,7 @@ export default function BoardAlt(props) {
         let activePlayer = boardDataLocal.players.find(plyr => plyr.socketId === boardDataLocal.currentPlayer.socketId)
         let activePlayerIndex = newPlayers.findIndex(plyr=> plyr.socketId === activePlayer.socketId)
         setTimeout(() => {
+            // loops through this multiple times until the new tile is reached
 
             if(activePlayer.position.x !== x && activePlayer.position.x > x){
 
@@ -434,10 +444,6 @@ export default function BoardAlt(props) {
             newBoard.currentPlayer = activePlayer
             setBoardDataLocal(newBoard)
         }, 50)
-    }
-
-    function clickDice(){
-        goTo(0,0)
     }
 
   return (

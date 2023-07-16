@@ -1,14 +1,12 @@
 import './App.css';
-import Board from './components/Board';
 import { useEffect, useState } from 'react';
 import Home from "./components/Home"
 import Options from './components/Options'
 import io from "socket.io-client";
 import WaitingRoom from './components/WaitingRoom';
 import BoardAlt from './components/BoardAlt';
-import PopUp from './components/PopUp';
 
-const socket = io.connect("http://localhost:3001")
+const socket = io.connect("https://localhost/:3001")
 
 
 function App() {
@@ -23,6 +21,7 @@ function App() {
   const [manageOpen, setManageOpen]= useState(false)
   const [winner, setWinner] = useState(null)
 
+  // server communication functions
   const confirmChance = (randomChance) => {
     socket.emit("confirmChance", {boardData, randomChance, thisPlayer})
     setNotification(null)
@@ -94,6 +93,7 @@ function App() {
   }
 
   const gameOver = () => {
+    // reset states
     setCurrentTab("home")
     setNotification(null)
     setThisPlayer(null)
@@ -105,6 +105,7 @@ function App() {
   }
 
   useEffect(() => {
+    // responses from the server
     socket.on("connect", () => {
       setSocketID(socket.id)
     })
@@ -171,7 +172,7 @@ function App() {
   return (
     <div className="App">
       <Home visible={currentTab === "home"} setOptionsTab={setOptionsTab}></Home>
-      <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} ></Options>
+      <Options visible={currentTab === "options"} createRoom={createRoom} joinRoom={joinRoom} currentTab={currentTab} ></Options>
       <WaitingRoom visible={currentTab === "waitingroom"} startGame={startGame} toggleReady={toggleReady} boardData={boardData} thisPlayer={thisPlayer}></WaitingRoom>
       {currentTab === "board" && <BoardAlt winner={winner} visible={currentTab === "board"} confirmChance={confirmChance} buyHouse={buyHouse} closeManage={closeManage} gameOver={gameOver} manageOpen={manageOpen} payRent={payRent} declineBuy={declineBuy} notification={notification} visible={currentTab === "board"} currentTab={currentTab} boardData={boardData} changeTest={changeTest} rollDice={rollDice} socketID={socketID} diceRoll={diceRoll} buyProperty={buyProperty} thisPlayer={thisPlayer} openManage={openManage}></BoardAlt>}
     </div>

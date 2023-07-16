@@ -1,3 +1,5 @@
+// old legacy 2d board - see boardalt for the proper board
+
 import React, { useEffect, useState } from 'react'
 import "./Board.scss"
 import PopUp from './PopUp'

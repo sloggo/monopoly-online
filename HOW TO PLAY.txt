@@ -1,0 +1,6 @@
+1- Ensure nodemon is installed on your computer
+2- Open /server and run the "Start Server.bat" file to start the server
+3- Open /client and run "npm i" to install all packages
+4- Then run "npm run start" to start a client
+5- Open another client by copying the "http://localhost:3000" into another tab
+4- Play!

@@ -226,7 +226,7 @@ export default function BoardAlt(props) {
                     c.font = '20px Comic Sans MS'
                     c.fillStyle = 'white'
                     c.textAlign = 'center'
-                    c.fillText(plyr.username, canvas.width/2 + canvas.width/50, canvas.height/1.5)
+                    c.fillText("Player "+String(props.boardData.players.findIndex(player => player.username === plyr.username)+1), canvas.width/2 + canvas.width/50, canvas.height/1.5)
                     c.drawImage(
                         playerImage,
                         data.startX,
@@ -243,7 +243,7 @@ export default function BoardAlt(props) {
                     c.font = '20px Comic Sans MS'
                     c.fillStyle = 'white'
                     c.textAlign = 'center'
-                    c.fillText(plyr.username, canvas.width/2 + canvas.width/50, canvas.height/1.5)
+                    c.fillText("Player "+String(props.boardData.players.findIndex(player => player.username === plyr.username)+1), canvas.width/2 + canvas.width/50, canvas.height/1.5)
                     c.drawImage(
                         playerImage,
                         (playerImage.width/24)*3,
@@ -263,7 +263,7 @@ export default function BoardAlt(props) {
                 c.font = '20px Comic Sans MS'
                 c.fillStyle = 'white'
                 c.textAlign = 'center'
-                c.fillText(plyr.username, canvas.width/2 + canvas.width/50 - newPositionRelative.x, canvas.height/1.5 + - newPositionRelative.y)
+                c.fillText("Player "+String(props.boardData.players.findIndex(player => player.username === plyr.username)+1), canvas.width/2 + canvas.width/50 - newPositionRelative.x, canvas.height/1.5 + - newPositionRelative.y)
                 c.drawImage(
                     playerImage,
                     (playerImage.width/24)*3,
@@ -456,7 +456,7 @@ export default function BoardAlt(props) {
             })}</div>}
         </div>
         
-        {!moving && !progressingToTile && (playerTurn || props.winner) && <PopUp confirmChance={props.confirmChance} buyHouse={buyHouse} closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} gameOver={props.gameOver} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification}></PopUp>}
+        {!moving && !progressingToTile && (playerTurn || props.winner) && <PopUp confirmChance={props.confirmChance} buyHouse={buyHouse} closeManage={props.closeManage} manageOpen={props.manageOpen} payRent={props.payRent} gameOver={props.gameOver} declineBuy={props.declineBuy} buyProperty={props.buyProperty} notification={props.notification} boardData={boardDataLocal}></PopUp>}
         {!moving && !progressingToTile && playerTurn && !props.notification && <img src={diceSVG} width={100} onClick={props.rollDice}></img>}
 
         <canvas ref={canvasRef} style={{border: "10px solid white"}}/>

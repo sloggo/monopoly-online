@@ -9,7 +9,7 @@ export default function PlayerInfo(props) {
             <div className='player-info-dot'></div>
             <div className='player-info-data'>
                 <div className='player-info-text'>
-                    <p className='player-info-name'>{props.player.username}</p>
+                    <p className='player-info-name'>Player {props.boardData.players.findIndex(player => player.username === props.player.username)+1}</p>
                     {props.player.money >= 0 && <p className='player-info-money'>{props.player.money}$</p>}
                     {props.player.money < 0 && <p className='player-info-money'>Bankrupt!</p>}
                 </div>
@@ -22,7 +22,7 @@ export default function PlayerInfo(props) {
             <div className='player-info-dot'></div>
             <div className='player-info-data'>
                 <div className='player-info-text'>
-                    <p className='player-info-name'>{props.player.username}</p>
+                    <p className='player-info-name'>Player {props.boardData.players.findIndex(player => player.username === props.player.username)+1}</p>
                     {props.player.money >= 0 && <p className='player-info-money'>{props.player.money}$</p>}
                     {props.player.money < 0 && <p className='player-info-money'>Bankrupt!</p>}
                 </div>
